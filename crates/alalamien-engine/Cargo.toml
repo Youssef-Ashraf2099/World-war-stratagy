@@ -1,0 +1,31 @@
+[package]
+name = "alalamien-engine"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+# ECS & Core
+bevy_ecs = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+glam = { workspace = true }
+rayon = { workspace = true }
+uuid = { workspace = true }
+
+# Utilities
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+chrono = { workspace = true }
+
+[dev-dependencies]
+criterion = { workspace = true }
+tempfile = { workspace = true }
+
+# Benchmarks will be added in future versions
+# [[bench]]
+# name = "tick_pipeline"
+# harness = false

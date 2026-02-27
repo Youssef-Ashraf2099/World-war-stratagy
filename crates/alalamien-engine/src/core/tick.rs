@@ -26,8 +26,23 @@ impl TickPipeline {
             Box::new(demographic::DemographicPhase::new()),
             Box::new(economic::EconomicPhase::new()),
         ];
-
         Self { phases }
+    }
+
+    /// Create a new tick pipeline with default v0.2 phases
+    pub fn new_v0_2(config: &crate::EngineConfig) -> Self {
+        let phases: Vec<Box<dyn TickPhase>> = vec![
+            Box::new(demographic::DemographicPhase::new()),
+            Box::new(economic::EconomicPhase::new()),
+            Box::new(trade::TradePhase::new()),
+            Box::new(crate::instrumentation::DebuggerPhase::new(config.clone())),
+        ];
+        Self { phases }
+    }
+
+    /// Add a new phase to the pipeline
+    pub fn add_phase(&mut self, phase: Box<dyn TickPhase>) {
+        self.phases.push(phase);
     }
 
     /// Execute all phases for one tick

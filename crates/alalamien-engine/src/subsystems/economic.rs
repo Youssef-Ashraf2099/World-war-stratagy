@@ -5,7 +5,7 @@
 use bevy_ecs::prelude::*;
 use tracing::trace;
 
-use crate::core::types::{Resources, ResourceType, Population, Infrastructure, Province};
+use crate::core::types::{Resources, ResourceType, Population, Infrastructure, Province, OwnedBy, Nation, MilitaryCapacity, Logistics, GDP, Legitimacy, NationId};
 use crate::core::tick::TickPhase;
 
 /// Economic simulation phase
@@ -54,9 +54,12 @@ impl TickPhase for EconomicPhase {
             &mut Resources,
             &Population,
             &Infrastructure,
+            &OwnedBy,
         )>();
 
-        for (province, mut resources, population, infrastructure) in query.iter_mut(world) {
+        let mut nation_incomes: std::collections::HashMap<NationId, (f64, f64)> = std::collections::HashMap::new();
+
+        for (province, mut resources, population, infrastructure, owner) in query.iter_mut(world) {
             // Calculate production efficiency
             let infrastructure_multiplier = 1.0 + (infrastructure.level as f64 * self.config.infrastructure_bonus);
             let population_factor = (population.total as f64 / 1_000_000.0).sqrt();
@@ -74,7 +77,17 @@ impl TickPhase for EconomicPhase {
 
             // Consume food (basic consumption)
             let food_consumption = (population.total as f64 / 1000.0) * 0.1;
-            resources.food = (resources.food - food_consumption).max(0.0);
+            resources.food -= food_consumption;
+
+            // Extract Iron and Oil to Nation level
+            let iron_export = resources.iron;
+            let oil_export = resources.oil;
+            resources.iron = 0.0;
+            resources.oil = 0.0;
+
+            let entry = nation_incomes.entry(owner.nation_id).or_insert((0.0, 0.0));
+            entry.0 += iron_export;
+            entry.1 += oil_export;
 
             trace!(
                 province = %province.name,
@@ -83,6 +96,26 @@ impl TickPhase for EconomicPhase {
                 efficiency = production_efficiency,
                 "Resource production"
             );
+        }
+
+        // Apply processing and effects to Nation
+        let mut nation_query = world.query::<(
+            &Nation,
+            &mut MilitaryCapacity,
+            &mut Logistics,
+            &mut GDP,
+        )>();
+
+        for (nation, mut military, mut logistics, mut gdp) in nation_query.iter_mut(world) {
+            if let Some((iron, oil)) = nation_incomes.get(&nation.id) {
+                // Production chains
+                military.value += iron * 0.1; // 10% conversion rate
+                logistics.value += oil * 0.1;
+
+                // Simple scalar GDP abstraction for the entire economy's output
+                let gdp_gain = (*iron * 2.0) + (*oil * 3.0);
+                gdp.value += gdp_gain / 1000.0;
+            }
         }
     }
 }
@@ -120,6 +153,19 @@ mod tests {
     fn test_economic_phase_execution() {
         let mut world = World::default();
 
+        let nation_id = NationId::new();
+        world.spawn((
+            Nation {
+                id: nation_id,
+                name: "TestNation".to_string(),
+                color: [0, 0, 0],
+            },
+            MilitaryCapacity::default(),
+            Logistics::default(),
+            GDP::default(),
+            Legitimacy::default(),
+        ));
+
         // Spawn a food-producing province
         world.spawn((
             Province {
@@ -137,6 +183,7 @@ mod tests {
                 level: 2,
                 max_level: 10,
             },
+            OwnedBy { nation_id },
         ));
 
         let mut phase = EconomicPhase::new();

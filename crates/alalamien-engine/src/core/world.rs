@@ -143,6 +143,8 @@ impl WorldState {
             Legitimacy::default(),
             GDP::default(),
             Resources::default(),
+            crate::core::types::MilitaryCapacity::default(),
+            crate::core::types::Logistics::default(),
         ));
 
         if player_controlled {

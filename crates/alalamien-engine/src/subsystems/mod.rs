@@ -10,6 +10,7 @@
 
 pub mod demographic;
 pub mod economic;
+pub mod trade;
 
 // To be implemented in future versions
 // pub mod diplomatic;

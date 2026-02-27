@@ -23,7 +23,7 @@ impl ApiState {
     /// Create new API state with specific seed
     pub fn with_seed(seed: u64) -> Self {
         let world = WorldState::new(seed);
-        let pipeline = TickPipeline::new_v0_1();
+        let pipeline = TickPipeline::new_v0_2(&alalamien_engine::EngineConfig::default());
         
         Self {
             world: Arc::new(RwLock::new(world)),

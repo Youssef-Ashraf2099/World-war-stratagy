@@ -223,6 +223,18 @@ impl Default for GDP {
     }
 }
 
+/// Nation military capacity
+#[derive(Debug, Clone, Component, Default, Serialize, Deserialize)]
+pub struct MilitaryCapacity {
+    pub value: f64, // Gained by consuming Iron
+}
+
+/// Nation logistics capacity
+#[derive(Debug, Clone, Component, Default, Serialize, Deserialize)]
+pub struct Logistics {
+    pub value: f64, // Gained by consuming Oil
+}
+
 /// Province ownership
 #[derive(Debug, Clone, Component, Serialize, Deserialize)]
 pub struct OwnedBy {

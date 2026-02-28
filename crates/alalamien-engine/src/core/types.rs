@@ -249,34 +249,363 @@ pub struct Logistics {
 #[derive(Debug, Clone, Component, Serialize, Deserialize)]
 pub struct Capital;
 
-/// Represents an army stationed in a province
+// ============================================================================
+// V0.3 COMBAT & WARFARE TYPES
+// ============================================================================
+
+/// Army identifier
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+pub struct ArmyId(pub Uuid);
+
+impl ArmyId {
+    pub fn new() -> Self {
+        Self(Uuid::new_v4())
+    }
+}
+
+impl Default for ArmyId {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+/// Represents an army with combat capabilities (V0.3 enhanced)
 #[derive(Debug, Clone, Component, Serialize, Deserialize)]
 pub struct Army {
+    pub army_id: ArmyId,
     pub owner: NationId,
-    pub personnel: u64,
-    pub forced_march: bool,
+    pub location: ProvinceId,
+    
+    // Unit composition
+    pub infantry: u64,
+    pub armor: u64,
+    pub artillery: u64,
+    
+    // Combat state
+    pub morale: f64,           // 0-100
+    pub organization: f64,     // 0-100 (combat readiness)
+    pub supply_state: f64,     // 0-1 (from LogisticsPhase)
+    pub entrenchment: f64,     // 0-1 (defensive bonus)
+    
+    // Movement (future use)
+    pub movement_points: f64,
+    pub destination: Option<ProvinceId>,
 }
 
 impl Default for Army {
     fn default() -> Self {
         Self {
+            army_id: ArmyId::new(),
             owner: NationId::default(),
-            personnel: 10_000,
-            forced_march: false,
+            location: ProvinceId::default(),
+            infantry: 10_000,
+            armor: 1_000,
+            artillery: 500,
+            morale: 80.0,
+            organization: 100.0,
+            supply_state: 1.0,
+            entrenchment: 0.0,
+            movement_points: 100.0,
+            destination: None,
         }
     }
 }
 
-/// Marks a province as occupied by a foreign power
-#[derive(Debug, Clone, Component, Serialize, Deserialize)]
-pub struct Occupation {
-    pub occupied_by: NationId,
+impl Army {
+    /// Calculate total combat strength
+    pub fn combat_strength(&self) -> f64 {
+        const INFANTRY_POWER: f64 = 1.0;
+        const ARMOR_POWER: f64 = 3.0;
+        const ARTILLERY_POWER: f64 = 2.0;
+        const ENTRENCHMENT_BONUS: f64 = 0.5;
+        
+        let base_strength = 
+            (self.infantry as f64 * INFANTRY_POWER) +
+            (self.armor as f64 * ARMOR_POWER) +
+            (self.artillery as f64 * ARTILLERY_POWER);
+        
+        base_strength 
+            * (self.morale / 100.0)
+            * (self.organization / 100.0)
+            * self.supply_state
+            * (1.0 + self.entrenchment * ENTRENCHMENT_BONUS)
+    }
+    
+    /// Check if army can attack
+    pub fn can_attack(&self) -> bool {
+        self.organization > 30.0 && self.supply_state > 0.2
+    }
 }
 
-/// Tracks external relations (simplified V0.3 WarState)
+/// Battle identifier
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+pub struct BattleId(pub Uuid);
+
+impl BattleId {
+    pub fn new() -> Self {
+        Self(Uuid::new_v4())
+    }
+}
+
+impl Default for BattleId {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+/// Represents an ongoing battle in a province
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct ProvinceBattle {
+    pub battle_id: BattleId,
+    pub province_id: ProvinceId,
+    pub tick_started: Tick,
+    pub duration: u32,
+    
+    pub attackers: Vec<ArmyId>,
+    pub defenders: Vec<ArmyId>,
+    
+    pub attacker_casualties: BattleCasualties,
+    pub defender_casualties: BattleCasualties,
+    
+    pub terrain_modifier: f64,
+    pub weather_modifier: f64,
+}
+
+/// Battle casualties breakdown
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct BattleCasualties {
+    pub infantry_lost: u64,
+    pub armor_lost: u64,
+    pub artillery_lost: u64,
+}
+
+/// Battle outcome
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+pub enum BattleResult {
+    Ongoing,
+    AttackerVictory,
+    DefenderVictory,
+    Stalemate,
+}
+
+/// Terrain type affecting combat
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+pub enum TerrainType {
+    Plains,
+    Forest,
+    Mountains,
+    Urban,
+    Desert,
+    Swamp,
+    Coastal,
+}
+
+impl TerrainType {
+    pub fn defender_modifier(&self) -> f64 {
+        match self {
+            Self::Plains => 1.0,
+            Self::Forest => 1.2,
+            Self::Mountains => 1.5,
+            Self::Urban => 1.3,
+            Self::Desert => 1.0,
+            Self::Swamp => 1.1,
+            Self::Coastal => 1.0,
+        }
+    }
+    
+    pub fn attacker_modifier(&self) -> f64 {
+        match self {
+            Self::Mountains => 0.7,
+            Self::Swamp => 0.8,
+            Self::Desert => 0.9,
+            _ => 1.0,
+        }
+    }
+}
+
+impl Default for TerrainType {
+    fn default() -> Self {
+        Self::Plains
+    }
+}
+
+/// Province terrain component
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct Terrain {
+    pub terrain_type: TerrainType,
+    pub defensibility: f64,  // 0-1
+}
+
+impl Default for Terrain {
+    fn default() -> Self {
+        Self {
+            terrain_type: TerrainType::Plains,
+            defensibility: 0.5,
+        }
+    }
+}
+
+/// Military doctrine affecting combat
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Component, Serialize, Deserialize)]
+pub enum MilitaryDoctrine {
+    MassMobilization,
+    ProfessionalForce,
+    Mechanized,
+    Asymmetric,
+    DefensiveDepth,
+    Blitzkrieg,
+    NavalSupremacy,
+}
+
+impl MilitaryDoctrine {
+    pub fn combat_modifier(&self) -> f64 {
+        match self {
+            Self::MassMobilization => 0.9,
+            Self::ProfessionalForce => 1.2,
+            Self::Mechanized => 1.4,
+            Self::Asymmetric => 0.8,
+            Self::DefensiveDepth => 0.85,
+            Self::Blitzkrieg => 1.3,
+            Self::NavalSupremacy => 1.0,
+        }
+    }
+    
+    pub fn defensive_modifier(&self) -> f64 {
+        match self {
+            Self::Asymmetric => 1.2,
+            Self::DefensiveDepth => 1.3,
+            _ => 1.0,
+        }
+    }
+}
+
+impl Default for MilitaryDoctrine {
+    fn default() -> Self {
+        Self::ProfessionalForce
+    }
+}
+
+/// War identifier
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+pub struct WarId(pub Uuid);
+
+impl WarId {
+    pub fn new() -> Self {
+        Self(Uuid::new_v4())
+    }
+}
+
+impl Default for WarId {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+/// Casus belli for war declaration
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub enum CasusBelli {
+    TerritorialDispute(ProvinceId),
+    ResourceConflict,
+    PreemptiveStrike,
+    Liberation(ProvinceId),
+}
+
+/// War goals
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub enum WarGoal {
+    ConquerProvince(ProvinceId),
+    Humiliate,
+    Total,
+}
+
+/// War declaration
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct WarDeclaration {
+    pub war_id: WarId,
+    pub aggressor: NationId,
+    pub defender: NationId,
+    pub casus_belli: CasusBelli,
+    pub war_goal: WarGoal,
+    pub declared_tick: Tick,
+}
+
+/// Occupied province marker
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct OccupiedProvince {
+    pub province_id: ProvinceId,
+    pub occupier: NationId,
+    pub original_owner: NationId,
+    pub occupation_tick: Tick,
+    pub resistance: f64,  // 0-1
+}
+
+/// War exhaustion component
+#[derive(Debug, Clone, Component, Default, Serialize, Deserialize)]
+pub struct WarExhaustion {
+    pub value: f64,  // 0-100
+}
+
+/// Peace treaty
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct PeaceTreaty {
+    pub war_id: WarId,
+    pub victor: Option<NationId>,
+    pub terms: PeaceTerms,
+    pub signed_tick: Tick,
+}
+
+/// Peace treaty terms
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct PeaceTerms {
+    pub provinces_transferred: Vec<(ProvinceId, NationId)>,
+    pub war_reparations: f64,
+    pub cannot_redeclare_until: Tick,
+}
+
+/// Tracks external relations (V0.2 simple version, V0.3 enhanced)
 #[derive(Debug, Clone, Component, Default, Serialize, Deserialize)]
 pub struct WarState {
     pub at_war_with: Vec<NationId>,
+}
+
+// ============================================================================
+// V0.3 AI TYPES
+// ============================================================================
+
+/// AI personality affecting decision-making
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Component, Serialize, Deserialize)]
+pub enum AIPersonality {
+    Defensive,
+    Balanced,
+    Aggressive,
+}
+
+impl Default for AIPersonality {
+    fn default() -> Self {
+        Self::Balanced
+    }
+}
+
+// ============================================================================
+// V0.3 VASSALAGE & DIPLOMACY
+// ============================================================================
+
+/// Vassal relationship
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct VassalRelation {
+    pub overlord: NationId,
+    pub vassal: NationId,
+    pub tribute_percentage: f64,
+    pub established_tick: Tick,
+    pub loyalty: f64,  // 0-100
+}
+
+/// Autonomy level for vassals
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+pub enum AutonomyLevel {
+    FullVassal,
+    Protectorate,
+    Tributary,
 }
 
 // ============================================================================

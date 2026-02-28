@@ -56,23 +56,25 @@ impl TickPhase for LogisticsPhase {
         }
 
         // 3. Compute per-army supply cost and attrition
-        // Collect (entity, personnel, owner, prov_id, forced_march) to avoid world borrow overlap
-        let army_snapshot: Vec<(Entity, u64, NationId, ProvinceId, bool)> = {
+        // Collect (entity, total_troops, owner, prov_id) to avoid world borrow overlap
+        let army_snapshot: Vec<(Entity, u64, NationId, ProvinceId)> = {
             let mut query = world.query::<(Entity, &Army, &Province)>();
             query
                 .iter(world)
-                .map(|(e, a, p)| (e, a.personnel, a.owner, p.id, a.forced_march))
+                .map(|(e, a, p)| {
+                    let total_troops = a.infantry + a.armor + a.artillery;
+                    (e, total_troops, a.owner, p.id)
+                })
                 .collect()
         };
 
         let mut attrition_list: Vec<(Entity, u64)> = Vec::new();
         let mut nation_logistics_cost: HashMap<NationId, f64> = HashMap::new();
 
-        for (entity, personnel, owner, army_prov, forced_march) in &army_snapshot {
+        for (entity, personnel, owner, army_prov) in &army_snapshot {
             let owner = *owner;
             let army_prov = *army_prov;
             let personnel = *personnel;
-            let forced_march = *forced_march;
 
             match capitals.get(&owner) {
                 None => {
@@ -126,11 +128,7 @@ impl TickPhase for LogisticsPhase {
                     } else {
                         // Teeth-to-Tail ratio: tail = personnel * (TAIL_BASE ^ dist - 1)
                         let distance_factor = TAIL_EXPONENT_BASE.powi(route_len as i32) - 1.0;
-                        let mut tail_needed = (personnel as f64 * distance_factor) as u64;
-
-                        if forced_march {
-                            tail_needed = tail_needed.saturating_mul(3);
-                        }
+                        let tail_needed = (personnel as f64 * distance_factor) as u64;
 
                         // Infrastructure flow cap: min_infra_level * INFRA_FLOW_PER_LEVEL
                         let flow_limit = (min_flow as u64).saturating_mul(INFRA_FLOW_PER_LEVEL);
@@ -153,10 +151,17 @@ impl TickPhase for LogisticsPhase {
             }
         }
 
-        // 4. Apply attrition to armies
+        // 4. Apply attrition to armies (distribute casualties across unit types)
         for (entity, deaths) in attrition_list {
             if let Some(mut army) = world.get_mut::<Army>(entity) {
-                army.personnel = army.personnel.saturating_sub(deaths);
+                let total_troops = army.infantry + army.armor + army.artillery;
+                if total_troops > 0 {
+                    // Distribute casualties proportionally
+                    let casualty_ratio = deaths as f64 / total_troops as f64;
+                    army.infantry = army.infantry.saturating_sub((army.infantry as f64 * casualty_ratio) as u64);
+                    army.armor = army.armor.saturating_sub((army.armor as f64 * casualty_ratio) as u64);
+                    army.artillery = army.artillery.saturating_sub((army.artillery as f64 * casualty_ratio) as u64);
+                }
             }
         }
 
@@ -173,6 +178,7 @@ impl TickPhase for LogisticsPhase {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::core::types::ArmyId;
     use crate::core::world::WorldState;
     use crate::core::types::ResourceType;
     use glam::Vec2;
@@ -229,9 +235,18 @@ mod tests {
 
         // Spawn army of 10,000 at frontline (1 hop from capital)
         world_state.world.entity_mut(front_entity).insert(Army {
+            army_id: ArmyId::new(),
             owner: nation_id,
-            personnel: 10_000,
-            forced_march: false,
+            location: front_id,
+            infantry: 10_000,
+            armor: 0,
+            artillery: 0,
+            morale: 100.0,
+            organization: 100.0,
+            supply_state: 1.0,
+            entrenchment: 0.0,
+            movement_points: 100.0,
+            destination: None,
         });
 
         let init_personnel = 10_000u64;
@@ -240,8 +255,11 @@ mod tests {
         let mut phase = LogisticsPhase::new();
         phase.execute(&mut world_state.world);
 
-        let army = world_state.world.get::<Army>(front_entity).unwrap();
-        assert_eq!(army.personnel, init_personnel, "No attrition should occur when supply is sufficient");
+        let final_personnel = {
+            let army = world_state.world.get::<Army>(front_entity).unwrap();
+            army.infantry + army.armor + army.artillery
+        };
+        assert_eq!(final_personnel, init_personnel);
     }
 
     #[test]
@@ -267,16 +285,28 @@ mod tests {
 
         // Spawn massive army: 50,000 men — well above infra limit
         world_state.world.entity_mut(front_entity).insert(Army {
+            army_id: ArmyId::new(),
             owner: nation_id,
-            personnel: 50_000,
-            forced_march: false,
+            location: front_id,
+            infantry: 50_000,
+            armor: 0,
+            artillery: 0,
+            morale: 100.0,
+            organization: 100.0,
+            supply_state: 1.0,
+            entrenchment: 0.0,
+            movement_points: 100.0,
+            destination: None,
         });
 
         let mut phase = LogisticsPhase::new();
         phase.execute(&mut world_state.world);
 
-        let army = world_state.world.get::<Army>(front_entity).unwrap();
-        assert!(army.personnel < 50_000, "Bottleneck should cause attrition on oversized army");
+        let final_personnel = {
+            let army = world_state.world.get::<Army>(front_entity).unwrap();
+            army.infantry + army.armor + army.artillery
+        };
+        assert!(final_personnel < 50_000, "Bottleneck should cause attrition on oversized army");
     }
 
     #[test]
@@ -289,16 +319,29 @@ mod tests {
         let front = world_state.spawn_province(
             "Lonely".to_string(), Vec2::new(5.0, 5.0), ResourceType::Iron, nation_id,
         );
+        let front_id = world_state.world.get::<Province>(front).unwrap().id;
         world_state.world.entity_mut(front).insert(Army {
+            army_id: ArmyId::new(),
             owner: nation_id,
-            personnel: 10_000,
-            forced_march: false,
+            location: front_id,
+            infantry: 10_000,
+            armor: 0,
+            artillery: 0,
+            morale: 100.0,
+            organization: 100.0,
+            supply_state: 1.0,
+            entrenchment: 0.0,
+            movement_points: 100.0,
+            destination: None,
         });
 
         let mut phase = LogisticsPhase::new();
         phase.execute(&mut world_state.world);
 
-        let army = world_state.world.get::<Army>(front).unwrap();
-        assert!(army.personnel < 10_000, "Isolated army must suffer heavy attrition");
+        let final_personnel = {
+            let army = world_state.world.get::<Army>(front).unwrap();
+            army.infantry + army.armor + army.artillery
+        };
+        assert!(final_personnel < 10_000, "Isolated army must suffer heavy attrition");
     }
 }

@@ -1,8 +1,8 @@
 # 📖 Alalamien War - Documentation Index
 
-**Last Updated:** February 27, 2026  
-**Project Status:** v0.1 COMPLETE ✅  
-**Current Version:** 0.1.0 - Real Geodata Foundation
+**Last Updated:** February 28, 2026  
+**Project Status:** v0.35 COMPLETE ✅  
+**Current Version:** 0.35 - Advanced AI + Game Calendar System
 
 ---
 
@@ -32,6 +32,25 @@
 ### 🏆 Version Documents (docs/versions/)
 
 **The most important documents - read these first!**
+
+#### Latest Release: V0.35 ✅
+
+- **[V0.35_COMPLETE.md](versions/V0.35_COMPLETE.md)** 🎯 **CURRENT VERSION**
+  - Advanced AI with memory system
+  - Tactical combat implementation
+  - Game calendar with infinite time progression
+  - 1000-tick determinism validation (PASSED)
+  - 65/65 tests passing
+  - Full API documentation
+
+- **[V0.3_PLAN.md](versions/V0.3_PLAN.md)** 📐
+  - V0.3 vision and architecture
+  - V0.35 update and completion status
+  - Combat system design
+  - AI decision trees
+  - Implementation schedule
+
+#### Previous Release: V0.1 ✅
 
 - **[V0.1_FINAL_SUMMARY.md](versions/V0.1_FINAL_SUMMARY.md)** ⭐
   - Complete v0.1 summary

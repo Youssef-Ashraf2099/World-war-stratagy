@@ -192,6 +192,26 @@ pub async fn update_clock(
     })))
 }
 
+/// Get current game clock state
+pub async fn get_clock(
+    AxumState(state): AxumState<ApiState>,
+) -> Result<Json<Value>, StatusCode> {
+    let world = state.world.read().map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+
+    Ok(Json(json!({
+        "tick": world.current_tick(),
+        "date_time": world.current_datetime_string(),
+        "game_clock": {
+            "start_year": world.game_clock.start_year,
+            "start_month": world.game_clock.start_month,
+            "start_day": world.game_clock.start_day,
+            "hours_per_tick": world.game_clock.hours_per_tick,
+            "speed": world.game_clock.speed.as_str(),
+            "speed_ticks_per_step": world.speed_ticks_per_step()
+        }
+    })))
+}
+
 fn parse_game_speed(value: &str) -> Option<alalamien_engine::core::world::GameSpeed> {
     use alalamien_engine::core::world::GameSpeed;
 

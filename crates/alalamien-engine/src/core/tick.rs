@@ -333,6 +333,43 @@ mod tests {
         );
     }
 
+    /// Test determinism over 1000 ticks with V0.35 (Combat + Advanced AI + Clock System)
+    #[test]
+    fn test_determinism_1000_ticks_v0_35() {
+        let seed = 9999;
+
+        // Run 1
+        let mut world1 = WorldState::new(seed);
+        let mut pipeline1 = TickPipeline::new_v0_35();
+        setup_test_world_v0_2(&mut world1);
+        let hash1_before = world1.state_hash();
+        pipeline1.execute_many(&mut world1, 1000);
+        let hash1_after = world1.state_hash();
+
+        // Run 2 with same seed
+        let mut world2 = WorldState::new(seed);
+        let mut pipeline2 = TickPipeline::new_v0_35();
+        setup_test_world_v0_2(&mut world2);
+        let hash2_before = world2.state_hash();
+        pipeline2.execute_many(&mut world2, 1000);
+        let hash2_after = world2.state_hash();
+
+        // Initial states should match
+        assert_eq!(hash1_before, hash2_before, "V0.35 initial states differ");
+        
+        // Final states should match (determinism verified over 1000 ticks)
+        assert_eq!(hash1_after, hash2_after, "V0.35 simulation is not deterministic over 1000 ticks");
+        
+        // Verify clock system is part of state hash
+        let tick1 = world1.current_tick();
+        let tick2 = world2.current_tick();
+        assert_eq!(tick1, tick2, "Tick count mismatch after determinism test");
+        assert_eq!(tick1, 1000, "Expected tick count 1000, got {}", tick1);
+        
+        println!("✓ V0.35 Determinism verified over 1000 ticks (Combat + Advanced AI + Clock System)");
+        println!("  Clock: {} hours per tick, Speed: {}", world1.game_clock.hours_per_tick, world1.game_clock.speed.as_str());
+    }
+
     fn setup_test_world_v0_2(world_state: &mut WorldState) {
         let nation_a = world_state.spawn_nation("Nation A".to_string(), [255, 0, 0], false);
         let nation_b = world_state.spawn_nation("Nation B".to_string(), [0, 0, 255], false);

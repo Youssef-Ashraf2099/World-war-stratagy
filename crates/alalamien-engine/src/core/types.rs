@@ -147,6 +147,12 @@ impl Default for Infrastructure {
     }
 }
 
+/// Province ownership - links a province to its owning nation
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct OwnedBy {
+    pub nation_id: NationId,
+}
+
 // ============================================================================
 // NATION
 // ============================================================================
@@ -235,10 +241,81 @@ pub struct Logistics {
     pub value: f64, // Gained by consuming Oil
 }
 
-/// Province ownership
+// ============================================================================
+// MILITARY & LOGISTICS DATA MODELS
+// ============================================================================
+
+/// Identifies a province as the capital of its owning nation
 #[derive(Debug, Clone, Component, Serialize, Deserialize)]
-pub struct OwnedBy {
-    pub nation_id: NationId,
+pub struct Capital;
+
+/// Represents an army stationed in a province
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct Army {
+    pub owner: NationId,
+    pub personnel: u64,
+    pub forced_march: bool,
+}
+
+impl Default for Army {
+    fn default() -> Self {
+        Self {
+            owner: NationId::default(),
+            personnel: 10_000,
+            forced_march: false,
+        }
+    }
+}
+
+/// Marks a province as occupied by a foreign power
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct Occupation {
+    pub occupied_by: NationId,
+}
+
+/// Tracks external relations (simplified V0.3 WarState)
+#[derive(Debug, Clone, Component, Default, Serialize, Deserialize)]
+pub struct WarState {
+    pub at_war_with: Vec<NationId>,
+}
+
+// ============================================================================
+// TRADE & ECONOMY (V0.2)
+// ============================================================================
+
+/// Trade route identifier
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+pub struct TradeRouteId(pub Uuid);
+
+impl TradeRouteId {
+    pub fn new() -> Self {
+        Self(Uuid::new_v4())
+    }
+}
+
+impl Default for TradeRouteId {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+/// Represents a trade route between two provinces
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct TradeRoute {
+    pub id: TradeRouteId,
+    pub from: ProvinceId,
+    pub to: ProvinceId,
+    pub resource_type: ResourceType,
+    pub flow_rate: f64,
+    pub active: bool,
+}
+
+/// Tracks resource deficits for a province
+#[derive(Debug, Clone, Component, Default, Serialize, Deserialize)]
+pub struct ResourceDeficit {
+    pub food_deficit: f64,
+    pub iron_deficit: f64,
+    pub oil_deficit: f64,
 }
 
 // ============================================================================

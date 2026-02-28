@@ -56,6 +56,40 @@ This directory organizes all version-specific documentation for the Alalamien Wa
 
 ---
 
+### Version 0.2 - Economic Dependency Layer (Feb 2026) ⏳ IN PROGRESS
+
+**Status:** Development in progress  
+**Summary:** Trade routes, resource deficits, and economic dependencies
+
+**Key Documents:**
+
+- **[V0.2_PROGRESS.md](V0.2_PROGRESS.md)** ⭐ **CURRENT WORK**
+  - What's been completed
+  - Border data extraction guide
+  - Logical phase ordering fixes
+  - Next steps and TODOs
+
+**Achievements So Far:**
+
+- ✅ OwnedBy component added
+- ✅ TradePhase subsystem (resource redistribution)
+- ✅ LogisticsPhase subsystem (supply lines)
+- ✅ Tick pipeline ordering fixed (Economy → Trade → Logistics → Stability → Demographics)
+- ✅ Border extraction scripts created
+- ✅ ProvinceGraph populated from nation border data
+- ✅ Production chains (Iron/Oil → capabilities)
+- ✅ Blockade simulation
+- ✅ Deterministic replay verification (500-tick)
+
+**Scope:**
+
+- Trade routes between provinces
+- Resource deficit tracking
+- Supply line mechanics
+- Economic dependency chains
+
+---
+
 ## 📋 Version History
 
 ### v0.1.0 - "Foundation" (February 26, 2026)

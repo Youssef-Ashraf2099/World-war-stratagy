@@ -1,0 +1,516 @@
+{
+  "provinces": [
+    {
+      "name": "Minnesota",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 46.4447,
+      "longitude": -93.3595,
+      "iso_code": "US-MN"
+    },
+    {
+      "name": "Montana",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 46.6829,
+      "longitude": -110.0374,
+      "iso_code": "US-MT"
+    },
+    {
+      "name": "North Dakota",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 47.4811,
+      "longitude": -100.3158,
+      "iso_code": "US-ND"
+    },
+    {
+      "name": "Hawaii",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 20.5762,
+      "longitude": -157.304,
+      "iso_code": "US-HI"
+    },
+    {
+      "name": "Idaho",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 45.4967,
+      "longitude": -114.1221,
+      "iso_code": "US-ID"
+    },
+    {
+      "name": "Washington",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 47.2964,
+      "longitude": -120.7969,
+      "iso_code": "US-WA"
+    },
+    {
+      "name": "Arizona",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 34.172,
+      "longitude": -111.9292,
+      "iso_code": "US-AZ"
+    },
+    {
+      "name": "California",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 37.2674,
+      "longitude": -119.282,
+      "iso_code": "US-CA"
+    },
+    {
+      "name": "Colorado",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 38.998,
+      "longitude": -105.5467,
+      "iso_code": "US-CO"
+    },
+    {
+      "name": "Nevada",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 38.5266,
+      "longitude": -117.0118,
+      "iso_code": "US-NV"
+    },
+    {
+      "name": "New Mexico",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 34.1709,
+      "longitude": -106.0234,
+      "iso_code": "US-NM"
+    },
+    {
+      "name": "Oregon",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 44.1378,
+      "longitude": -120.4953,
+      "iso_code": "US-OR"
+    },
+    {
+      "name": "Utah",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 39.4978,
+      "longitude": -111.5397,
+      "iso_code": "US-UT"
+    },
+    {
+      "name": "Wyoming",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 43.0295,
+      "longitude": -107.5652,
+      "iso_code": "US-WY"
+    },
+    {
+      "name": "Arkansas",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 34.7753,
+      "longitude": -92.1458,
+      "iso_code": "US-AR"
+    },
+    {
+      "name": "Iowa",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 41.9442,
+      "longitude": -93.3861,
+      "iso_code": "US-IA"
+    },
+    {
+      "name": "Kansas",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 38.4967,
+      "longitude": -98.3275,
+      "iso_code": "US-KS"
+    },
+    {
+      "name": "Missouri",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 38.3186,
+      "longitude": -92.4498,
+      "iso_code": "US-MO"
+    },
+    {
+      "name": "Nebraska",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 41.5005,
+      "longitude": -99.6877,
+      "iso_code": "US-NE"
+    },
+    {
+      "name": "Oklahoma",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 35.3179,
+      "longitude": -98.7167,
+      "iso_code": "US-OK"
+    },
+    {
+      "name": "South Dakota",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 44.2535,
+      "longitude": -100.2587,
+      "iso_code": "US-SD"
+    },
+    {
+      "name": "Louisiana",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 31.0807,
+      "longitude": -91.6387,
+      "iso_code": "US-LA"
+    },
+    {
+      "name": "Texas",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 31.1696,
+      "longitude": -100.06,
+      "iso_code": "US-TX"
+    },
+    {
+      "name": "Connecticut",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 41.5039,
+      "longitude": -72.7428,
+      "iso_code": "US-CT"
+    },
+    {
+      "name": "Massachusetts",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 42.1797,
+      "longitude": -71.6914,
+      "iso_code": "US-MA"
+    },
+    {
+      "name": "New Hampshire",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 44.0117,
+      "longitude": -71.5916,
+      "iso_code": "US-NH"
+    },
+    {
+      "name": "Rhode Island",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 41.6722,
+      "longitude": -71.4871,
+      "iso_code": "US-RI"
+    },
+    {
+      "name": "Vermont",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 43.8677,
+      "longitude": -72.4666,
+      "iso_code": "US-VT"
+    },
+    {
+      "name": "Alabama",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 32.6369,
+      "longitude": -86.6742,
+      "iso_code": "US-AL"
+    },
+    {
+      "name": "Florida",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 28.0353,
+      "longitude": -83.8448,
+      "iso_code": "US-FL"
+    },
+    {
+      "name": "Georgia",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 32.6689,
+      "longitude": -83.2452,
+      "iso_code": "US-GA"
+    },
+    {
+      "name": "Mississippi",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 32.5907,
+      "longitude": -89.86,
+      "iso_code": "US-MS"
+    },
+    {
+      "name": "South Carolina",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 33.6066,
+      "longitude": -80.9502,
+      "iso_code": "US-SC"
+    },
+    {
+      "name": "Illinois",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 39.7288,
+      "longitude": -89.2785,
+      "iso_code": "US-IL"
+    },
+    {
+      "name": "Indiana",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 39.7722,
+      "longitude": -86.4255,
+      "iso_code": "US-IN"
+    },
+    {
+      "name": "Kentucky",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 37.8019,
+      "longitude": -85.7354,
+      "iso_code": "US-KY"
+    },
+    {
+      "name": "North Carolina",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 35.2235,
+      "longitude": -80.0241,
+      "iso_code": "US-NC"
+    },
+    {
+      "name": "Ohio",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 40.3702,
+      "longitude": -82.67,
+      "iso_code": "US-OH"
+    },
+    {
+      "name": "Tennessee",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 35.8248,
+      "longitude": -85.9643,
+      "iso_code": "US-TN"
+    },
+    {
+      "name": "Virginia",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 37.9715,
+      "longitude": -79.5254,
+      "iso_code": "US-VA"
+    },
+    {
+      "name": "Wisconsin",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 44.9009,
+      "longitude": -89.5822,
+      "iso_code": "US-WI"
+    },
+    {
+      "name": "West Virginia",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 38.9181,
+      "longitude": -80.1559,
+      "iso_code": "US-WV"
+    },
+    {
+      "name": "Delaware",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 39.1481,
+      "longitude": -75.418,
+      "iso_code": "US-DE"
+    },
+    {
+      "name": "District of Columbia",
+      "country": "United States of America",
+      "type": "Federal District",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 38.8859,
+      "longitude": -77.0156,
+      "iso_code": "US-DC"
+    },
+    {
+      "name": "Maryland",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 38.8314,
+      "longitude": -77.2672,
+      "iso_code": "US-MD"
+    },
+    {
+      "name": "New Jersey",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 40.1474,
+      "longitude": -74.7335,
+      "iso_code": "US-NJ"
+    },
+    {
+      "name": "New York",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 42.8176,
+      "longitude": -75.859,
+      "iso_code": "US-NY"
+    },
+    {
+      "name": "Pennsylvania",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 41.133,
+      "longitude": -77.599,
+      "iso_code": "US-PA"
+    },
+    {
+      "name": "Maine",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 45.2639,
+      "longitude": -69.0247,
+      "iso_code": "US-ME"
+    },
+    {
+      "name": "Michigan",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 44.9903,
+      "longitude": -86.2741,
+      "iso_code": "US-MI"
+    },
+    {
+      "name": "Alaska",
+      "country": "United States of America",
+      "type": "State",
+      "population": 0,
+      "area_sqkm": 0,
+      "latitude": 62.881,
+      "longitude": -150.8856,
+      "iso_code": "US-AK"
+    }
+  ],
+  "count": 51,
+  "countries": 1
+}

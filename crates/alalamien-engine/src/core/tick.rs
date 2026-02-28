@@ -30,11 +30,31 @@ impl TickPipeline {
     }
 
     /// Create a new tick pipeline with default v0.2 phases
-    pub fn new_v0_2(config: &crate::EngineConfig) -> Self {
+    /// Order follows ROADMAP.md requirements:
+    /// 1. Economy (production)
+    /// 2. Trade (resource distribution)
+    /// 3. Logistics (supply lines, attrition)
+    /// 4. Stability (legitimacy, protests, civil war)
+    /// 5. Demographics (population changes)
+    pub fn new_v0_2() -> Self {
         let phases: Vec<Box<dyn TickPhase>> = vec![
-            Box::new(demographic::DemographicPhase::new()),
             Box::new(economic::EconomicPhase::new()),
             Box::new(trade::TradePhase::new()),
+            Box::new(logistics::LogisticsPhase::new()),
+            Box::new(stability::StabilityPhase::new()),
+            Box::new(demographic::DemographicPhase::new()),
+        ];
+        Self { phases }
+    }
+
+    /// Create a tick pipeline with debug instrumentation (for development)
+    pub fn new_v0_2_debug(config: &crate::EngineConfig) -> Self {
+        let phases: Vec<Box<dyn TickPhase>> = vec![
+            Box::new(economic::EconomicPhase::new()),
+            Box::new(trade::TradePhase::new()),
+            Box::new(logistics::LogisticsPhase::new()),
+            Box::new(stability::StabilityPhase::new()),
+            Box::new(demographic::DemographicPhase::new()),
             Box::new(crate::instrumentation::DebuggerPhase::new(config.clone())),
         ];
         Self { phases }
@@ -223,6 +243,29 @@ mod tests {
         println!("✓ Determinism verified over 500 ticks");
     }
 
+    /// Test determinism over full V0.2 pipeline replay
+    #[test]
+    fn test_determinism_500_ticks_v0_2_replay() {
+        let seed = 1337;
+
+        let mut world1 = WorldState::new(seed);
+        let mut pipeline1 = TickPipeline::new_v0_2();
+        setup_test_world_v0_2(&mut world1);
+        let hash1_before = world1.state_hash();
+        pipeline1.execute_many(&mut world1, 500);
+        let hash1_after = world1.state_hash();
+
+        let mut world2 = WorldState::new(seed);
+        let mut pipeline2 = TickPipeline::new_v0_2();
+        setup_test_world_v0_2(&mut world2);
+        let hash2_before = world2.state_hash();
+        pipeline2.execute_many(&mut world2, 500);
+        let hash2_after = world2.state_hash();
+
+        assert_eq!(hash1_before, hash2_before, "V0.2 initial states differ");
+        assert_eq!(hash1_after, hash2_after, "V0.2 replay is not deterministic");
+    }
+
     fn setup_test_world(world_state: &mut WorldState) {
         let nation = world_state.spawn_nation("Test".to_string(), [255, 0, 0], false);
         let nation_id = world_state.world.get::<crate::core::types::Nation>(nation).unwrap().id;
@@ -233,5 +276,58 @@ mod tests {
             ResourceType::Food,
             nation_id,
         );
+    }
+
+    fn setup_test_world_v0_2(world_state: &mut WorldState) {
+        let nation_a = world_state.spawn_nation("Nation A".to_string(), [255, 0, 0], false);
+        let nation_b = world_state.spawn_nation("Nation B".to_string(), [0, 0, 255], false);
+
+        let nation_a_id = world_state
+            .world
+            .get::<crate::core::types::Nation>(nation_a)
+            .unwrap()
+            .id;
+        let nation_b_id = world_state
+            .world
+            .get::<crate::core::types::Nation>(nation_b)
+            .unwrap()
+            .id;
+
+        if let Some(mut war) = world_state.world.get_mut::<crate::core::types::WarState>(nation_a) {
+            war.at_war_with.push(nation_b_id);
+        }
+        if let Some(mut war) = world_state.world.get_mut::<crate::core::types::WarState>(nation_b) {
+            war.at_war_with.push(nation_a_id);
+        }
+
+        let a_cap = world_state.spawn_province(
+            "A Core".to_string(),
+            Vec2::new(0.0, 0.0),
+            ResourceType::Food,
+            nation_a_id,
+        );
+        world_state.world.entity_mut(a_cap).insert(crate::core::types::Capital);
+
+        let a_front = world_state.spawn_province(
+            "A Front".to_string(),
+            Vec2::new(1.0, 0.0),
+            ResourceType::Iron,
+            nation_a_id,
+        );
+
+        let b_cap = world_state.spawn_province(
+            "B Core".to_string(),
+            Vec2::new(2.0, 0.0),
+            ResourceType::Oil,
+            nation_b_id,
+        );
+        world_state.world.entity_mut(b_cap).insert(crate::core::types::Capital);
+
+        let a_cap_id = world_state.world.get::<Province>(a_cap).unwrap().id;
+        let a_front_id = world_state.world.get::<Province>(a_front).unwrap().id;
+        let b_cap_id = world_state.world.get::<Province>(b_cap).unwrap().id;
+
+        world_state.add_province_border(a_cap_id, a_front_id);
+        world_state.add_province_border(a_front_id, b_cap_id);
     }
 }

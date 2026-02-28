@@ -55,10 +55,14 @@ impl WorldState {
 
     /// Initialize world from Natural Earth nations data
     pub fn from_geodata(seed: u64, nations_json_path: &std::path::Path) -> Result<Self, Box<dyn std::error::Error>> {
-        use crate::game::NationData;
+        use std::collections::HashMap;
+
+        use crate::game::{NationData, borders};
         
         let mut world = Self::new(seed);
         let nations = NationData::load_all(nations_json_path)?;
+        let mut nation_name_to_id: HashMap<String, NationId> = HashMap::new();
+        let mut nation_id_to_province: HashMap<NationId, ProvinceId> = HashMap::new();
         
         // Spawn a nation for each loaded record
         for (idx, nation_data) in nations.iter().enumerate() {
@@ -75,6 +79,60 @@ impl WorldState {
             // Set GDP based on loaded data
             if let Some(mut gdp) = world.world.get_mut::<GDP>(nation_entity) {
                 gdp.value = (nation_data.gdp as f64) / 1_000_000_000.0; // Convert to billions
+            }
+
+            let nation_id = world
+                .world
+                .get::<Nation>(nation_entity)
+                .map(|n| n.id)
+                .ok_or("Failed to read spawned nation")?;
+
+            nation_name_to_id.insert(nation_data.name.clone(), nation_id);
+            if let Some(formal_name) = &nation_data.formal_name {
+                nation_name_to_id.insert(formal_name.clone(), nation_id);
+            }
+
+            // Spawn one bootstrap province per nation for adjacency/trade/logistics wiring.
+            let dominant_resource = match idx % 3 {
+                0 => ResourceType::Food,
+                1 => ResourceType::Iron,
+                _ => ResourceType::Oil,
+            };
+
+            let province_entity = world.spawn_province(
+                format!("{} Core", nation_data.name),
+                glam::Vec2::new(idx as f32, 0.0),
+                dominant_resource,
+                nation_id,
+            );
+
+            world.world.entity_mut(province_entity).insert(Capital);
+
+            let province_id = world
+                .world
+                .get::<Province>(province_entity)
+                .map(|p| p.id)
+                .ok_or("Failed to read spawned province")?;
+
+            nation_id_to_province.insert(nation_id, province_id);
+        }
+
+        // Alias common Natural Earth naming differences
+        if let Some(id) = nation_name_to_id.get("United States of America").copied() {
+            nation_name_to_id.insert("United States".to_string(), id);
+        }
+
+        // Build province borders from precomputed nation borders
+        for (country_a, country_b) in borders::get_nation_borders() {
+            let a_id = nation_name_to_id.get(country_a).copied();
+            let b_id = nation_name_to_id.get(country_b).copied();
+            if let (Some(nation_a), Some(nation_b)) = (a_id, b_id) {
+                if let (Some(province_a), Some(province_b)) = (
+                    nation_id_to_province.get(&nation_a),
+                    nation_id_to_province.get(&nation_b),
+                ) {
+                    world.add_province_border(*province_a, *province_b);
+                }
             }
         }
         
@@ -145,6 +203,7 @@ impl WorldState {
             Resources::default(),
             crate::core::types::MilitaryCapacity::default(),
             crate::core::types::Logistics::default(),
+            crate::core::types::WarState::default(),
         ));
 
         if player_controlled {

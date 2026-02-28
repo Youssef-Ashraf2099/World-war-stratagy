@@ -1,7 +1,7 @@
 //! Dev tool debugger phase for diagnosing simulation health
 
 use bevy_ecs::prelude::*;
-use tracing::{debug, warn, info};
+use tracing::{debug, warn};
 
 use crate::core::tick::TickPhase;
 use crate::core::types::{Nation, Legitimacy, Population, Resources, Province};

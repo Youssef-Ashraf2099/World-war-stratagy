@@ -44,6 +44,139 @@ This repo is a Rust-based geopolitical simulation engine with real-world geodata
 - Determinism is verified with 500-tick state hashing tests.
 - Do not delete or rewrite version docs; append updates with dates.
 
+---
+
+## V0.2 Development (In Progress)
+
+### Border Data Extraction
+
+V0.2 adds trade, logistics, and economic dependencies. To support this, you need to populate the `ProvinceGraph` with real border data from Natural Earth.
+
+**Steps to extract and use border data:**
+
+1. **Extract borders from shapefiles:**
+
+```bash
+# Requires: pip install pyshp
+python scripts/extract_borders.py
+```
+
+This creates `src/game/scenarios/borders.json` with country adjacency data.
+
+2. **Generate Rust border module:**
+
+```bash
+python scripts/load_borders.py
+```
+
+This creates `crates/alalamien-engine/src/game/borders.rs` with pre-computed border data.
+
+3. **Integrate with ProvinceGraph:**
+
+- Add `pub mod borders;` to `src/game/mod.rs`
+- In `WorldState::from_geodata()`, after spawning nations, use border data to populate the `ProvinceGraph`
+- Call `province_graph.add_border(province_a, province_b)` for each border relationship
+
+**Why this matters for V0.2:**
+
+- Trade routes (TradePhase) need to know which provinces are adjacent
+- Logistics (LogisticsPhase) calculates supply lines based on graph connectivity
+- Demographics can simulate migration along borders
+- Blockades affect provinces based on their connectivity
+
+### V0.2 Components Added
+
+New types in `core/types.rs`:
+
+- `OwnedBy` - Links provinces to nations
+- `TradeRoute` - Represents resource flows
+- `TradeRouteId` - Unique trade route identifier
+- `ResourceDeficit` - Tracks shortages
+
+New subsystems:
+
+- `TradePhase` - Distributes resources via trade routes
+- `LogisticsPhase` - Manages supply lines and attrition
+- `StabilityPhase` - Legitimacy, protests, civil war escalation 🆕
+
+**Status:**
+
+- ✅ 40/40 tests passing
+- ✅ 5-phase pipeline (Economy → Trade → Logistics → Stability → Demographics)
+- ✅ Stability system with legitimacy mechanics
+- ⏳ Border data extraction complete, integration pending
+
+### Trade System (V0.2)
+
+The trade system allows provinces of the same nation to share resources:
+
+1. If a province has food deficit (< 0), it tries to pull from neighboring provinces with surplus
+2. Uses ProvinceGraph to find neighbors
+3. Runs multiple diffusion passes to balance resources
+4. Affects legitimacy when imports fail
+
+**Key files:**
+
+- `crates/alalamien-engine/src/subsystems/trade.rs`
+- `crates/alalamien-engine/src/subsystems/logistics.rs`
+
+### Compile Issues Fixed
+
+Recent fixes:
+
+- Added `OwnedBy` component (was missing)
+- Fixed type annotations in resource operations
+- Removed unused imports (Legitimacy, Infrastructure in tests)
+- Fixed HashMap type inference issues
+
+### Next V0.2 Tasks
+
+According to ROADMAP.md, V0.2 should implement:
+
+- [x] Trade routes (graph overlay)
+- [x] Resource deficits
+- [ ] Price abstraction (simple scalar, not a market)
+- [x] Starvation penalties
+- [x] Stability system (legitimacy, protests, civil war) 🆕
+- [ ] Production chains (Iron → Military Capacity, Oil → Logistics Range remaining)
+- [ ] Blockade simulation
+- [ ] Deterministic replay verification
+- [ ] Border data integration into ProvinceGraph
+
+**Stability System (NEW):**
+
+The stability system models internal nation pressure based on:
+
+- Hostile neighbor count (0.5 legitimacy loss per neighbor)
+- Active war fronts (2.0 legitimacy loss per front)
+- Resource deficits (food shortages especially)
+
+Legitimacy thresholds trigger escalating unrest:
+
+- < 35: Protests spawn
+- < 25: Rebel movements form
+- < 15: Civil war erupts (population casualties + resource destruction)
+
+**Key files:**
+
+- `crates/alalamien-engine/src/subsystems/stability.rs`
+- Event markers: `ProtestEvent`, `RebelMovement`, `CivilWar`
+
+**Logical Phase Order (FIXED):**
+
+Current V0.2 pipeline in `core/tick.rs`:
+
+```
+tick():
+    1. EconomicPhase      // Resource production
+    2. TradePhase         // Resource distribution
+    3. LogisticsPhase     // Supply lines, attrition
+    4. StabilityPhase     // Legitimacy, protests, civil war
+    5. DemographicPhase   // Population changes
+```
+
+This order is critical for determinism and logical causality.
+
 ## Project Summary
 
 This is a world-scale strategy game simulation engine. The core loop is deterministic and data-driven, using Natural Earth geodata to seed nations and their initial stats. The engine is built around an ECS architecture (bevy_ecs), with modular subsystems for population, resources, and economic output. API and desktop targets are thin wrappers around the same engine.

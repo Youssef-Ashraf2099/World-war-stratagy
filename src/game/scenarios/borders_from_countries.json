@@ -1,0 +1,1966 @@
+{
+  "borders": [
+    {
+      "country_a": "Fiji",
+      "country_b": "Peru"
+    },
+    {
+      "country_a": "Brazil",
+      "country_b": "Fiji"
+    },
+    {
+      "country_a": "Fiji",
+      "country_b": "Vanuatu"
+    },
+    {
+      "country_a": "Fiji",
+      "country_b": "Namibia"
+    },
+    {
+      "country_a": "Australia",
+      "country_b": "Fiji"
+    },
+    {
+      "country_a": "Fiji",
+      "country_b": "Zimbabwe"
+    },
+    {
+      "country_a": "Fiji",
+      "country_b": "Madagascar"
+    },
+    {
+      "country_a": "Fiji",
+      "country_b": "Mozambique"
+    },
+    {
+      "country_a": "Fiji",
+      "country_b": "Malawi"
+    },
+    {
+      "country_a": "Botswana",
+      "country_b": "Fiji"
+    },
+    {
+      "country_a": "Angola",
+      "country_b": "Fiji"
+    },
+    {
+      "country_a": "Bolivia",
+      "country_b": "Fiji"
+    },
+    {
+      "country_a": "Chile",
+      "country_b": "Fiji"
+    },
+    {
+      "country_a": "Fiji",
+      "country_b": "Zambia"
+    },
+    {
+      "country_a": "Chile",
+      "country_b": "Peru"
+    },
+    {
+      "country_a": "Brazil",
+      "country_b": "Chile"
+    },
+    {
+      "country_a": "Argentina",
+      "country_b": "Chile"
+    },
+    {
+      "country_a": "Bolivia",
+      "country_b": "Chile"
+    },
+    {
+      "country_a": "Brazil",
+      "country_b": "Peru"
+    },
+    {
+      "country_a": "Brazil",
+      "country_b": "Suriname"
+    },
+    {
+      "country_a": "Brazil",
+      "country_b": "Colombia"
+    },
+    {
+      "country_a": "Brazil",
+      "country_b": "Venezuela"
+    },
+    {
+      "country_a": "Argentina",
+      "country_b": "Brazil"
+    },
+    {
+      "country_a": "Brazil",
+      "country_b": "Guyana"
+    },
+    {
+      "country_a": "Brazil",
+      "country_b": "Paraguay"
+    },
+    {
+      "country_a": "Bolivia",
+      "country_b": "Brazil"
+    },
+    {
+      "country_a": "Brazil",
+      "country_b": "Uruguay"
+    },
+    {
+      "country_a": "Brazil",
+      "country_b": "France"
+    },
+    {
+      "country_a": "Bolivia",
+      "country_b": "Peru"
+    },
+    {
+      "country_a": "Argentina",
+      "country_b": "Bolivia"
+    },
+    {
+      "country_a": "Bolivia",
+      "country_b": "Paraguay"
+    },
+    {
+      "country_a": "Ecuador",
+      "country_b": "Peru"
+    },
+    {
+      "country_a": "Colombia",
+      "country_b": "Peru"
+    },
+    {
+      "country_a": "Mozambique",
+      "country_b": "Zimbabwe"
+    },
+    {
+      "country_a": "Malawi",
+      "country_b": "Zimbabwe"
+    },
+    {
+      "country_a": "Botswana",
+      "country_b": "Zimbabwe"
+    },
+    {
+      "country_a": "Zambia",
+      "country_b": "Zimbabwe"
+    },
+    {
+      "country_a": "South Africa",
+      "country_b": "Zimbabwe"
+    },
+    {
+      "country_a": "Botswana",
+      "country_b": "Namibia"
+    },
+    {
+      "country_a": "Angola",
+      "country_b": "Botswana"
+    },
+    {
+      "country_a": "Botswana",
+      "country_b": "Zambia"
+    },
+    {
+      "country_a": "Botswana",
+      "country_b": "South Africa"
+    },
+    {
+      "country_a": "Angola",
+      "country_b": "Namibia"
+    },
+    {
+      "country_a": "Namibia",
+      "country_b": "Zambia"
+    },
+    {
+      "country_a": "Namibia",
+      "country_b": "South Africa"
+    },
+    {
+      "country_a": "Tanzania",
+      "country_b": "Zambia"
+    },
+    {
+      "country_a": "Mozambique",
+      "country_b": "Zambia"
+    },
+    {
+      "country_a": "Malawi",
+      "country_b": "Zambia"
+    },
+    {
+      "country_a": "Dem. Rep. Congo",
+      "country_b": "Zambia"
+    },
+    {
+      "country_a": "Angola",
+      "country_b": "Zambia"
+    },
+    {
+      "country_a": "Malawi",
+      "country_b": "Tanzania"
+    },
+    {
+      "country_a": "Malawi",
+      "country_b": "Mozambique"
+    },
+    {
+      "country_a": "Mozambique",
+      "country_b": "Tanzania"
+    },
+    {
+      "country_a": "Mozambique",
+      "country_b": "eSwatini"
+    },
+    {
+      "country_a": "Dem. Rep. Congo",
+      "country_b": "Mozambique"
+    },
+    {
+      "country_a": "Mozambique",
+      "country_b": "South Africa"
+    },
+    {
+      "country_a": "Angola",
+      "country_b": "Dem. Rep. Congo"
+    },
+    {
+      "country_a": "Angola",
+      "country_b": "Congo"
+    },
+    {
+      "country_a": "Kenya",
+      "country_b": "Tanzania"
+    },
+    {
+      "country_a": "Rwanda",
+      "country_b": "Tanzania"
+    },
+    {
+      "country_a": "Burundi",
+      "country_b": "Tanzania"
+    },
+    {
+      "country_a": "Dem. Rep. Congo",
+      "country_b": "Tanzania"
+    },
+    {
+      "country_a": "Tanzania",
+      "country_b": "Uganda"
+    },
+    {
+      "country_a": "Dem. Rep. Congo",
+      "country_b": "Nigeria"
+    },
+    {
+      "country_a": "Dem. Rep. Congo",
+      "country_b": "Gabon"
+    },
+    {
+      "country_a": "Dem. Rep. Congo",
+      "country_b": "Rwanda"
+    },
+    {
+      "country_a": "Central African Rep.",
+      "country_b": "Dem. Rep. Congo"
+    },
+    {
+      "country_a": "Cameroon",
+      "country_b": "Dem. Rep. Congo"
+    },
+    {
+      "country_a": "Burundi",
+      "country_b": "Dem. Rep. Congo"
+    },
+    {
+      "country_a": "Dem. Rep. Congo",
+      "country_b": "S. Sudan"
+    },
+    {
+      "country_a": "Congo",
+      "country_b": "Dem. Rep. Congo"
+    },
+    {
+      "country_a": "Dem. Rep. Congo",
+      "country_b": "Uganda"
+    },
+    {
+      "country_a": "Ethiopia",
+      "country_b": "Kenya"
+    },
+    {
+      "country_a": "Kenya",
+      "country_b": "S. Sudan"
+    },
+    {
+      "country_a": "Kenya",
+      "country_b": "Somalia"
+    },
+    {
+      "country_a": "Kenya",
+      "country_b": "Uganda"
+    },
+    {
+      "country_a": "Burundi",
+      "country_b": "Rwanda"
+    },
+    {
+      "country_a": "Ethiopia",
+      "country_b": "Uganda"
+    },
+    {
+      "country_a": "Rwanda",
+      "country_b": "Uganda"
+    },
+    {
+      "country_a": "S. Sudan",
+      "country_b": "Uganda"
+    },
+    {
+      "country_a": "Mauritania",
+      "country_b": "W. Sahara"
+    },
+    {
+      "country_a": "Mali",
+      "country_b": "W. Sahara"
+    },
+    {
+      "country_a": "Morocco",
+      "country_b": "W. Sahara"
+    },
+    {
+      "country_a": "France",
+      "country_b": "W. Sahara"
+    },
+    {
+      "country_a": "Algeria",
+      "country_b": "W. Sahara"
+    },
+    {
+      "country_a": "Austria",
+      "country_b": "France"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Suriname"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Senegal"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Ghana"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Germany"
+    },
+    {
+      "country_a": "Benin",
+      "country_b": "France"
+    },
+    {
+      "country_a": "Eq. Guinea",
+      "country_b": "France"
+    },
+    {
+      "country_a": "France",
+      "country_b": "United Kingdom"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Liberia"
+    },
+    {
+      "country_a": "Belgium",
+      "country_b": "France"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Netherlands"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Libya"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Sierra Leone"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Gambia"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Luxembourg"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Portugal"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Niger"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Mali"
+    },
+    {
+      "country_a": "Burkina Faso",
+      "country_b": "France"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Tunisia"
+    },
+    {
+      "country_a": "Canada",
+      "country_b": "France"
+    },
+    {
+      "country_a": "Côte d'Ivoire",
+      "country_b": "France"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Nigeria"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Mauritania"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Cameroon",
+      "country_b": "France"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Guinea"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Togo"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Spain"
+    },
+    {
+      "country_a": "Algeria",
+      "country_b": "France"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Gabon"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Guinea-Bissau"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Italy"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Morocco"
+    },
+    {
+      "country_a": "France",
+      "country_b": "Switzerland"
+    },
+    {
+      "country_a": "Mali",
+      "country_b": "Morocco"
+    },
+    {
+      "country_a": "Mali",
+      "country_b": "Senegal"
+    },
+    {
+      "country_a": "Mali",
+      "country_b": "Nigeria"
+    },
+    {
+      "country_a": "Ghana",
+      "country_b": "Mali"
+    },
+    {
+      "country_a": "Mali",
+      "country_b": "Mauritania"
+    },
+    {
+      "country_a": "Mali",
+      "country_b": "Niger"
+    },
+    {
+      "country_a": "Benin",
+      "country_b": "Mali"
+    },
+    {
+      "country_a": "Burkina Faso",
+      "country_b": "Mali"
+    },
+    {
+      "country_a": "Guinea",
+      "country_b": "Mali"
+    },
+    {
+      "country_a": "Mali",
+      "country_b": "Togo"
+    },
+    {
+      "country_a": "Côte d'Ivoire",
+      "country_b": "Mali"
+    },
+    {
+      "country_a": "Algeria",
+      "country_b": "Mali"
+    },
+    {
+      "country_a": "Mauritania",
+      "country_b": "Senegal"
+    },
+    {
+      "country_a": "Burkina Faso",
+      "country_b": "Mauritania"
+    },
+    {
+      "country_a": "Mauritania",
+      "country_b": "Morocco"
+    },
+    {
+      "country_a": "Algeria",
+      "country_b": "Mauritania"
+    },
+    {
+      "country_a": "Algeria",
+      "country_b": "Niger"
+    },
+    {
+      "country_a": "Algeria",
+      "country_b": "Portugal"
+    },
+    {
+      "country_a": "Algeria",
+      "country_b": "Tunisia"
+    },
+    {
+      "country_a": "Algeria",
+      "country_b": "Libya"
+    },
+    {
+      "country_a": "Algeria",
+      "country_b": "Italy"
+    },
+    {
+      "country_a": "Algeria",
+      "country_b": "Morocco"
+    },
+    {
+      "country_a": "Algeria",
+      "country_b": "Spain"
+    },
+    {
+      "country_a": "Canada",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Canada",
+      "country_b": "United States of America"
+    },
+    {
+      "country_a": "Canada",
+      "country_b": "Greenland"
+    },
+    {
+      "country_a": "Dominican Rep.",
+      "country_b": "United States of America"
+    },
+    {
+      "country_a": "Mexico",
+      "country_b": "United States of America"
+    },
+    {
+      "country_a": "Russia",
+      "country_b": "United States of America"
+    },
+    {
+      "country_a": "Haiti",
+      "country_b": "United States of America"
+    },
+    {
+      "country_a": "Bahamas",
+      "country_b": "United States of America"
+    },
+    {
+      "country_a": "Greenland",
+      "country_b": "United States of America"
+    },
+    {
+      "country_a": "Cuba",
+      "country_b": "United States of America"
+    },
+    {
+      "country_a": "Austria",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "North Macedonia",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Germany",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Estonia",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "China",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Japan",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Armenia",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Russia",
+      "country_b": "Turkey"
+    },
+    {
+      "country_a": "Russia",
+      "country_b": "United Kingdom"
+    },
+    {
+      "country_a": "Belgium",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Netherlands",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Greenland",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Montenegro",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Hungary",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Greece",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Albania",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Luxembourg",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Bosnia and Herz.",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Kosovo",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Portugal",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Russia",
+      "country_b": "Slovakia"
+    },
+    {
+      "country_a": "North Korea",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Croatia",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Russia",
+      "country_b": "Sweden"
+    },
+    {
+      "country_a": "Russia",
+      "country_b": "Uzbekistan"
+    },
+    {
+      "country_a": "Russia",
+      "country_b": "Serbia"
+    },
+    {
+      "country_a": "Ireland",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Russia",
+      "country_b": "Ukraine"
+    },
+    {
+      "country_a": "Georgia",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Russia",
+      "country_b": "Turkmenistan"
+    },
+    {
+      "country_a": "Poland",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Russia",
+      "country_b": "Switzerland"
+    },
+    {
+      "country_a": "Kyrgyzstan",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Czechia",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Mongolia",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Iceland",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Russia",
+      "country_b": "Spain"
+    },
+    {
+      "country_a": "Norway",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Lithuania",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Russia",
+      "country_b": "Slovenia"
+    },
+    {
+      "country_a": "Denmark",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Kazakhstan",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Romania",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Azerbaijan",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Finland",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Belarus",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Italy",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Latvia",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Bulgaria",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Moldova",
+      "country_b": "Russia"
+    },
+    {
+      "country_a": "Greenland",
+      "country_b": "Iceland"
+    },
+    {
+      "country_a": "Dominican Rep.",
+      "country_b": "Haiti"
+    },
+    {
+      "country_a": "Cuba",
+      "country_b": "Haiti"
+    },
+    {
+      "country_a": "Belize",
+      "country_b": "Mexico"
+    },
+    {
+      "country_a": "Mexico",
+      "country_b": "Nicaragua"
+    },
+    {
+      "country_a": "Guatemala",
+      "country_b": "Mexico"
+    },
+    {
+      "country_a": "Honduras",
+      "country_b": "Mexico"
+    },
+    {
+      "country_a": "China",
+      "country_b": "Kazakhstan"
+    },
+    {
+      "country_a": "Georgia",
+      "country_b": "Kazakhstan"
+    },
+    {
+      "country_a": "Armenia",
+      "country_b": "Kazakhstan"
+    },
+    {
+      "country_a": "Kazakhstan",
+      "country_b": "Turkmenistan"
+    },
+    {
+      "country_a": "Azerbaijan",
+      "country_b": "Kazakhstan"
+    },
+    {
+      "country_a": "Kazakhstan",
+      "country_b": "Kyrgyzstan"
+    },
+    {
+      "country_a": "Kazakhstan",
+      "country_b": "Uzbekistan"
+    },
+    {
+      "country_a": "Kazakhstan",
+      "country_b": "Tajikistan"
+    },
+    {
+      "country_a": "Iran",
+      "country_b": "Uzbekistan"
+    },
+    {
+      "country_a": "Turkmenistan",
+      "country_b": "Uzbekistan"
+    },
+    {
+      "country_a": "Kyrgyzstan",
+      "country_b": "Uzbekistan"
+    },
+    {
+      "country_a": "Afghanistan",
+      "country_b": "Uzbekistan"
+    },
+    {
+      "country_a": "Tajikistan",
+      "country_b": "Uzbekistan"
+    },
+    {
+      "country_a": "Pakistan",
+      "country_b": "Tajikistan"
+    },
+    {
+      "country_a": "China",
+      "country_b": "Tajikistan"
+    },
+    {
+      "country_a": "Kyrgyzstan",
+      "country_b": "Tajikistan"
+    },
+    {
+      "country_a": "Afghanistan",
+      "country_b": "Tajikistan"
+    },
+    {
+      "country_a": "China",
+      "country_b": "Kyrgyzstan"
+    },
+    {
+      "country_a": "Pakistan",
+      "country_b": "Turkmenistan"
+    },
+    {
+      "country_a": "Afghanistan",
+      "country_b": "Turkmenistan"
+    },
+    {
+      "country_a": "Iran",
+      "country_b": "Turkmenistan"
+    },
+    {
+      "country_a": "Armenia",
+      "country_b": "Georgia"
+    },
+    {
+      "country_a": "Armenia",
+      "country_b": "Turkey"
+    },
+    {
+      "country_a": "Armenia",
+      "country_b": "Azerbaijan"
+    },
+    {
+      "country_a": "Armenia",
+      "country_b": "Iran"
+    },
+    {
+      "country_a": "China",
+      "country_b": "Japan"
+    },
+    {
+      "country_a": "Bangladesh",
+      "country_b": "China"
+    },
+    {
+      "country_a": "China",
+      "country_b": "Laos"
+    },
+    {
+      "country_a": "China",
+      "country_b": "Taiwan"
+    },
+    {
+      "country_a": "China",
+      "country_b": "North Korea"
+    },
+    {
+      "country_a": "Bhutan",
+      "country_b": "China"
+    },
+    {
+      "country_a": "China",
+      "country_b": "Nepal"
+    },
+    {
+      "country_a": "China",
+      "country_b": "Philippines"
+    },
+    {
+      "country_a": "China",
+      "country_b": "South Korea"
+    },
+    {
+      "country_a": "China",
+      "country_b": "India"
+    },
+    {
+      "country_a": "China",
+      "country_b": "Mongolia"
+    },
+    {
+      "country_a": "China",
+      "country_b": "Myanmar"
+    },
+    {
+      "country_a": "China",
+      "country_b": "Pakistan"
+    },
+    {
+      "country_a": "China",
+      "country_b": "Vietnam"
+    },
+    {
+      "country_a": "Afghanistan",
+      "country_b": "China"
+    },
+    {
+      "country_a": "China",
+      "country_b": "Thailand"
+    },
+    {
+      "country_a": "Azerbaijan",
+      "country_b": "Georgia"
+    },
+    {
+      "country_a": "Azerbaijan",
+      "country_b": "Turkey"
+    },
+    {
+      "country_a": "Azerbaijan",
+      "country_b": "Iran"
+    },
+    {
+      "country_a": "Georgia",
+      "country_b": "Turkey"
+    },
+    {
+      "country_a": "Afghanistan",
+      "country_b": "Pakistan"
+    },
+    {
+      "country_a": "Afghanistan",
+      "country_b": "Iran"
+    },
+    {
+      "country_a": "Afghanistan",
+      "country_b": "India"
+    },
+    {
+      "country_a": "Iran",
+      "country_b": "Pakistan"
+    },
+    {
+      "country_a": "Iran",
+      "country_b": "United Arab Emirates"
+    },
+    {
+      "country_a": "Iran",
+      "country_b": "Turkey"
+    },
+    {
+      "country_a": "Iran",
+      "country_b": "Kuwait"
+    },
+    {
+      "country_a": "Iran",
+      "country_b": "Saudi Arabia"
+    },
+    {
+      "country_a": "Iran",
+      "country_b": "Iraq"
+    },
+    {
+      "country_a": "Iran",
+      "country_b": "Qatar"
+    },
+    {
+      "country_a": "Iran",
+      "country_b": "Oman"
+    },
+    {
+      "country_a": "Indonesia",
+      "country_b": "Papua New Guinea"
+    },
+    {
+      "country_a": "Indonesia",
+      "country_b": "Malaysia"
+    },
+    {
+      "country_a": "Brunei",
+      "country_b": "Indonesia"
+    },
+    {
+      "country_a": "Indonesia",
+      "country_b": "Timor-Leste"
+    },
+    {
+      "country_a": "Malaysia",
+      "country_b": "Philippines"
+    },
+    {
+      "country_a": "Brunei",
+      "country_b": "Malaysia"
+    },
+    {
+      "country_a": "Malaysia",
+      "country_b": "Thailand"
+    },
+    {
+      "country_a": "Argentina",
+      "country_b": "Falkland Is."
+    },
+    {
+      "country_a": "Argentina",
+      "country_b": "Paraguay"
+    },
+    {
+      "country_a": "Argentina",
+      "country_b": "Uruguay"
+    },
+    {
+      "country_a": "Chad",
+      "country_b": "Nigeria"
+    },
+    {
+      "country_a": "Benin",
+      "country_b": "Nigeria"
+    },
+    {
+      "country_a": "Niger",
+      "country_b": "Nigeria"
+    },
+    {
+      "country_a": "Central African Rep.",
+      "country_b": "Nigeria"
+    },
+    {
+      "country_a": "Cameroon",
+      "country_b": "Nigeria"
+    },
+    {
+      "country_a": "Cameroon",
+      "country_b": "Gabon"
+    },
+    {
+      "country_a": "Cameroon",
+      "country_b": "Niger"
+    },
+    {
+      "country_a": "Cameroon",
+      "country_b": "Chad"
+    },
+    {
+      "country_a": "Cameroon",
+      "country_b": "Eq. Guinea"
+    },
+    {
+      "country_a": "Cameroon",
+      "country_b": "Central African Rep."
+    },
+    {
+      "country_a": "Cameroon",
+      "country_b": "Congo"
+    },
+    {
+      "country_a": "Central African Rep.",
+      "country_b": "Sudan"
+    },
+    {
+      "country_a": "Central African Rep.",
+      "country_b": "Chad"
+    },
+    {
+      "country_a": "Central African Rep.",
+      "country_b": "S. Sudan"
+    },
+    {
+      "country_a": "Central African Rep.",
+      "country_b": "Congo"
+    },
+    {
+      "country_a": "Congo",
+      "country_b": "Gabon"
+    },
+    {
+      "country_a": "Congo",
+      "country_b": "Eq. Guinea"
+    },
+    {
+      "country_a": "Eq. Guinea",
+      "country_b": "Gabon"
+    },
+    {
+      "country_a": "S. Sudan",
+      "country_b": "Sudan"
+    },
+    {
+      "country_a": "Ethiopia",
+      "country_b": "S. Sudan"
+    },
+    {
+      "country_a": "Djibouti",
+      "country_b": "Somalia"
+    },
+    {
+      "country_a": "Somalia",
+      "country_b": "Somaliland"
+    },
+    {
+      "country_a": "Ethiopia",
+      "country_b": "Somalia"
+    },
+    {
+      "country_a": "Djibouti",
+      "country_b": "Ethiopia"
+    },
+    {
+      "country_a": "Ethiopia",
+      "country_b": "Yemen"
+    },
+    {
+      "country_a": "Ethiopia",
+      "country_b": "Somaliland"
+    },
+    {
+      "country_a": "Eritrea",
+      "country_b": "Ethiopia"
+    },
+    {
+      "country_a": "Ethiopia",
+      "country_b": "Sudan"
+    },
+    {
+      "country_a": "Djibouti",
+      "country_b": "Yemen"
+    },
+    {
+      "country_a": "Djibouti",
+      "country_b": "Somaliland"
+    },
+    {
+      "country_a": "Djibouti",
+      "country_b": "Eritrea"
+    },
+    {
+      "country_a": "Eritrea",
+      "country_b": "Sudan"
+    },
+    {
+      "country_a": "Chad",
+      "country_b": "Sudan"
+    },
+    {
+      "country_a": "Libya",
+      "country_b": "Sudan"
+    },
+    {
+      "country_a": "Saudi Arabia",
+      "country_b": "Sudan"
+    },
+    {
+      "country_a": "Egypt",
+      "country_b": "Sudan"
+    },
+    {
+      "country_a": "Chad",
+      "country_b": "Niger"
+    },
+    {
+      "country_a": "Chad",
+      "country_b": "Libya"
+    },
+    {
+      "country_a": "Eritrea",
+      "country_b": "Yemen"
+    },
+    {
+      "country_a": "Eritrea",
+      "country_b": "Saudi Arabia"
+    },
+    {
+      "country_a": "Saudi Arabia",
+      "country_b": "Yemen"
+    },
+    {
+      "country_a": "Oman",
+      "country_b": "Saudi Arabia"
+    },
+    {
+      "country_a": "Palestine",
+      "country_b": "Saudi Arabia"
+    },
+    {
+      "country_a": "Saudi Arabia",
+      "country_b": "United Arab Emirates"
+    },
+    {
+      "country_a": "Jordan",
+      "country_b": "Saudi Arabia"
+    },
+    {
+      "country_a": "Kuwait",
+      "country_b": "Saudi Arabia"
+    },
+    {
+      "country_a": "Iraq",
+      "country_b": "Saudi Arabia"
+    },
+    {
+      "country_a": "Qatar",
+      "country_b": "Saudi Arabia"
+    },
+    {
+      "country_a": "Egypt",
+      "country_b": "Saudi Arabia"
+    },
+    {
+      "country_a": "Israel",
+      "country_b": "Saudi Arabia"
+    },
+    {
+      "country_a": "Egypt",
+      "country_b": "Palestine"
+    },
+    {
+      "country_a": "Egypt",
+      "country_b": "Jordan"
+    },
+    {
+      "country_a": "Egypt",
+      "country_b": "Libya"
+    },
+    {
+      "country_a": "Egypt",
+      "country_b": "Israel"
+    },
+    {
+      "country_a": "Libya",
+      "country_b": "Niger"
+    },
+    {
+      "country_a": "Libya",
+      "country_b": "Tunisia"
+    },
+    {
+      "country_a": "Benin",
+      "country_b": "Niger"
+    },
+    {
+      "country_a": "Burkina Faso",
+      "country_b": "Niger"
+    },
+    {
+      "country_a": "Finland",
+      "country_b": "Norway"
+    },
+    {
+      "country_a": "Norway",
+      "country_b": "Sweden"
+    },
+    {
+      "country_a": "Estonia",
+      "country_b": "Norway"
+    },
+    {
+      "country_a": "Japan",
+      "country_b": "North Korea"
+    },
+    {
+      "country_a": "North Korea",
+      "country_b": "South Korea"
+    },
+    {
+      "country_a": "Estonia",
+      "country_b": "Sweden"
+    },
+    {
+      "country_a": "Lithuania",
+      "country_b": "Sweden"
+    },
+    {
+      "country_a": "Denmark",
+      "country_b": "Sweden"
+    },
+    {
+      "country_a": "Finland",
+      "country_b": "Sweden"
+    },
+    {
+      "country_a": "Belarus",
+      "country_b": "Sweden"
+    },
+    {
+      "country_a": "Latvia",
+      "country_b": "Sweden"
+    },
+    {
+      "country_a": "Belarus",
+      "country_b": "Ukraine"
+    },
+    {
+      "country_a": "Belarus",
+      "country_b": "Lithuania"
+    },
+    {
+      "country_a": "Belarus",
+      "country_b": "Poland"
+    },
+    {
+      "country_a": "Belarus",
+      "country_b": "Latvia"
+    },
+    {
+      "country_a": "Slovakia",
+      "country_b": "Ukraine"
+    },
+    {
+      "country_a": "Romania",
+      "country_b": "Ukraine"
+    },
+    {
+      "country_a": "Poland",
+      "country_b": "Ukraine"
+    },
+    {
+      "country_a": "Serbia",
+      "country_b": "Ukraine"
+    },
+    {
+      "country_a": "Hungary",
+      "country_b": "Ukraine"
+    },
+    {
+      "country_a": "Moldova",
+      "country_b": "Ukraine"
+    },
+    {
+      "country_a": "Austria",
+      "country_b": "Poland"
+    },
+    {
+      "country_a": "Germany",
+      "country_b": "Poland"
+    },
+    {
+      "country_a": "Lithuania",
+      "country_b": "Poland"
+    },
+    {
+      "country_a": "Poland",
+      "country_b": "Slovakia"
+    },
+    {
+      "country_a": "Czechia",
+      "country_b": "Poland"
+    },
+    {
+      "country_a": "Austria",
+      "country_b": "Germany"
+    },
+    {
+      "country_a": "Austria",
+      "country_b": "Slovenia"
+    },
+    {
+      "country_a": "Austria",
+      "country_b": "Slovakia"
+    },
+    {
+      "country_a": "Austria",
+      "country_b": "Croatia"
+    },
+    {
+      "country_a": "Austria",
+      "country_b": "Switzerland"
+    },
+    {
+      "country_a": "Austria",
+      "country_b": "Czechia"
+    },
+    {
+      "country_a": "Austria",
+      "country_b": "Italy"
+    },
+    {
+      "country_a": "Austria",
+      "country_b": "Hungary"
+    },
+    {
+      "country_a": "Hungary",
+      "country_b": "Slovenia"
+    },
+    {
+      "country_a": "Hungary",
+      "country_b": "Slovakia"
+    },
+    {
+      "country_a": "Hungary",
+      "country_b": "Romania"
+    },
+    {
+      "country_a": "Croatia",
+      "country_b": "Hungary"
+    },
+    {
+      "country_a": "Czechia",
+      "country_b": "Hungary"
+    },
+    {
+      "country_a": "Hungary",
+      "country_b": "Italy"
+    },
+    {
+      "country_a": "Hungary",
+      "country_b": "Serbia"
+    },
+    {
+      "country_a": "Moldova",
+      "country_b": "Romania"
+    },
+    {
+      "country_a": "Romania",
+      "country_b": "Slovakia"
+    },
+    {
+      "country_a": "Romania",
+      "country_b": "Serbia"
+    },
+    {
+      "country_a": "Bulgaria",
+      "country_b": "Romania"
+    },
+    {
+      "country_a": "Latvia",
+      "country_b": "Lithuania"
+    },
+    {
+      "country_a": "Estonia",
+      "country_b": "Latvia"
+    },
+    {
+      "country_a": "Germany",
+      "country_b": "Luxembourg"
+    },
+    {
+      "country_a": "Denmark",
+      "country_b": "Germany"
+    },
+    {
+      "country_a": "Belgium",
+      "country_b": "Germany"
+    },
+    {
+      "country_a": "Germany",
+      "country_b": "Netherlands"
+    },
+    {
+      "country_a": "Czechia",
+      "country_b": "Germany"
+    },
+    {
+      "country_a": "Germany",
+      "country_b": "Switzerland"
+    },
+    {
+      "country_a": "Bulgaria",
+      "country_b": "Greece"
+    },
+    {
+      "country_a": "Bulgaria",
+      "country_b": "North Macedonia"
+    },
+    {
+      "country_a": "Bulgaria",
+      "country_b": "Turkey"
+    },
+    {
+      "country_a": "Bulgaria",
+      "country_b": "Serbia"
+    },
+    {
+      "country_a": "Albania",
+      "country_b": "Greece"
+    },
+    {
+      "country_a": "Greece",
+      "country_b": "North Macedonia"
+    },
+    {
+      "country_a": "Greece",
+      "country_b": "Turkey"
+    },
+    {
+      "country_a": "Iraq",
+      "country_b": "Turkey"
+    },
+    {
+      "country_a": "Syria",
+      "country_b": "Turkey"
+    },
+    {
+      "country_a": "Albania",
+      "country_b": "North Macedonia"
+    },
+    {
+      "country_a": "Albania",
+      "country_b": "Kosovo"
+    },
+    {
+      "country_a": "Albania",
+      "country_b": "Bosnia and Herz."
+    },
+    {
+      "country_a": "Albania",
+      "country_b": "Croatia"
+    },
+    {
+      "country_a": "Albania",
+      "country_b": "Montenegro"
+    },
+    {
+      "country_a": "Albania",
+      "country_b": "Serbia"
+    },
+    {
+      "country_a": "Bosnia and Herz.",
+      "country_b": "Croatia"
+    },
+    {
+      "country_a": "Croatia",
+      "country_b": "Slovenia"
+    },
+    {
+      "country_a": "Croatia",
+      "country_b": "Italy"
+    },
+    {
+      "country_a": "Croatia",
+      "country_b": "Montenegro"
+    },
+    {
+      "country_a": "Croatia",
+      "country_b": "Serbia"
+    },
+    {
+      "country_a": "Italy",
+      "country_b": "Switzerland"
+    },
+    {
+      "country_a": "Belgium",
+      "country_b": "Luxembourg"
+    },
+    {
+      "country_a": "Belgium",
+      "country_b": "Netherlands"
+    },
+    {
+      "country_a": "Portugal",
+      "country_b": "Spain"
+    },
+    {
+      "country_a": "Ireland",
+      "country_b": "United Kingdom"
+    },
+    {
+      "country_a": "Bosnia and Herz.",
+      "country_b": "Italy"
+    },
+    {
+      "country_a": "Italy",
+      "country_b": "Slovenia"
+    },
+    {
+      "country_a": "Italy",
+      "country_b": "Tunisia"
+    },
+    {
+      "country_a": "Italy",
+      "country_b": "Montenegro"
+    },
+    {
+      "country_a": "Czechia",
+      "country_b": "Slovakia"
+    },
+    {
+      "country_a": "Japan",
+      "country_b": "South Korea"
+    },
+    {
+      "country_a": "Bosnia and Herz.",
+      "country_b": "Montenegro"
+    },
+    {
+      "country_a": "Bosnia and Herz.",
+      "country_b": "Serbia"
+    },
+    {
+      "country_a": "Kosovo",
+      "country_b": "North Macedonia"
+    },
+    {
+      "country_a": "North Macedonia",
+      "country_b": "Serbia"
+    },
+    {
+      "country_a": "Kosovo",
+      "country_b": "Serbia"
+    },
+    {
+      "country_a": "Montenegro",
+      "country_b": "Serbia"
+    },
+    {
+      "country_a": "Kosovo",
+      "country_b": "Montenegro"
+    },
+    {
+      "country_a": "South Africa",
+      "country_b": "eSwatini"
+    },
+    {
+      "country_a": "Lesotho",
+      "country_b": "South Africa"
+    },
+    {
+      "country_a": "Honduras",
+      "country_b": "Nicaragua"
+    },
+    {
+      "country_a": "Costa Rica",
+      "country_b": "Nicaragua"
+    },
+    {
+      "country_a": "Belize",
+      "country_b": "Honduras"
+    },
+    {
+      "country_a": "Guatemala",
+      "country_b": "Honduras"
+    },
+    {
+      "country_a": "El Salvador",
+      "country_b": "Honduras"
+    },
+    {
+      "country_a": "Belize",
+      "country_b": "Guatemala"
+    },
+    {
+      "country_a": "El Salvador",
+      "country_b": "Guatemala"
+    },
+    {
+      "country_a": "Colombia",
+      "country_b": "Ecuador"
+    },
+    {
+      "country_a": "Colombia",
+      "country_b": "Panama"
+    },
+    {
+      "country_a": "Colombia",
+      "country_b": "Venezuela"
+    },
+    {
+      "country_a": "Trinidad and Tobago",
+      "country_b": "Venezuela"
+    },
+    {
+      "country_a": "Guyana",
+      "country_b": "Venezuela"
+    },
+    {
+      "country_a": "Guyana",
+      "country_b": "Suriname"
+    },
+    {
+      "country_a": "Costa Rica",
+      "country_b": "Panama"
+    },
+    {
+      "country_a": "Guinea-Bissau",
+      "country_b": "Senegal"
+    },
+    {
+      "country_a": "Guinea",
+      "country_b": "Senegal"
+    },
+    {
+      "country_a": "Gambia",
+      "country_b": "Senegal"
+    },
+    {
+      "country_a": "Benin",
+      "country_b": "Ghana"
+    },
+    {
+      "country_a": "Benin",
+      "country_b": "Burkina Faso"
+    },
+    {
+      "country_a": "Benin",
+      "country_b": "Togo"
+    },
+    {
+      "country_a": "Ghana",
+      "country_b": "Togo"
+    },
+    {
+      "country_a": "Burkina Faso",
+      "country_b": "Togo"
+    },
+    {
+      "country_a": "Burkina Faso",
+      "country_b": "Ghana"
+    },
+    {
+      "country_a": "Côte d'Ivoire",
+      "country_b": "Ghana"
+    },
+    {
+      "country_a": "Côte d'Ivoire",
+      "country_b": "Liberia"
+    },
+    {
+      "country_a": "Burkina Faso",
+      "country_b": "Côte d'Ivoire"
+    },
+    {
+      "country_a": "Côte d'Ivoire",
+      "country_b": "Guinea"
+    },
+    {
+      "country_a": "Guinea",
+      "country_b": "Liberia"
+    },
+    {
+      "country_a": "Guinea",
+      "country_b": "Guinea-Bissau"
+    },
+    {
+      "country_a": "Guinea",
+      "country_b": "Sierra Leone"
+    },
+    {
+      "country_a": "Liberia",
+      "country_b": "Sierra Leone"
+    },
+    {
+      "country_a": "Israel",
+      "country_b": "Palestine"
+    },
+    {
+      "country_a": "Israel",
+      "country_b": "Jordan"
+    },
+    {
+      "country_a": "Israel",
+      "country_b": "Syria"
+    },
+    {
+      "country_a": "Israel",
+      "country_b": "Lebanon"
+    },
+    {
+      "country_a": "Jordan",
+      "country_b": "Lebanon"
+    },
+    {
+      "country_a": "Lebanon",
+      "country_b": "Syria"
+    },
+    {
+      "country_a": "Jordan",
+      "country_b": "Palestine"
+    },
+    {
+      "country_a": "Iraq",
+      "country_b": "Jordan"
+    },
+    {
+      "country_a": "Jordan",
+      "country_b": "Syria"
+    },
+    {
+      "country_a": "Iraq",
+      "country_b": "Syria"
+    },
+    {
+      "country_a": "Iraq",
+      "country_b": "Kuwait"
+    },
+    {
+      "country_a": "Qatar",
+      "country_b": "United Arab Emirates"
+    },
+    {
+      "country_a": "Oman",
+      "country_b": "United Arab Emirates"
+    },
+    {
+      "country_a": "Oman",
+      "country_b": "Yemen"
+    },
+    {
+      "country_a": "Cambodia",
+      "country_b": "Vietnam"
+    },
+    {
+      "country_a": "Cambodia",
+      "country_b": "Laos"
+    },
+    {
+      "country_a": "Cambodia",
+      "country_b": "Thailand"
+    },
+    {
+      "country_a": "Laos",
+      "country_b": "Thailand"
+    },
+    {
+      "country_a": "India",
+      "country_b": "Thailand"
+    },
+    {
+      "country_a": "Thailand",
+      "country_b": "Vietnam"
+    },
+    {
+      "country_a": "Myanmar",
+      "country_b": "Thailand"
+    },
+    {
+      "country_a": "Laos",
+      "country_b": "Vietnam"
+    },
+    {
+      "country_a": "Laos",
+      "country_b": "Myanmar"
+    },
+    {
+      "country_a": "India",
+      "country_b": "Myanmar"
+    },
+    {
+      "country_a": "Bangladesh",
+      "country_b": "Myanmar"
+    },
+    {
+      "country_a": "India",
+      "country_b": "Pakistan"
+    },
+    {
+      "country_a": "India",
+      "country_b": "Nepal"
+    },
+    {
+      "country_a": "Bhutan",
+      "country_b": "India"
+    },
+    {
+      "country_a": "India",
+      "country_b": "Sri Lanka"
+    },
+    {
+      "country_a": "Bangladesh",
+      "country_b": "India"
+    },
+    {
+      "country_a": "Bangladesh",
+      "country_b": "Nepal"
+    },
+    {
+      "country_a": "Cyprus",
+      "country_b": "N. Cyprus"
+    }
+  ],
+  "count": 490,
+  "note": "Generated from country polygon adjacency (bounding box overlap)"
+}

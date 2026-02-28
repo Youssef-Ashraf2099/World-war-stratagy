@@ -11,12 +11,15 @@
 pub mod demographic;
 pub mod economic;
 pub mod trade;
+pub mod logistics;
+pub mod stability;
 
 // To be implemented in future versions
 // pub mod diplomatic;
-// pub mod logistics;
 // pub mod military;
-// pub mod stability;
 
 pub use demographic::DemographicPhase;
 pub use economic::EconomicPhase;
+pub use trade::TradePhase;
+pub use logistics::LogisticsPhase;
+pub use stability::StabilityPhase;

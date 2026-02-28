@@ -5,8 +5,11 @@
 use bevy_ecs::prelude::*;
 use tracing::trace;
 
-use crate::core::types::{Resources, ResourceType, Population, Infrastructure, Province, OwnedBy, Nation, MilitaryCapacity, Logistics, GDP, Legitimacy, NationId};
+use crate::core::types::{Resources, ResourceType, Population, Infrastructure, Province, OwnedBy, Nation, MilitaryCapacity, Logistics, GDP, NationId};
 use crate::core::tick::TickPhase;
+
+const IRON_TO_MILITARY_RATE: f64 = 0.1;
+const OIL_TO_LOGISTICS_RATE: f64 = 0.1;
 
 /// Economic simulation phase
 pub struct EconomicPhase {
@@ -73,7 +76,7 @@ impl TickPhase for EconomicPhase {
                 production_efficiency,
             );
 
-            resources.add(province.dominant_resource, production);
+            resources.add(province.dominant_resource, production as f64);
 
             // Consume food (basic consumption)
             let food_consumption = (population.total as f64 / 1000.0) * 0.1;
@@ -109,8 +112,8 @@ impl TickPhase for EconomicPhase {
         for (nation, mut military, mut logistics, mut gdp) in nation_query.iter_mut(world) {
             if let Some((iron, oil)) = nation_incomes.get(&nation.id) {
                 // Production chains
-                military.value += iron * 0.1; // 10% conversion rate
-                logistics.value += oil * 0.1;
+                military.value += iron * IRON_TO_MILITARY_RATE;
+                logistics.value += oil * OIL_TO_LOGISTICS_RATE;
 
                 // Simple scalar GDP abstraction for the entire economy's output
                 let gdp_gain = (*iron * 2.0) + (*oil * 3.0);
@@ -163,7 +166,6 @@ mod tests {
             MilitaryCapacity::default(),
             Logistics::default(),
             GDP::default(),
-            Legitimacy::default(),
         ));
 
         // Spawn a food-producing province
@@ -206,5 +208,109 @@ mod tests {
 
         // Net food should be positive due to food-producing province
         assert!(final_resources.food != initial_food);
+    }
+
+    #[test]
+    fn test_production_chain_iron_to_military() {
+        let mut world = World::default();
+        let nation_id = NationId::new();
+
+        world.spawn((
+            Nation {
+                id: nation_id,
+                name: "IronNation".to_string(),
+                color: [0, 0, 0],
+            },
+            MilitaryCapacity::default(),
+            Logistics::default(),
+            GDP::default(),
+        ));
+
+        world.spawn((
+            Province {
+                id: ProvinceId::new(),
+                name: "Mine".to_string(),
+                position: Vec2::ZERO,
+                dominant_resource: ResourceType::Iron,
+            },
+            Resources::default(),
+            Population {
+                total: 1_000_000,
+                growth_rate: 0.01,
+            },
+            Infrastructure { level: 3, max_level: 10 },
+            OwnedBy { nation_id },
+        ));
+
+        let before = world
+            .query::<&MilitaryCapacity>()
+            .iter(&world)
+            .next()
+            .unwrap()
+            .value;
+
+        let mut phase = EconomicPhase::new();
+        phase.execute(&mut world);
+
+        let after = world
+            .query::<&MilitaryCapacity>()
+            .iter(&world)
+            .next()
+            .unwrap()
+            .value;
+
+        assert!(after > before, "Military capacity should increase from iron conversion");
+    }
+
+    #[test]
+    fn test_production_chain_oil_to_logistics() {
+        let mut world = World::default();
+        let nation_id = NationId::new();
+
+        world.spawn((
+            Nation {
+                id: nation_id,
+                name: "OilNation".to_string(),
+                color: [0, 0, 0],
+            },
+            MilitaryCapacity::default(),
+            Logistics::default(),
+            GDP::default(),
+        ));
+
+        world.spawn((
+            Province {
+                id: ProvinceId::new(),
+                name: "OilField".to_string(),
+                position: Vec2::ZERO,
+                dominant_resource: ResourceType::Oil,
+            },
+            Resources::default(),
+            Population {
+                total: 1_000_000,
+                growth_rate: 0.01,
+            },
+            Infrastructure { level: 3, max_level: 10 },
+            OwnedBy { nation_id },
+        ));
+
+        let before = world
+            .query::<&Logistics>()
+            .iter(&world)
+            .next()
+            .unwrap()
+            .value;
+
+        let mut phase = EconomicPhase::new();
+        phase.execute(&mut world);
+
+        let after = world
+            .query::<&Logistics>()
+            .iter(&world)
+            .next()
+            .unwrap()
+            .value;
+
+        assert!(after > before, "Logistics should increase from oil conversion");
     }
 }

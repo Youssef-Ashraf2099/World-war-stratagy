@@ -1,0 +1,4781 @@
+{
+  "cities": [
+    {
+      "name": "Tokyo",
+      "country": "Japan",
+      "is_capital": true,
+      "population": 35676000,
+      "latitude": 35.687,
+      "longitude": 139.7495,
+      "strategic_value": 15,
+      "timezone": "Asia/Tokyo"
+    },
+    {
+      "name": "New York",
+      "country": "United States of America",
+      "is_capital": false,
+      "population": 19040000,
+      "latitude": 40.7216,
+      "longitude": -73.9957,
+      "strategic_value": 5,
+      "timezone": "America/New_York"
+    },
+    {
+      "name": "Mexico City",
+      "country": "Mexico",
+      "is_capital": true,
+      "population": 19028000,
+      "latitude": 19.4444,
+      "longitude": -99.1329,
+      "strategic_value": 15,
+      "timezone": "America/Mexico_City"
+    },
+    {
+      "name": "Mumbai",
+      "country": "India",
+      "is_capital": true,
+      "population": 18978000,
+      "latitude": 19.0684,
+      "longitude": 72.8758,
+      "strategic_value": 15,
+      "timezone": "Asia/Kolkata"
+    },
+    {
+      "name": "São Paulo",
+      "country": "Brazil",
+      "is_capital": true,
+      "population": 18845000,
+      "latitude": -23.5567,
+      "longitude": -46.627,
+      "strategic_value": 15,
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "name": "Shanghai",
+      "country": "China",
+      "is_capital": true,
+      "population": 14987000,
+      "latitude": 31.2184,
+      "longitude": 121.4346,
+      "strategic_value": 15,
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "name": "Kolkata",
+      "country": "India",
+      "is_capital": true,
+      "population": 14787000,
+      "latitude": 22.5696,
+      "longitude": 88.3691,
+      "strategic_value": 15,
+      "timezone": "Asia/Kolkata"
+    },
+    {
+      "name": "Dhaka",
+      "country": "Bangladesh",
+      "is_capital": true,
+      "population": 12797394,
+      "latitude": 23.725,
+      "longitude": 90.4066,
+      "strategic_value": 15,
+      "timezone": "Asia/Dhaka"
+    },
+    {
+      "name": "Buenos Aires",
+      "country": "Argentina",
+      "is_capital": true,
+      "population": 12795000,
+      "latitude": -34.6107,
+      "longitude": -58.4325,
+      "strategic_value": 15,
+      "timezone": "America/Argentina/Buenos_Aires"
+    },
+    {
+      "name": "Los Angeles",
+      "country": "United States of America",
+      "is_capital": false,
+      "population": 12500000,
+      "latitude": 34.0492,
+      "longitude": -118.232,
+      "strategic_value": 5,
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "name": "Cairo",
+      "country": "Egypt",
+      "is_capital": true,
+      "population": 11893000,
+      "latitude": 30.0519,
+      "longitude": 31.248,
+      "strategic_value": 15,
+      "timezone": "Africa/Cairo"
+    },
+    {
+      "name": "Rio de Janeiro",
+      "country": "Brazil",
+      "is_capital": true,
+      "population": 11748000,
+      "latitude": -22.9073,
+      "longitude": -43.2121,
+      "strategic_value": 15,
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "name": "Ōsaka",
+      "country": "Japan",
+      "is_capital": true,
+      "population": 11294000,
+      "latitude": 34.6911,
+      "longitude": 135.5038,
+      "strategic_value": 15,
+      "timezone": "Asia/Tokyo"
+    },
+    {
+      "name": "Beijing",
+      "country": "China",
+      "is_capital": true,
+      "population": 11106000,
+      "latitude": 39.9017,
+      "longitude": 116.3942,
+      "strategic_value": 15,
+      "timezone": "Asia/Harbin"
+    },
+    {
+      "name": "Manila",
+      "country": "Philippines",
+      "is_capital": true,
+      "population": 11100000,
+      "latitude": 14.6061,
+      "longitude": 120.9803,
+      "strategic_value": 15,
+      "timezone": "Asia/Manila"
+    },
+    {
+      "name": "Moscow",
+      "country": "Russia",
+      "is_capital": true,
+      "population": 10452000,
+      "latitude": 55.7541,
+      "longitude": 37.6136,
+      "strategic_value": 15
+    },
+    {
+      "name": "Istanbul",
+      "country": "Turkey",
+      "is_capital": true,
+      "population": 10061000,
+      "latitude": 41.0176,
+      "longitude": 28.9743,
+      "strategic_value": 15,
+      "timezone": "Europe/Istanbul"
+    },
+    {
+      "name": "Paris",
+      "country": "France",
+      "is_capital": true,
+      "population": 9904000,
+      "latitude": 48.8581,
+      "longitude": 2.353,
+      "strategic_value": 13,
+      "timezone": "Europe/Paris"
+    },
+    {
+      "name": "Seoul",
+      "country": "South Korea",
+      "is_capital": true,
+      "population": 9796000,
+      "latitude": 37.5683,
+      "longitude": 126.9978,
+      "strategic_value": 13,
+      "timezone": "Asia/Seoul"
+    },
+    {
+      "name": "Lagos",
+      "country": "Nigeria",
+      "is_capital": true,
+      "population": 9466000,
+      "latitude": 6.4452,
+      "longitude": 3.3896,
+      "strategic_value": 13,
+      "timezone": "Europe/Athens"
+    },
+    {
+      "name": "Jakarta",
+      "country": "Indonesia",
+      "is_capital": true,
+      "population": 9125000,
+      "latitude": -6.1725,
+      "longitude": 106.8275,
+      "strategic_value": 13,
+      "timezone": "Asia/Jakarta"
+    },
+    {
+      "name": "Chicago",
+      "country": "United States of America",
+      "is_capital": false,
+      "population": 8990000,
+      "latitude": 41.848,
+      "longitude": -87.6352,
+      "strategic_value": 3,
+      "timezone": "America/Chicago"
+    },
+    {
+      "name": "London",
+      "country": "United Kingdom",
+      "is_capital": true,
+      "population": 8567000,
+      "latitude": 51.5019,
+      "longitude": -0.1187,
+      "strategic_value": 13,
+      "timezone": "Europe/London"
+    },
+    {
+      "name": "Lima",
+      "country": "Peru",
+      "is_capital": true,
+      "population": 8012000,
+      "latitude": -12.0461,
+      "longitude": -77.052,
+      "strategic_value": 13,
+      "timezone": "America/Lima"
+    },
+    {
+      "name": "Tehran",
+      "country": "Iran",
+      "is_capital": true,
+      "population": 7873000,
+      "latitude": 35.6739,
+      "longitude": 51.4224,
+      "strategic_value": 13,
+      "timezone": "Asia/Tehran"
+    },
+    {
+      "name": "Kinshasa",
+      "country": "Congo (Kinshasa)",
+      "is_capital": true,
+      "population": 7843000,
+      "latitude": -4.3278,
+      "longitude": 15.313,
+      "strategic_value": 13,
+      "timezone": "Africa/Kinshasa"
+    },
+    {
+      "name": "Bogota",
+      "country": "Colombia",
+      "is_capital": true,
+      "population": 7772000,
+      "latitude": 4.5984,
+      "longitude": -74.0853,
+      "strategic_value": 13,
+      "timezone": "America/Bogota"
+    },
+    {
+      "name": "Hong Kong",
+      "country": "Hong Kong S.A.R.",
+      "is_capital": true,
+      "population": 7206000,
+      "latitude": 22.3069,
+      "longitude": 114.1831,
+      "strategic_value": 13,
+      "timezone": "Asia/Hong_Kong"
+    },
+    {
+      "name": "Taipei",
+      "country": "Taiwan",
+      "is_capital": true,
+      "population": 6900273,
+      "latitude": 25.0358,
+      "longitude": 121.5683,
+      "strategic_value": 13,
+      "timezone": "Asia/Taipei"
+    },
+    {
+      "name": "Bengaluru",
+      "country": "India",
+      "is_capital": true,
+      "population": 6787000,
+      "latitude": 12.9719,
+      "longitude": 77.5581,
+      "strategic_value": 13,
+      "timezone": "Asia/Kolkata"
+    },
+    {
+      "name": "Bangkok",
+      "country": "Thailand",
+      "is_capital": true,
+      "population": 6704000,
+      "latitude": 13.7519,
+      "longitude": 100.5147,
+      "strategic_value": 13,
+      "timezone": "Asia/Bangkok"
+    },
+    {
+      "name": "Santiago",
+      "country": "Chile",
+      "is_capital": true,
+      "population": 5720000,
+      "latitude": -33.4402,
+      "longitude": -70.6505,
+      "strategic_value": 13,
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "name": "Miami",
+      "country": "United States of America",
+      "is_capital": false,
+      "population": 5585000,
+      "latitude": 25.7896,
+      "longitude": -80.2261,
+      "strategic_value": 3,
+      "timezone": "America/New_York"
+    },
+    {
+      "name": "Madrid",
+      "country": "Spain",
+      "is_capital": true,
+      "population": 5567000,
+      "latitude": 40.402,
+      "longitude": -3.6853,
+      "strategic_value": 13,
+      "timezone": "Europe/Madrid"
+    },
+    {
+      "name": "Toronto",
+      "country": "Canada",
+      "is_capital": true,
+      "population": 5213000,
+      "latitude": 43.6646,
+      "longitude": -79.3895,
+      "strategic_value": 13,
+      "timezone": "America/Toronto"
+    },
+    {
+      "name": "Singapore",
+      "country": "Singapore",
+      "is_capital": true,
+      "population": 5183700,
+      "latitude": 1.295,
+      "longitude": 103.8539,
+      "strategic_value": 13,
+      "timezone": "Asia/Singapore"
+    },
+    {
+      "name": "Luanda",
+      "country": "Angola",
+      "is_capital": true,
+      "population": 5172900,
+      "latitude": -8.8363,
+      "longitude": 13.2325,
+      "strategic_value": 13,
+      "timezone": "Africa/Luanda"
+    },
+    {
+      "name": "Baghdad",
+      "country": "Iraq",
+      "is_capital": true,
+      "population": 5054000,
+      "latitude": 33.3406,
+      "longitude": 44.3919,
+      "strategic_value": 13,
+      "timezone": "Asia/Baghdad"
+    },
+    {
+      "name": "Khartoum",
+      "country": "Sudan",
+      "is_capital": true,
+      "population": 4754000,
+      "latitude": 15.59,
+      "longitude": 32.5322,
+      "strategic_value": 11,
+      "timezone": "Africa/Khartoum"
+    },
+    {
+      "name": "Sydney",
+      "country": "Australia",
+      "is_capital": true,
+      "population": 4630000,
+      "latitude": -33.8714,
+      "longitude": 151.2125,
+      "strategic_value": 11
+    },
+    {
+      "name": "Atlanta",
+      "country": "United States of America",
+      "is_capital": true,
+      "population": 4506000,
+      "latitude": 33.7395,
+      "longitude": -84.3676,
+      "strategic_value": 11,
+      "timezone": "America/New_York"
+    },
+    {
+      "name": "Riyadh",
+      "country": "Saudi Arabia",
+      "is_capital": true,
+      "population": 4465000,
+      "latitude": 24.6345,
+      "longitude": 46.7205,
+      "strategic_value": 11,
+      "timezone": "Asia/Riyadh"
+    },
+    {
+      "name": "Houston",
+      "country": "United States of America",
+      "is_capital": false,
+      "population": 4459000,
+      "latitude": 29.7413,
+      "longitude": -95.3484,
+      "strategic_value": 1
+    },
+    {
+      "name": "Hanoi",
+      "country": "Vietnam",
+      "is_capital": true,
+      "population": 4378000,
+      "latitude": 21.0353,
+      "longitude": 105.8481,
+      "strategic_value": 11,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    {
+      "name": "Washington,  D.C.",
+      "country": "United States of America",
+      "is_capital": true,
+      "population": 4338000,
+      "latitude": 38.9015,
+      "longitude": -77.0114,
+      "strategic_value": 11,
+      "timezone": "America/New_York"
+    },
+    {
+      "name": "Melbourne",
+      "country": "Australia",
+      "is_capital": true,
+      "population": 4170000,
+      "latitude": -37.8181,
+      "longitude": 144.9731,
+      "strategic_value": 11
+    },
+    {
+      "name": "Chengdu",
+      "country": "China",
+      "is_capital": true,
+      "population": 4123000,
+      "latitude": 30.6719,
+      "longitude": 104.0681,
+      "strategic_value": 11,
+      "timezone": "Asia/Chongqing"
+    },
+    {
+      "name": "Yangon",
+      "country": "Myanmar",
+      "is_capital": true,
+      "population": 4088000,
+      "latitude": 16.7853,
+      "longitude": 96.1647,
+      "strategic_value": 11,
+      "timezone": "Asia/Rangoon"
+    },
+    {
+      "name": "Abidjan",
+      "country": "Ivory Coast",
+      "is_capital": true,
+      "population": 3802000,
+      "latitude": 5.3231,
+      "longitude": -4.0202,
+      "strategic_value": 11,
+      "timezone": "Africa/Abidjan"
+    },
+    {
+      "name": "Brasília",
+      "country": "Brazil",
+      "is_capital": true,
+      "population": 3716996,
+      "latitude": -15.7814,
+      "longitude": -47.918,
+      "strategic_value": 11,
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "name": "Ankara",
+      "country": "Turkey",
+      "is_capital": true,
+      "population": 3716000,
+      "latitude": 39.9292,
+      "longitude": 32.8624,
+      "strategic_value": 11,
+      "timezone": "Europe/Istanbul"
+    },
+    {
+      "name": "Monterrey",
+      "country": "Mexico",
+      "is_capital": true,
+      "population": 3712000,
+      "latitude": 25.6719,
+      "longitude": -100.3319,
+      "strategic_value": 11,
+      "timezone": "America/Monterrey"
+    },
+    {
+      "name": "Ürümqi",
+      "country": "China",
+      "is_capital": true,
+      "population": 3575000,
+      "latitude": 43.807,
+      "longitude": 87.5731,
+      "strategic_value": 11,
+      "timezone": "Asia/Urumqi"
+    },
+    {
+      "name": "San Francisco",
+      "country": "United States of America",
+      "is_capital": false,
+      "population": 3450000,
+      "latitude": 37.7843,
+      "longitude": -122.3996,
+      "strategic_value": 1,
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "name": "Johannesburg",
+      "country": "South Africa",
+      "is_capital": true,
+      "population": 3435000,
+      "latitude": -26.1681,
+      "longitude": 28.0281,
+      "strategic_value": 11,
+      "timezone": "Africa/Johannesburg"
+    },
+    {
+      "name": "Berlin",
+      "country": "Germany",
+      "is_capital": true,
+      "population": 3406000,
+      "latitude": 52.5238,
+      "longitude": 13.3996,
+      "strategic_value": 11,
+      "timezone": "Europe/Berlin"
+    },
+    {
+      "name": "Algiers",
+      "country": "Algeria",
+      "is_capital": true,
+      "population": 3354000,
+      "latitude": 36.765,
+      "longitude": 3.0486,
+      "strategic_value": 11,
+      "timezone": "Africa/Algiers"
+    },
+    {
+      "name": "Rome",
+      "country": "Italy",
+      "is_capital": true,
+      "population": 3339000,
+      "latitude": 41.8979,
+      "longitude": 12.4813,
+      "strategic_value": 11,
+      "timezone": "Europe/Rome"
+    },
+    {
+      "name": "Pyongyang",
+      "country": "North Korea",
+      "is_capital": true,
+      "population": 3300000,
+      "latitude": 39.0214,
+      "longitude": 125.7527,
+      "strategic_value": 11,
+      "timezone": "Asia/Pyongyang"
+    },
+    {
+      "name": "Kabul",
+      "country": "Afghanistan",
+      "is_capital": true,
+      "population": 3277000,
+      "latitude": 34.5186,
+      "longitude": 69.1813,
+      "strategic_value": 11,
+      "timezone": "Asia/Kabul"
+    },
+    {
+      "name": "Athens",
+      "country": "Greece",
+      "is_capital": true,
+      "population": 3242000,
+      "latitude": 37.9853,
+      "longitude": 23.7314,
+      "strategic_value": 11,
+      "timezone": "Europe/Athens"
+    },
+    {
+      "name": "Cape Town",
+      "country": "South Africa",
+      "is_capital": true,
+      "population": 3215000,
+      "latitude": -33.9181,
+      "longitude": 18.433,
+      "strategic_value": 11,
+      "timezone": "Africa/Johannesburg"
+    },
+    {
+      "name": "Casablanca",
+      "country": "Morocco",
+      "is_capital": true,
+      "population": 3181000,
+      "latitude": 33.6019,
+      "longitude": -7.6183,
+      "strategic_value": 11,
+      "timezone": "Africa/Casablanca"
+    },
+    {
+      "name": "Tel Aviv",
+      "country": "Israel",
+      "is_capital": true,
+      "population": 3112000,
+      "latitude": 32.0819,
+      "longitude": 34.7681,
+      "strategic_value": 11,
+      "timezone": "Asia/Jerusalem"
+    },
+    {
+      "name": "Addis Ababa",
+      "country": "Ethiopia",
+      "is_capital": true,
+      "population": 3100000,
+      "latitude": 9.0353,
+      "longitude": 38.6981,
+      "strategic_value": 11,
+      "timezone": "Africa/Addis_Ababa"
+    },
+    {
+      "name": "Nairobi",
+      "country": "Kenya",
+      "is_capital": true,
+      "population": 3010000,
+      "latitude": -1.2814,
+      "longitude": 36.8147,
+      "strategic_value": 11,
+      "timezone": "Africa/Nairobi"
+    },
+    {
+      "name": "Caracas",
+      "country": "Venezuela",
+      "is_capital": true,
+      "population": 2985000,
+      "latitude": 10.5029,
+      "longitude": -66.919,
+      "strategic_value": 11,
+      "timezone": "America/Caracas"
+    },
+    {
+      "name": "Dar es Salaam",
+      "country": "Tanzania",
+      "is_capital": true,
+      "population": 2930000,
+      "latitude": -6.7981,
+      "longitude": 39.2664,
+      "strategic_value": 11,
+      "timezone": "Africa/Dar_es_Salaam"
+    },
+    {
+      "name": "Lisbon",
+      "country": "Portugal",
+      "is_capital": true,
+      "population": 2812000,
+      "latitude": 38.7247,
+      "longitude": -9.1468,
+      "strategic_value": 11,
+      "timezone": "Europe/Lisbon"
+    },
+    {
+      "name": "Kyiv",
+      "country": "Ukraine",
+      "is_capital": true,
+      "population": 2709000,
+      "latitude": 50.4353,
+      "longitude": 30.5147,
+      "strategic_value": 11,
+      "timezone": "Europe/Kiev"
+    },
+    {
+      "name": "Dakar",
+      "country": "Senegal",
+      "is_capital": true,
+      "population": 2604000,
+      "latitude": 14.7178,
+      "longitude": -17.4751,
+      "strategic_value": 11,
+      "timezone": "Africa/Dakar"
+    },
+    {
+      "name": "Damascus",
+      "country": "Syria",
+      "is_capital": true,
+      "population": 2466000,
+      "latitude": 33.502,
+      "longitude": 36.2981,
+      "strategic_value": 11
+    },
+    {
+      "name": "Tunis",
+      "country": "Tunisia",
+      "is_capital": true,
+      "population": 2412500,
+      "latitude": 36.8028,
+      "longitude": 10.1797,
+      "strategic_value": 11,
+      "timezone": "Africa/Tunis"
+    },
+    {
+      "name": "Vienna",
+      "country": "Austria",
+      "is_capital": true,
+      "population": 2400000,
+      "latitude": 48.202,
+      "longitude": 16.3647,
+      "strategic_value": 11,
+      "timezone": "Europe/Vienna"
+    },
+    {
+      "name": "Vancouver",
+      "country": "Canada",
+      "is_capital": false,
+      "population": 2313328,
+      "latitude": 49.2754,
+      "longitude": -123.1236,
+      "strategic_value": 1,
+      "timezone": "America/Vancouver"
+    },
+    {
+      "name": "Denver",
+      "country": "United States of America",
+      "is_capital": true,
+      "population": 2313000,
+      "latitude": 39.7411,
+      "longitude": -104.986,
+      "strategic_value": 11
+    },
+    {
+      "name": "Tripoli",
+      "country": "Libya",
+      "is_capital": true,
+      "population": 2189000,
+      "latitude": 32.8925,
+      "longitude": 13.18,
+      "strategic_value": 11
+    },
+    {
+      "name": "Tashkent",
+      "country": "Uzbekistan",
+      "is_capital": true,
+      "population": 2184000,
+      "latitude": 41.3038,
+      "longitude": 69.2688,
+      "strategic_value": 11,
+      "timezone": "Asia/Tashkent"
+    },
+    {
+      "name": "Havana",
+      "country": "Cuba",
+      "is_capital": true,
+      "population": 2174000,
+      "latitude": 23.1339,
+      "longitude": -82.3661,
+      "strategic_value": 11,
+      "timezone": "America/Havana"
+    },
+    {
+      "name": "Santo Domingo",
+      "country": "Dominican Republic",
+      "is_capital": true,
+      "population": 2154000,
+      "latitude": 18.4707,
+      "longitude": -69.9297,
+      "strategic_value": 11,
+      "timezone": "America/Bogota"
+    },
+    {
+      "name": "Baku",
+      "country": "Azerbaijan",
+      "is_capital": true,
+      "population": 2122300,
+      "latitude": 40.3972,
+      "longitude": 49.8603,
+      "strategic_value": 11,
+      "timezone": "Asia/Baku"
+    },
+    {
+      "name": "Accra",
+      "country": "Ghana",
+      "is_capital": true,
+      "population": 2121000,
+      "latitude": 5.552,
+      "longitude": -0.2187,
+      "strategic_value": 11,
+      "timezone": "Africa/Accra"
+    },
+    {
+      "name": "Kuwait City",
+      "country": "Kuwait",
+      "is_capital": true,
+      "population": 2063000,
+      "latitude": 29.3717,
+      "longitude": 47.9764,
+      "strategic_value": 11,
+      "timezone": "Asia/Kuwait"
+    },
+    {
+      "name": "Sanaa",
+      "country": "Yemen",
+      "is_capital": true,
+      "population": 2008000,
+      "latitude": 15.3567,
+      "longitude": 44.2046,
+      "strategic_value": 11
+    },
+    {
+      "name": "Port-au-Prince",
+      "country": "Haiti",
+      "is_capital": true,
+      "population": 1998000,
+      "latitude": 18.543,
+      "longitude": -72.338,
+      "strategic_value": 11,
+      "timezone": "America/Port-au-Prince"
+    },
+    {
+      "name": "Bucharest",
+      "country": "Romania",
+      "is_capital": true,
+      "population": 1942000,
+      "latitude": 44.4353,
+      "longitude": 26.098,
+      "strategic_value": 11,
+      "timezone": "Europe/Bucharest"
+    },
+    {
+      "name": "Asunción",
+      "country": "Paraguay",
+      "is_capital": true,
+      "population": 1870000,
+      "latitude": -25.2907,
+      "longitude": -57.6258,
+      "strategic_value": 11,
+      "timezone": "Asia/Manila"
+    },
+    {
+      "name": "Beirut",
+      "country": "Lebanon",
+      "is_capital": true,
+      "population": 1846000,
+      "latitude": 33.8739,
+      "longitude": 35.5078,
+      "strategic_value": 11,
+      "timezone": "Asia/Beirut"
+    },
+    {
+      "name": "Kyoto",
+      "country": "Japan",
+      "is_capital": true,
+      "population": 1805000,
+      "latitude": 35.0319,
+      "longitude": 135.7481,
+      "strategic_value": 11,
+      "timezone": "Asia/Tokyo"
+    },
+    {
+      "name": "Minsk",
+      "country": "Belarus",
+      "is_capital": true,
+      "population": 1805000,
+      "latitude": 53.9019,
+      "longitude": 27.5647,
+      "strategic_value": 11,
+      "timezone": "Europe/Minsk"
+    },
+    {
+      "name": "Brussels",
+      "country": "Belgium",
+      "is_capital": true,
+      "population": 1743000,
+      "latitude": 50.8353,
+      "longitude": 4.3314,
+      "strategic_value": 11,
+      "timezone": "Europe/Brussels"
+    },
+    {
+      "name": "Warsaw",
+      "country": "Poland",
+      "is_capital": true,
+      "population": 1707000,
+      "latitude": 52.2309,
+      "longitude": 21.0053,
+      "strategic_value": 11,
+      "timezone": "Europe/Warsaw"
+    },
+    {
+      "name": "Rabat",
+      "country": "Morocco",
+      "is_capital": true,
+      "population": 1705000,
+      "latitude": 34.0253,
+      "longitude": -6.8364,
+      "strategic_value": 11,
+      "timezone": "Africa/Casablanca"
+    },
+    {
+      "name": "Quito",
+      "country": "Ecuador",
+      "is_capital": true,
+      "population": 1701000,
+      "latitude": -0.213,
+      "longitude": -78.502,
+      "strategic_value": 11,
+      "timezone": "America/Guayaquil"
+    },
+    {
+      "name": "Antananarivo",
+      "country": "Madagascar",
+      "is_capital": true,
+      "population": 1697000,
+      "latitude": -18.9147,
+      "longitude": 47.5147,
+      "strategic_value": 11,
+      "timezone": "Indian/Antananarivo"
+    },
+    {
+      "name": "Budapest",
+      "country": "Hungary",
+      "is_capital": true,
+      "population": 1679000,
+      "latitude": 47.502,
+      "longitude": 19.0814,
+      "strategic_value": 11,
+      "timezone": "Europe/Budapest"
+    },
+    {
+      "name": "Yaoundé",
+      "country": "Cameroon",
+      "is_capital": true,
+      "population": 1611000,
+      "latitude": 3.8686,
+      "longitude": 11.5147,
+      "strategic_value": 11,
+      "timezone": "Africa/Douala"
+    },
+    {
+      "name": "La Paz",
+      "country": "Bolivia",
+      "is_capital": true,
+      "population": 1590000,
+      "latitude": -16.496,
+      "longitude": -68.1519,
+      "strategic_value": 11,
+      "timezone": "America/La_Paz"
+    },
+    {
+      "name": "Abuja",
+      "country": "Nigeria",
+      "is_capital": true,
+      "population": 1576000,
+      "latitude": 9.0546,
+      "longitude": 7.4895,
+      "strategic_value": 11,
+      "timezone": "Africa/Lagos"
+    },
+    {
+      "name": "Harare",
+      "country": "Zimbabwe",
+      "is_capital": true,
+      "population": 1572000,
+      "latitude": -17.8158,
+      "longitude": 31.0428,
+      "strategic_value": 11,
+      "timezone": "Africa/Harare"
+    },
+    {
+      "name": "Montevideo",
+      "country": "Uruguay",
+      "is_capital": true,
+      "population": 1513000,
+      "latitude": -34.9054,
+      "longitude": -56.1868,
+      "strategic_value": 11,
+      "timezone": "America/Chicago"
+    },
+    {
+      "name": "Bamako",
+      "country": "Mali",
+      "is_capital": true,
+      "population": 1494000,
+      "latitude": 12.652,
+      "longitude": -8.002,
+      "strategic_value": 11,
+      "timezone": "Africa/Bamako"
+    },
+    {
+      "name": "Conakry",
+      "country": "Guinea",
+      "is_capital": true,
+      "population": 1494000,
+      "latitude": 9.5335,
+      "longitude": -13.6822,
+      "strategic_value": 11,
+      "timezone": "Africa/Conakry"
+    },
+    {
+      "name": "Phnom Penh",
+      "country": "Cambodia",
+      "is_capital": true,
+      "population": 1466000,
+      "latitude": 11.552,
+      "longitude": 104.9147,
+      "strategic_value": 11,
+      "timezone": "Asia/Phnom_Penh"
+    },
+    {
+      "name": "Lomé",
+      "country": "Togo",
+      "is_capital": true,
+      "population": 1452000,
+      "latitude": 6.1339,
+      "longitude": 1.2208,
+      "strategic_value": 11,
+      "timezone": "Africa/Lome"
+    },
+    {
+      "name": "Doha",
+      "country": "Qatar",
+      "is_capital": true,
+      "population": 1450000,
+      "latitude": 25.2866,
+      "longitude": 51.533,
+      "strategic_value": 11,
+      "timezone": "Asia/Qatar"
+    },
+    {
+      "name": "Kuala Lumpur",
+      "country": "Malaysia",
+      "is_capital": true,
+      "population": 1448000,
+      "latitude": 3.1398,
+      "longitude": 101.6887,
+      "strategic_value": 11,
+      "timezone": "Asia/Kuala_Lumpur"
+    },
+    {
+      "name": "Maputo",
+      "country": "Mozambique",
+      "is_capital": true,
+      "population": 1446000,
+      "latitude": -25.9533,
+      "longitude": 32.5872,
+      "strategic_value": 11,
+      "timezone": "Africa/Maputo"
+    },
+    {
+      "name": "San Salvador",
+      "country": "El Salvador",
+      "is_capital": true,
+      "population": 1433000,
+      "latitude": 13.7033,
+      "longitude": -89.2156,
+      "strategic_value": 11,
+      "timezone": "Asia/Manila"
+    },
+    {
+      "name": "Kampala",
+      "country": "Uganda",
+      "is_capital": true,
+      "population": 1420000,
+      "latitude": 0.3186,
+      "longitude": 32.5814,
+      "strategic_value": 11,
+      "timezone": "Africa/Kampala"
+    },
+    {
+      "name": "The Hague",
+      "country": "Netherlands",
+      "is_capital": true,
+      "population": 1406000,
+      "latitude": 52.08,
+      "longitude": 4.27,
+      "strategic_value": 11,
+      "timezone": "Europe/Amsterdam"
+    },
+    {
+      "name": "Dubai",
+      "country": "United Arab Emirates",
+      "is_capital": true,
+      "population": 1379000,
+      "latitude": 25.2149,
+      "longitude": 55.2869,
+      "strategic_value": 11,
+      "timezone": "Asia/Dubai"
+    },
+    {
+      "name": "Auckland",
+      "country": "New Zealand",
+      "is_capital": true,
+      "population": 1377200,
+      "latitude": -36.8481,
+      "longitude": 174.763,
+      "strategic_value": 11,
+      "timezone": "Pacific/Auckland"
+    },
+    {
+      "name": "Brazzaville",
+      "country": "Congo (Brazzaville)",
+      "is_capital": true,
+      "population": 1355000,
+      "latitude": -4.2572,
+      "longitude": 15.2827,
+      "strategic_value": 11,
+      "timezone": "Africa/Brazzaville"
+    },
+    {
+      "name": "Pretoria",
+      "country": "South Africa",
+      "is_capital": true,
+      "population": 1338000,
+      "latitude": -25.705,
+      "longitude": 28.2275,
+      "strategic_value": 11,
+      "timezone": "Africa/Johannesburg"
+    },
+    {
+      "name": "Lusaka",
+      "country": "Zambia",
+      "is_capital": true,
+      "population": 1328000,
+      "latitude": -15.4147,
+      "longitude": 28.2814,
+      "strategic_value": 11,
+      "timezone": "Africa/Lusaka"
+    },
+    {
+      "name": "San José",
+      "country": "Costa Rica",
+      "is_capital": true,
+      "population": 1284000,
+      "latitude": 9.9304,
+      "longitude": -84.0788,
+      "strategic_value": 11,
+      "timezone": "America/Bogota"
+    },
+    {
+      "name": "Panama City",
+      "country": "Panama",
+      "is_capital": true,
+      "population": 1281000,
+      "latitude": 8.97,
+      "longitude": -79.535,
+      "strategic_value": 11,
+      "timezone": "America/Panama"
+    },
+    {
+      "name": "Stockholm",
+      "country": "Sweden",
+      "is_capital": true,
+      "population": 1264000,
+      "latitude": 59.3241,
+      "longitude": 18.0663,
+      "strategic_value": 11,
+      "timezone": "Europe/Stockholm"
+    },
+    {
+      "name": "Geneva",
+      "country": "Switzerland",
+      "is_capital": true,
+      "population": 1240000,
+      "latitude": 46.21,
+      "longitude": 6.14,
+      "strategic_value": 11,
+      "timezone": "Europe/Zurich"
+    },
+    {
+      "name": "Sofia",
+      "country": "Bulgaria",
+      "is_capital": true,
+      "population": 1185000,
+      "latitude": 42.6853,
+      "longitude": 23.3147,
+      "strategic_value": 11,
+      "timezone": "Europe/Sofia"
+    },
+    {
+      "name": "Prague",
+      "country": "Czechia",
+      "is_capital": true,
+      "population": 1162000,
+      "latitude": 50.087,
+      "longitude": 14.4229,
+      "strategic_value": 11,
+      "timezone": "America/Chicago"
+    },
+    {
+      "name": "Ouagadougou",
+      "country": "Burkina Faso",
+      "is_capital": true,
+      "population": 1149000,
+      "latitude": 12.3723,
+      "longitude": -1.5267,
+      "strategic_value": 11,
+      "timezone": "Africa/Ouagadougou"
+    },
+    {
+      "name": "Ottawa",
+      "country": "Canada",
+      "is_capital": true,
+      "population": 1145000,
+      "latitude": 45.4186,
+      "longitude": -75.702,
+      "strategic_value": 11,
+      "timezone": "America/Montreal"
+    },
+    {
+      "name": "Helsinki",
+      "country": "Finland",
+      "is_capital": true,
+      "population": 1115000,
+      "latitude": 60.1638,
+      "longitude": 24.9325,
+      "strategic_value": 11,
+      "timezone": "Europe/Helsinki"
+    },
+    {
+      "name": "Yerevan",
+      "country": "Armenia",
+      "is_capital": true,
+      "population": 1102000,
+      "latitude": 40.1831,
+      "longitude": 44.5116,
+      "strategic_value": 11,
+      "timezone": "Asia/Yerevan"
+    },
+    {
+      "name": "Mogadishu",
+      "country": "Somalia",
+      "is_capital": true,
+      "population": 1100000,
+      "latitude": 2.0686,
+      "longitude": 45.3647,
+      "strategic_value": 11,
+      "timezone": "Africa/Mogadishu"
+    },
+    {
+      "name": "Tbilisi",
+      "country": "Georgia",
+      "is_capital": true,
+      "population": 1100000,
+      "latitude": 41.727,
+      "longitude": 44.7888,
+      "strategic_value": 11,
+      "timezone": "Asia/Tbilisi"
+    },
+    {
+      "name": "Belgrade",
+      "country": "Serbia",
+      "is_capital": true,
+      "population": 1099000,
+      "latitude": 44.8206,
+      "longitude": 20.466,
+      "strategic_value": 11,
+      "timezone": "Europe/Belgrade"
+    },
+    {
+      "name": "Dushanbe",
+      "country": "Tajikistan",
+      "is_capital": true,
+      "population": 1086244,
+      "latitude": 38.56,
+      "longitude": 68.7739,
+      "strategic_value": 11,
+      "timezone": "Asia/Dushanbe"
+    },
+    {
+      "name": "København",
+      "country": "Denmark",
+      "is_capital": true,
+      "population": 1085000,
+      "latitude": 55.6805,
+      "longitude": 12.5615,
+      "strategic_value": 11,
+      "timezone": "Europe/Copenhagen"
+    },
+    {
+      "name": "Amman",
+      "country": "Jordan",
+      "is_capital": true,
+      "population": 1060000,
+      "latitude": 31.952,
+      "longitude": 35.9314,
+      "strategic_value": 11,
+      "timezone": "Asia/Amman"
+    },
+    {
+      "name": "Dublin",
+      "country": "Ireland",
+      "is_capital": true,
+      "population": 1059000,
+      "latitude": 53.3467,
+      "longitude": -6.257,
+      "strategic_value": 11,
+      "timezone": "Europe/Dublin"
+    },
+    {
+      "name": "Monrovia",
+      "country": "Liberia",
+      "is_capital": true,
+      "population": 1041000,
+      "latitude": 6.3146,
+      "longitude": -10.7997,
+      "strategic_value": 11,
+      "timezone": "Africa/Monrovia"
+    },
+    {
+      "name": "Amsterdam",
+      "country": "Netherlands",
+      "is_capital": true,
+      "population": 1031000,
+      "latitude": 52.3519,
+      "longitude": 4.9147,
+      "strategic_value": 11,
+      "timezone": "Europe/Amsterdam"
+    },
+    {
+      "name": "Jerusalem",
+      "country": "Israel",
+      "is_capital": true,
+      "population": 1029300,
+      "latitude": 31.7784,
+      "longitude": 35.2066,
+      "strategic_value": 11,
+      "timezone": "Asia/Jerusalem"
+    },
+    {
+      "name": "Guatemala City",
+      "country": "Guatemala",
+      "is_capital": true,
+      "population": 1024000,
+      "latitude": 14.6231,
+      "longitude": -90.5289,
+      "strategic_value": 11,
+      "timezone": "America/Guatemala"
+    },
+    {
+      "name": "N'Djamena",
+      "country": "Chad",
+      "is_capital": true,
+      "population": 989000,
+      "latitude": 12.115,
+      "longitude": 15.0472,
+      "strategic_value": 10,
+      "timezone": "Africa/Ndjamena"
+    },
+    {
+      "name": "Tegucigalpa",
+      "country": "Honduras",
+      "is_capital": true,
+      "population": 946000,
+      "latitude": 14.104,
+      "longitude": -87.2195,
+      "strategic_value": 10,
+      "timezone": "America/Tegucigalpa"
+    },
+    {
+      "name": "Kingston",
+      "country": "Jamaica",
+      "is_capital": true,
+      "population": 937700,
+      "latitude": 17.9771,
+      "longitude": -76.7674,
+      "strategic_value": 10,
+      "timezone": "America/Jamaica"
+    },
+    {
+      "name": "Naypyidaw",
+      "country": "Myanmar",
+      "is_capital": true,
+      "population": 930000,
+      "latitude": 19.7685,
+      "longitude": 96.1167,
+      "strategic_value": 10,
+      "timezone": "Asia/Rangoon"
+    },
+    {
+      "name": "Djibouti",
+      "country": "Djibouti",
+      "is_capital": true,
+      "population": 923000,
+      "latitude": 11.595,
+      "longitude": 43.148,
+      "strategic_value": 10,
+      "timezone": "Africa/Djibouti"
+    },
+    {
+      "name": "Managua",
+      "country": "Nicaragua",
+      "is_capital": true,
+      "population": 920000,
+      "latitude": 12.155,
+      "longitude": -86.2704,
+      "strategic_value": 10,
+      "timezone": "America/Managua"
+    },
+    {
+      "name": "Niamey",
+      "country": "Niger",
+      "is_capital": true,
+      "population": 915000,
+      "latitude": 13.5187,
+      "longitude": 2.1147,
+      "strategic_value": 10,
+      "timezone": "Africa/Niamey"
+    },
+    {
+      "name": "Tirana",
+      "country": "Albania",
+      "is_capital": true,
+      "population": 895350,
+      "latitude": 41.3275,
+      "longitude": 19.8189,
+      "strategic_value": 10,
+      "timezone": "Europe/Tirane"
+    },
+    {
+      "name": "Kathmandu",
+      "country": "Nepal",
+      "is_capital": true,
+      "population": 895000,
+      "latitude": 27.7186,
+      "longitude": 85.3147,
+      "strategic_value": 10,
+      "timezone": "Asia/Kathmandu"
+    },
+    {
+      "name": "Ulaanbaatar",
+      "country": "Mongolia",
+      "is_capital": true,
+      "population": 885000,
+      "latitude": 47.9186,
+      "longitude": 106.9147,
+      "strategic_value": 10,
+      "timezone": "Asia/Ulaanbaatar"
+    },
+    {
+      "name": "Kigali",
+      "country": "Rwanda",
+      "is_capital": true,
+      "population": 860000,
+      "latitude": -1.9516,
+      "longitude": 30.0586,
+      "strategic_value": 10,
+      "timezone": "Africa/Kigali"
+    },
+    {
+      "name": "Valparaíso",
+      "country": "Chile",
+      "is_capital": true,
+      "population": 854000,
+      "latitude": -33.0477,
+      "longitude": -71.617,
+      "strategic_value": 10,
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "name": "Bishkek",
+      "country": "Kyrgyzstan",
+      "is_capital": true,
+      "population": 837000,
+      "latitude": 42.875,
+      "longitude": 74.5833,
+      "strategic_value": 10,
+      "timezone": "Asia/Bishkek"
+    },
+    {
+      "name": "Oslo",
+      "country": "Norway",
+      "is_capital": true,
+      "population": 835000,
+      "latitude": 59.9186,
+      "longitude": 10.748,
+      "strategic_value": 10,
+      "timezone": "Europe/Oslo"
+    },
+    {
+      "name": "Bangui",
+      "country": "Central African Republic",
+      "is_capital": true,
+      "population": 831925,
+      "latitude": 4.3666,
+      "longitude": 18.5583,
+      "strategic_value": 10,
+      "timezone": "Africa/Bangui"
+    },
+    {
+      "name": "Freetown",
+      "country": "Sierra Leone",
+      "is_capital": true,
+      "population": 827000,
+      "latitude": 8.472,
+      "longitude": -13.2362,
+      "strategic_value": 10,
+      "timezone": "Africa/Freetown"
+    },
+    {
+      "name": "Islamabad",
+      "country": "Pakistan",
+      "is_capital": true,
+      "population": 780000,
+      "latitude": 33.6894,
+      "longitude": 73.0806,
+      "strategic_value": 10,
+      "timezone": "Asia/Karachi"
+    },
+    {
+      "name": "Cotonou",
+      "country": "Benin",
+      "is_capital": true,
+      "population": 762000,
+      "latitude": 6.363,
+      "longitude": 2.4044,
+      "strategic_value": 10,
+      "timezone": "Africa/Porto-Novo"
+    },
+    {
+      "name": "Vientiane",
+      "country": "Laos",
+      "is_capital": true,
+      "population": 754000,
+      "latitude": 17.9667,
+      "longitude": 102.6,
+      "strategic_value": 10,
+      "timezone": "Asia/Vientiane"
+    },
+    {
+      "name": "Riga",
+      "country": "Latvia",
+      "is_capital": true,
+      "population": 742572,
+      "latitude": 56.95,
+      "longitude": 24.1,
+      "strategic_value": 10,
+      "timezone": "Europe/Riga"
+    },
+    {
+      "name": "Nouakchott",
+      "country": "Mauritania",
+      "is_capital": true,
+      "population": 742144,
+      "latitude": 18.0864,
+      "longitude": -15.9753,
+      "strategic_value": 10,
+      "timezone": "Africa/Nouakchott"
+    },
+    {
+      "name": "Muscat",
+      "country": "Oman",
+      "is_capital": true,
+      "population": 734697,
+      "latitude": 23.5852,
+      "longitude": 58.3783,
+      "strategic_value": 10,
+      "timezone": "Asia/Muscat"
+    },
+    {
+      "name": "Ashgabat",
+      "country": "Turkmenistan",
+      "is_capital": true,
+      "population": 727700,
+      "latitude": 37.95,
+      "longitude": 58.3833,
+      "strategic_value": 10,
+      "timezone": "Asia/Ashgabat"
+    },
+    {
+      "name": "Zagreb",
+      "country": "Croatia",
+      "is_capital": true,
+      "population": 722526,
+      "latitude": 45.8,
+      "longitude": 16.0,
+      "strategic_value": 10,
+      "timezone": "Europe/Zagreb"
+    },
+    {
+      "name": "Sarajevo",
+      "country": "Bosnia and Herzegovina",
+      "is_capital": true,
+      "population": 696731,
+      "latitude": 43.85,
+      "longitude": 18.383,
+      "strategic_value": 10,
+      "timezone": "Europe/Sarajevo"
+    },
+    {
+      "name": "Chișinău",
+      "country": "Moldova",
+      "is_capital": true,
+      "population": 688134,
+      "latitude": 47.005,
+      "longitude": 28.8577,
+      "strategic_value": 10,
+      "timezone": "Europe/Chisinau"
+    },
+    {
+      "name": "Lilongwe",
+      "country": "Malawi",
+      "is_capital": true,
+      "population": 646750,
+      "latitude": -13.9833,
+      "longitude": 33.7833,
+      "strategic_value": 10,
+      "timezone": "Africa/Blantyre"
+    },
+    {
+      "name": "Asmara",
+      "country": "Eritrea",
+      "is_capital": true,
+      "population": 620802,
+      "latitude": 15.3333,
+      "longitude": 38.9333,
+      "strategic_value": 10,
+      "timezone": "Africa/Asmara"
+    },
+    {
+      "name": "Abu Dhabi",
+      "country": "United Arab Emirates",
+      "is_capital": true,
+      "population": 603492,
+      "latitude": 24.4667,
+      "longitude": 54.3666,
+      "strategic_value": 10,
+      "timezone": "Asia/Dubai"
+    },
+    {
+      "name": "Port Louis",
+      "country": "Mauritius",
+      "is_capital": true,
+      "population": 595491,
+      "latitude": -20.1666,
+      "longitude": 57.5,
+      "strategic_value": 10,
+      "timezone": "Indian/Mauritius"
+    },
+    {
+      "name": "Libreville",
+      "country": "Gabon",
+      "is_capital": true,
+      "population": 578156,
+      "latitude": 0.3854,
+      "longitude": 9.458,
+      "strategic_value": 10,
+      "timezone": "Africa/Libreville"
+    },
+    {
+      "name": "Manama",
+      "country": "Bahrain",
+      "is_capital": true,
+      "population": 563920,
+      "latitude": 26.2361,
+      "longitude": 50.5831,
+      "strategic_value": 10,
+      "timezone": "Asia/Bahrain"
+    },
+    {
+      "name": "Vilnius",
+      "country": "Lithuania",
+      "is_capital": true,
+      "population": 542366,
+      "latitude": 54.6834,
+      "longitude": 25.3166,
+      "strategic_value": 10,
+      "timezone": "Europe/Vilnius"
+    },
+    {
+      "name": "Skopje",
+      "country": "North Macedonia",
+      "is_capital": true,
+      "population": 494087,
+      "latitude": 42.0,
+      "longitude": 21.4335,
+      "strategic_value": 10,
+      "timezone": "Europe/Skopje"
+    },
+    {
+      "name": "Hargeisa",
+      "country": "Somaliland",
+      "is_capital": true,
+      "population": 477876,
+      "latitude": 9.56,
+      "longitude": 44.0653,
+      "strategic_value": 10,
+      "timezone": "Africa/Mogadishu"
+    },
+    {
+      "name": "Pristina",
+      "country": "Kosovo",
+      "is_capital": true,
+      "population": 465186,
+      "latitude": 42.6667,
+      "longitude": 21.166,
+      "strategic_value": 10,
+      "timezone": "Europe/Belgrade"
+    },
+    {
+      "name": "Bloemfontein",
+      "country": "South Africa",
+      "is_capital": true,
+      "population": 463064,
+      "latitude": -29.12,
+      "longitude": 26.2299,
+      "strategic_value": 10,
+      "timezone": "Africa/Johannesburg"
+    },
+    {
+      "name": "Baguio",
+      "country": "Philippines",
+      "is_capital": true,
+      "population": 447824,
+      "latitude": 16.43,
+      "longitude": 120.5699,
+      "strategic_value": 10,
+      "timezone": "Asia/Manila"
+    },
+    {
+      "name": "Bratislava",
+      "country": "Slovakia",
+      "is_capital": true,
+      "population": 423737,
+      "latitude": 48.15,
+      "longitude": 17.117,
+      "strategic_value": 10,
+      "timezone": "Europe/Bratislava"
+    },
+    {
+      "name": "Bissau",
+      "country": "Guinea Bissau",
+      "is_capital": true,
+      "population": 403339,
+      "latitude": 11.865,
+      "longitude": -15.5984,
+      "strategic_value": 10,
+      "timezone": "Africa/Bissau"
+    },
+    {
+      "name": "Tallinn",
+      "country": "Estonia",
+      "is_capital": true,
+      "population": 394024,
+      "latitude": 59.4339,
+      "longitude": 24.728,
+      "strategic_value": 10,
+      "timezone": "Europe/Tallinn"
+    },
+    {
+      "name": "Wellington",
+      "country": "New Zealand",
+      "is_capital": true,
+      "population": 393400,
+      "latitude": -41.2921,
+      "longitude": 174.7772,
+      "strategic_value": 10,
+      "timezone": "Pacific/Auckland"
+    },
+    {
+      "name": "Valletta",
+      "country": "Malta",
+      "is_capital": true,
+      "population": 368250,
+      "latitude": 35.8997,
+      "longitude": 14.5147,
+      "strategic_value": 10,
+      "timezone": "Europe/Malta"
+    },
+    {
+      "name": "Maseru",
+      "country": "Lesotho",
+      "is_capital": true,
+      "population": 361324,
+      "latitude": -29.3167,
+      "longitude": 27.4833,
+      "strategic_value": 10,
+      "timezone": "Africa/Maseru"
+    },
+    {
+      "name": "Nur-Sultan",
+      "country": "Kazakhstan",
+      "is_capital": true,
+      "population": 345604,
+      "latitude": 51.1811,
+      "longitude": 71.4278,
+      "strategic_value": 10,
+      "timezone": "Asia/Qyzylorda"
+    },
+    {
+      "name": "Bujumbura",
+      "country": "Burundi",
+      "is_capital": true,
+      "population": 331700,
+      "latitude": -3.3761,
+      "longitude": 29.36,
+      "strategic_value": 10,
+      "timezone": "Africa/Bujumbura"
+    },
+    {
+      "name": "Canberra",
+      "country": "Australia",
+      "is_capital": true,
+      "population": 327700,
+      "latitude": -35.283,
+      "longitude": 149.129,
+      "strategic_value": 10,
+      "timezone": "Australia/Sydney"
+    },
+    {
+      "name": "New Delhi",
+      "country": "India",
+      "is_capital": true,
+      "population": 317797,
+      "latitude": 28.6,
+      "longitude": 77.2,
+      "strategic_value": 10,
+      "timezone": "Asia/Kolkata"
+    },
+    {
+      "name": "Ljubljana",
+      "country": "Slovenia",
+      "is_capital": true,
+      "population": 314807,
+      "latitude": 46.0553,
+      "longitude": 14.515,
+      "strategic_value": 10,
+      "timezone": "Europe/Ljubljana"
+    },
+    {
+      "name": "Porto-Novo",
+      "country": "Benin",
+      "is_capital": true,
+      "population": 300000,
+      "latitude": 6.4833,
+      "longitude": 2.6166,
+      "strategic_value": 10,
+      "timezone": "Africa/Porto-Novo"
+    },
+    {
+      "name": "Bandar Seri Begawan",
+      "country": "Brunei",
+      "is_capital": true,
+      "population": 296500,
+      "latitude": 4.8833,
+      "longitude": 114.9333,
+      "strategic_value": 10,
+      "timezone": "Asia/Brunei"
+    },
+    {
+      "name": "Port-of-Spain",
+      "country": "Trinidad and Tobago",
+      "is_capital": true,
+      "population": 294934,
+      "latitude": 10.652,
+      "longitude": -61.517,
+      "strategic_value": 10,
+      "timezone": "America/Port_of_Spain"
+    },
+    {
+      "name": "Port Moresby",
+      "country": "Papua New Guinea",
+      "is_capital": true,
+      "population": 283733,
+      "latitude": -9.4647,
+      "longitude": 147.1925,
+      "strategic_value": 10,
+      "timezone": "Pacific/Port_Moresby"
+    },
+    {
+      "name": "Bern",
+      "country": "Switzerland",
+      "is_capital": true,
+      "population": 275329,
+      "latitude": 46.9167,
+      "longitude": 7.467,
+      "strategic_value": 10,
+      "timezone": "Europe/Zurich"
+    },
+    {
+      "name": "Windhoek",
+      "country": "Namibia",
+      "is_capital": true,
+      "population": 268132,
+      "latitude": -22.57,
+      "longitude": 17.0835,
+      "strategic_value": 10,
+      "timezone": "Africa/Windhoek"
+    },
+    {
+      "name": "Georgetown",
+      "country": "Guyana",
+      "is_capital": true,
+      "population": 264350,
+      "latitude": 6.802,
+      "longitude": -58.167,
+      "strategic_value": 10,
+      "timezone": "America/Guyana"
+    },
+    {
+      "name": "Paramaribo",
+      "country": "Suriname",
+      "is_capital": true,
+      "population": 254169,
+      "latitude": 5.835,
+      "longitude": -55.167,
+      "strategic_value": 10,
+      "timezone": "America/Paramaribo"
+    },
+    {
+      "name": "Dili",
+      "country": "East Timor",
+      "is_capital": true,
+      "population": 234331,
+      "latitude": -8.5594,
+      "longitude": 125.5795,
+      "strategic_value": 10,
+      "timezone": "Asia/Dili"
+    },
+    {
+      "name": "Nassau",
+      "country": "The Bahamas",
+      "is_capital": true,
+      "population": 227940,
+      "latitude": 25.0834,
+      "longitude": -77.35,
+      "strategic_value": 10,
+      "timezone": "America/Nassau"
+    },
+    {
+      "name": "Sucre",
+      "country": "Bolivia",
+      "is_capital": true,
+      "population": 224838,
+      "latitude": -19.041,
+      "longitude": -65.2595,
+      "strategic_value": 10,
+      "timezone": "America/La_Paz"
+    },
+    {
+      "name": "Nicosia",
+      "country": "Cyprus",
+      "is_capital": true,
+      "population": 224300,
+      "latitude": 35.1667,
+      "longitude": 33.3666,
+      "strategic_value": 10,
+      "timezone": "Asia/Nicosia"
+    },
+    {
+      "name": "Dodoma",
+      "country": "Tanzania",
+      "is_capital": true,
+      "population": 218269,
+      "latitude": -6.1833,
+      "longitude": 35.75,
+      "strategic_value": 10,
+      "timezone": "Africa/Dar_es_Salaam"
+    },
+    {
+      "name": "Colombo",
+      "country": "Sri Lanka",
+      "is_capital": true,
+      "population": 217000,
+      "latitude": 6.932,
+      "longitude": 79.8578,
+      "strategic_value": 10,
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "name": "Gaborone",
+      "country": "Botswana",
+      "is_capital": true,
+      "population": 208411,
+      "latitude": -24.6463,
+      "longitude": 25.9119,
+      "strategic_value": 10,
+      "timezone": "Africa/Gaborone"
+    },
+    {
+      "name": "Yamoussoukro",
+      "country": "Ivory Coast",
+      "is_capital": true,
+      "population": 206499,
+      "latitude": 6.8184,
+      "longitude": -5.2755,
+      "strategic_value": 10,
+      "timezone": "Africa/Abidjan"
+    },
+    {
+      "name": "Bridgetown",
+      "country": "Barbados",
+      "is_capital": true,
+      "population": 191152,
+      "latitude": 13.102,
+      "longitude": -59.6165,
+      "strategic_value": 10,
+      "timezone": "Australia/Perth"
+    },
+    {
+      "name": "Laayoune",
+      "country": "Morocco",
+      "is_capital": true,
+      "population": 188084,
+      "latitude": 27.15,
+      "longitude": -13.2,
+      "strategic_value": 10,
+      "timezone": "Africa/El_Aaiun"
+    },
+    {
+      "name": "Suva",
+      "country": "Fiji",
+      "is_capital": true,
+      "population": 175399,
+      "latitude": -18.133,
+      "longitude": 178.4417,
+      "strategic_value": 10,
+      "timezone": "Pacific/Fiji"
+    },
+    {
+      "name": "Reykjavík",
+      "country": "Iceland",
+      "is_capital": true,
+      "population": 166212,
+      "latitude": 64.1435,
+      "longitude": -21.9365,
+      "strategic_value": 10,
+      "timezone": "Atlantic/Reykjavik"
+    },
+    {
+      "name": "Malabo",
+      "country": "Equatorial Guinea",
+      "is_capital": true,
+      "population": 155963,
+      "latitude": 3.75,
+      "longitude": 8.7833,
+      "strategic_value": 10,
+      "timezone": "Africa/Malabo"
+    },
+    {
+      "name": "Podgorica",
+      "country": "Montenegro",
+      "is_capital": true,
+      "population": 145850,
+      "latitude": 42.466,
+      "longitude": 19.2663,
+      "strategic_value": 10,
+      "timezone": "Europe/Podgorica"
+    },
+    {
+      "name": "Moroni",
+      "country": "Comoros",
+      "is_capital": true,
+      "population": 128698,
+      "latitude": -11.7042,
+      "longitude": 43.2402,
+      "strategic_value": 10,
+      "timezone": "Indian/Comoro"
+    },
+    {
+      "name": "Sri Jayawardenepura Kotte",
+      "country": "Sri Lanka",
+      "is_capital": true,
+      "population": 115826,
+      "latitude": 6.9,
+      "longitude": 79.95,
+      "strategic_value": 10,
+      "timezone": "Asia/Colombo"
+    },
+    {
+      "name": "Praia",
+      "country": "Cape Verde",
+      "is_capital": true,
+      "population": 113364,
+      "latitude": 14.9167,
+      "longitude": -23.5167,
+      "strategic_value": 10,
+      "timezone": "Atlantic/Cape_Verde"
+    },
+    {
+      "name": "Malé",
+      "country": "Maldives",
+      "is_capital": true,
+      "population": 112927,
+      "latitude": 4.172,
+      "longitude": 73.5089,
+      "strategic_value": 10,
+      "timezone": "Europe/Rome"
+    },
+    {
+      "name": "Juba",
+      "country": "South Sudan",
+      "is_capital": true,
+      "population": 111975,
+      "latitude": 4.83,
+      "longitude": 31.58,
+      "strategic_value": 10,
+      "timezone": "Africa/Khartoum"
+    },
+    {
+      "name": "Luxembourg",
+      "country": "Luxembourg",
+      "is_capital": true,
+      "population": 107260,
+      "latitude": 49.6117,
+      "longitude": 6.13,
+      "strategic_value": 10,
+      "timezone": "Europe/Luxembourg"
+    },
+    {
+      "name": "Thimphu",
+      "country": "Bhutan",
+      "is_capital": true,
+      "population": 98676,
+      "latitude": 27.473,
+      "longitude": 89.639,
+      "strategic_value": 10,
+      "timezone": "Asia/Thimphu"
+    },
+    {
+      "name": "Mbabane",
+      "country": "eSwatini",
+      "is_capital": true,
+      "population": 90138,
+      "latitude": -26.3167,
+      "longitude": 31.1333,
+      "strategic_value": 10,
+      "timezone": "Africa/Mbabane"
+    },
+    {
+      "name": "São Tomé",
+      "country": "Sao Tome and Principe",
+      "is_capital": true,
+      "population": 88219,
+      "latitude": 0.3375,
+      "longitude": 6.7296,
+      "strategic_value": 10,
+      "timezone": "America/Fortaleza"
+    },
+    {
+      "name": "Honiara",
+      "country": "Solomon Islands",
+      "is_capital": true,
+      "population": 76328,
+      "latitude": -9.438,
+      "longitude": 159.9498,
+      "strategic_value": 10,
+      "timezone": "Pacific/Guadalcanal"
+    },
+    {
+      "name": "Putrajaya",
+      "country": "Malaysia",
+      "is_capital": true,
+      "population": 67964,
+      "latitude": 2.9325,
+      "longitude": 101.695,
+      "strategic_value": 10,
+      "timezone": "Asia/Kuala_Lumpur"
+    },
+    {
+      "name": "Apia",
+      "country": "Samoa",
+      "is_capital": true,
+      "population": 61916,
+      "latitude": -13.8357,
+      "longitude": -171.7686,
+      "strategic_value": 10,
+      "timezone": "America/Bogota"
+    },
+    {
+      "name": "Andorra",
+      "country": "Andorra",
+      "is_capital": true,
+      "population": 53998,
+      "latitude": 42.5108,
+      "longitude": 1.5266,
+      "strategic_value": 10,
+      "timezone": "Europe/Madrid"
+    },
+    {
+      "name": "Kingstown",
+      "country": "Saint Vincent and the Grenadines",
+      "is_capital": true,
+      "population": 49485,
+      "latitude": 13.1558,
+      "longitude": -61.2202,
+      "strategic_value": 10,
+      "timezone": "America/New_York"
+    },
+    {
+      "name": "Port Vila",
+      "country": "Vanuatu",
+      "is_capital": true,
+      "population": 44040,
+      "latitude": -17.7334,
+      "longitude": 168.3166,
+      "strategic_value": 10,
+      "timezone": "Pacific/Efate"
+    },
+    {
+      "name": "Banjul",
+      "country": "The Gambia",
+      "is_capital": true,
+      "population": 43094,
+      "latitude": 13.4539,
+      "longitude": -16.5917,
+      "strategic_value": 10,
+      "timezone": "Africa/Banjul"
+    },
+    {
+      "name": "Nuku'alofa",
+      "country": "Tonga",
+      "is_capital": true,
+      "population": 42620,
+      "latitude": -21.1385,
+      "longitude": -175.2206,
+      "strategic_value": 10,
+      "timezone": "Pacific/Tongatapu"
+    },
+    {
+      "name": "Castries",
+      "country": "Saint Lucia",
+      "is_capital": true,
+      "population": 37963,
+      "latitude": 14.0079,
+      "longitude": -60.9929,
+      "strategic_value": 10,
+      "timezone": "Europe/Paris"
+    },
+    {
+      "name": "Monaco",
+      "country": "Monaco",
+      "is_capital": true,
+      "population": 36371,
+      "latitude": 43.7396,
+      "longitude": 7.4069,
+      "strategic_value": 10,
+      "timezone": "Europe/Monaco"
+    },
+    {
+      "name": "Vaduz",
+      "country": "Liechtenstein",
+      "is_capital": true,
+      "population": 36281,
+      "latitude": 47.1337,
+      "longitude": 9.5167,
+      "strategic_value": 10,
+      "timezone": "Europe/Vaduz"
+    },
+    {
+      "name": "Saint John's",
+      "country": "Antigua and Barbuda",
+      "is_capital": true,
+      "population": 35499,
+      "latitude": 17.118,
+      "longitude": -61.85,
+      "strategic_value": 10,
+      "timezone": "America/Antigua"
+    },
+    {
+      "name": "Saint George's",
+      "country": "Grenada",
+      "is_capital": true,
+      "population": 33734,
+      "latitude": 12.0526,
+      "longitude": -61.7416,
+      "strategic_value": 10,
+      "timezone": "America/Grenada"
+    },
+    {
+      "name": "Victoria",
+      "country": "Seychelles",
+      "is_capital": true,
+      "population": 33576,
+      "latitude": -4.6166,
+      "longitude": 55.45,
+      "strategic_value": 10,
+      "timezone": "Indian/Mahe"
+    },
+    {
+      "name": "San Marino",
+      "country": "San Marino",
+      "is_capital": true,
+      "population": 29579,
+      "latitude": 43.9361,
+      "longitude": 12.4418,
+      "strategic_value": 10,
+      "timezone": "Europe/San_Marino"
+    },
+    {
+      "name": "Tarawa",
+      "country": "Kiribati",
+      "is_capital": true,
+      "population": 28802,
+      "latitude": 1.3382,
+      "longitude": 173.0176,
+      "strategic_value": 10,
+      "timezone": "Pacific/Tarawa"
+    },
+    {
+      "name": "Majuro",
+      "country": "Marshall Islands",
+      "is_capital": true,
+      "population": 25400,
+      "latitude": 7.103,
+      "longitude": 171.38,
+      "strategic_value": 10,
+      "timezone": "Pacific/Majuro"
+    },
+    {
+      "name": "Roseau",
+      "country": "Dominica",
+      "is_capital": true,
+      "population": 23336,
+      "latitude": 15.301,
+      "longitude": -61.387,
+      "strategic_value": 10,
+      "timezone": "America/Dominica"
+    },
+    {
+      "name": "Basseterre",
+      "country": "Saint Kitts and Nevis",
+      "is_capital": true,
+      "population": 21887,
+      "latitude": 17.302,
+      "longitude": -62.717,
+      "strategic_value": 10,
+      "timezone": "America/St_Kitts"
+    },
+    {
+      "name": "Belmopan",
+      "country": "Belize",
+      "is_capital": true,
+      "population": 15220,
+      "latitude": 17.252,
+      "longitude": -88.7671,
+      "strategic_value": 10,
+      "timezone": "America/Belize"
+    },
+    {
+      "name": "Lobamba",
+      "country": "eSwatini",
+      "is_capital": true,
+      "population": 9782,
+      "latitude": -26.4667,
+      "longitude": 31.2,
+      "strategic_value": 10,
+      "timezone": "Africa/Mbabane"
+    },
+    {
+      "name": "Melekeok",
+      "country": "Palau",
+      "is_capital": true,
+      "population": 7026,
+      "latitude": 7.4874,
+      "longitude": 134.6265,
+      "strategic_value": 10,
+      "timezone": "Pacific/Palau"
+    },
+    {
+      "name": "Funafuti",
+      "country": "Tuvalu",
+      "is_capital": true,
+      "population": 4749,
+      "latitude": -8.5167,
+      "longitude": 179.2166,
+      "strategic_value": 10,
+      "timezone": "Pacific/Funafuti"
+    },
+    {
+      "name": "Palikir",
+      "country": "Federated States of Micronesia",
+      "is_capital": true,
+      "population": 4645,
+      "latitude": 6.9166,
+      "longitude": 158.15,
+      "strategic_value": 10,
+      "timezone": "Pacific/Ponape"
+    },
+    {
+      "name": "Vatican City",
+      "country": "Vatican",
+      "is_capital": true,
+      "population": 832,
+      "latitude": 41.9033,
+      "longitude": 12.4534,
+      "strategic_value": 10,
+      "timezone": "Europe/Vatican"
+    },
+    {
+      "name": "Bir Lehlou",
+      "country": "Western Sahara",
+      "is_capital": true,
+      "population": 500,
+      "latitude": 26.1192,
+      "longitude": -9.6525,
+      "strategic_value": 10
+    }
+  ],
+  "total_cities": 243,
+  "capitals": [
+    {
+      "name": "Kabul",
+      "country": "Afghanistan",
+      "is_capital": true,
+      "population": 3277000,
+      "latitude": 34.5186,
+      "longitude": 69.1813,
+      "strategic_value": 11,
+      "timezone": "Asia/Kabul"
+    },
+    {
+      "name": "Tirana",
+      "country": "Albania",
+      "is_capital": true,
+      "population": 895350,
+      "latitude": 41.3275,
+      "longitude": 19.8189,
+      "strategic_value": 10,
+      "timezone": "Europe/Tirane"
+    },
+    {
+      "name": "Algiers",
+      "country": "Algeria",
+      "is_capital": true,
+      "population": 3354000,
+      "latitude": 36.765,
+      "longitude": 3.0486,
+      "strategic_value": 11,
+      "timezone": "Africa/Algiers"
+    },
+    {
+      "name": "Andorra",
+      "country": "Andorra",
+      "is_capital": true,
+      "population": 53998,
+      "latitude": 42.5108,
+      "longitude": 1.5266,
+      "strategic_value": 10,
+      "timezone": "Europe/Madrid"
+    },
+    {
+      "name": "Luanda",
+      "country": "Angola",
+      "is_capital": true,
+      "population": 5172900,
+      "latitude": -8.8363,
+      "longitude": 13.2325,
+      "strategic_value": 13,
+      "timezone": "Africa/Luanda"
+    },
+    {
+      "name": "Saint John's",
+      "country": "Antigua and Barbuda",
+      "is_capital": true,
+      "population": 35499,
+      "latitude": 17.118,
+      "longitude": -61.85,
+      "strategic_value": 10,
+      "timezone": "America/Antigua"
+    },
+    {
+      "name": "Buenos Aires",
+      "country": "Argentina",
+      "is_capital": true,
+      "population": 12795000,
+      "latitude": -34.6107,
+      "longitude": -58.4325,
+      "strategic_value": 15,
+      "timezone": "America/Argentina/Buenos_Aires"
+    },
+    {
+      "name": "Yerevan",
+      "country": "Armenia",
+      "is_capital": true,
+      "population": 1102000,
+      "latitude": 40.1831,
+      "longitude": 44.5116,
+      "strategic_value": 11,
+      "timezone": "Asia/Yerevan"
+    },
+    {
+      "name": "Canberra",
+      "country": "Australia",
+      "is_capital": true,
+      "population": 327700,
+      "latitude": -35.283,
+      "longitude": 149.129,
+      "strategic_value": 10,
+      "timezone": "Australia/Sydney"
+    },
+    {
+      "name": "Melbourne",
+      "country": "Australia",
+      "is_capital": true,
+      "population": 4170000,
+      "latitude": -37.8181,
+      "longitude": 144.9731,
+      "strategic_value": 11
+    },
+    {
+      "name": "Sydney",
+      "country": "Australia",
+      "is_capital": true,
+      "population": 4630000,
+      "latitude": -33.8714,
+      "longitude": 151.2125,
+      "strategic_value": 11
+    },
+    {
+      "name": "Vienna",
+      "country": "Austria",
+      "is_capital": true,
+      "population": 2400000,
+      "latitude": 48.202,
+      "longitude": 16.3647,
+      "strategic_value": 11,
+      "timezone": "Europe/Vienna"
+    },
+    {
+      "name": "Baku",
+      "country": "Azerbaijan",
+      "is_capital": true,
+      "population": 2122300,
+      "latitude": 40.3972,
+      "longitude": 49.8603,
+      "strategic_value": 11,
+      "timezone": "Asia/Baku"
+    },
+    {
+      "name": "Manama",
+      "country": "Bahrain",
+      "is_capital": true,
+      "population": 563920,
+      "latitude": 26.2361,
+      "longitude": 50.5831,
+      "strategic_value": 10,
+      "timezone": "Asia/Bahrain"
+    },
+    {
+      "name": "Dhaka",
+      "country": "Bangladesh",
+      "is_capital": true,
+      "population": 12797394,
+      "latitude": 23.725,
+      "longitude": 90.4066,
+      "strategic_value": 15,
+      "timezone": "Asia/Dhaka"
+    },
+    {
+      "name": "Bridgetown",
+      "country": "Barbados",
+      "is_capital": true,
+      "population": 191152,
+      "latitude": 13.102,
+      "longitude": -59.6165,
+      "strategic_value": 10,
+      "timezone": "Australia/Perth"
+    },
+    {
+      "name": "Minsk",
+      "country": "Belarus",
+      "is_capital": true,
+      "population": 1805000,
+      "latitude": 53.9019,
+      "longitude": 27.5647,
+      "strategic_value": 11,
+      "timezone": "Europe/Minsk"
+    },
+    {
+      "name": "Brussels",
+      "country": "Belgium",
+      "is_capital": true,
+      "population": 1743000,
+      "latitude": 50.8353,
+      "longitude": 4.3314,
+      "strategic_value": 11,
+      "timezone": "Europe/Brussels"
+    },
+    {
+      "name": "Belmopan",
+      "country": "Belize",
+      "is_capital": true,
+      "population": 15220,
+      "latitude": 17.252,
+      "longitude": -88.7671,
+      "strategic_value": 10,
+      "timezone": "America/Belize"
+    },
+    {
+      "name": "Porto-Novo",
+      "country": "Benin",
+      "is_capital": true,
+      "population": 300000,
+      "latitude": 6.4833,
+      "longitude": 2.6166,
+      "strategic_value": 10,
+      "timezone": "Africa/Porto-Novo"
+    },
+    {
+      "name": "Cotonou",
+      "country": "Benin",
+      "is_capital": true,
+      "population": 762000,
+      "latitude": 6.363,
+      "longitude": 2.4044,
+      "strategic_value": 10,
+      "timezone": "Africa/Porto-Novo"
+    },
+    {
+      "name": "Thimphu",
+      "country": "Bhutan",
+      "is_capital": true,
+      "population": 98676,
+      "latitude": 27.473,
+      "longitude": 89.639,
+      "strategic_value": 10,
+      "timezone": "Asia/Thimphu"
+    },
+    {
+      "name": "Sucre",
+      "country": "Bolivia",
+      "is_capital": true,
+      "population": 224838,
+      "latitude": -19.041,
+      "longitude": -65.2595,
+      "strategic_value": 10,
+      "timezone": "America/La_Paz"
+    },
+    {
+      "name": "La Paz",
+      "country": "Bolivia",
+      "is_capital": true,
+      "population": 1590000,
+      "latitude": -16.496,
+      "longitude": -68.1519,
+      "strategic_value": 11,
+      "timezone": "America/La_Paz"
+    },
+    {
+      "name": "Sarajevo",
+      "country": "Bosnia and Herzegovina",
+      "is_capital": true,
+      "population": 696731,
+      "latitude": 43.85,
+      "longitude": 18.383,
+      "strategic_value": 10,
+      "timezone": "Europe/Sarajevo"
+    },
+    {
+      "name": "Gaborone",
+      "country": "Botswana",
+      "is_capital": true,
+      "population": 208411,
+      "latitude": -24.6463,
+      "longitude": 25.9119,
+      "strategic_value": 10,
+      "timezone": "Africa/Gaborone"
+    },
+    {
+      "name": "Brasília",
+      "country": "Brazil",
+      "is_capital": true,
+      "population": 3716996,
+      "latitude": -15.7814,
+      "longitude": -47.918,
+      "strategic_value": 11,
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "name": "Rio de Janeiro",
+      "country": "Brazil",
+      "is_capital": true,
+      "population": 11748000,
+      "latitude": -22.9073,
+      "longitude": -43.2121,
+      "strategic_value": 15,
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "name": "São Paulo",
+      "country": "Brazil",
+      "is_capital": true,
+      "population": 18845000,
+      "latitude": -23.5567,
+      "longitude": -46.627,
+      "strategic_value": 15,
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "name": "Bandar Seri Begawan",
+      "country": "Brunei",
+      "is_capital": true,
+      "population": 296500,
+      "latitude": 4.8833,
+      "longitude": 114.9333,
+      "strategic_value": 10,
+      "timezone": "Asia/Brunei"
+    },
+    {
+      "name": "Sofia",
+      "country": "Bulgaria",
+      "is_capital": true,
+      "population": 1185000,
+      "latitude": 42.6853,
+      "longitude": 23.3147,
+      "strategic_value": 11,
+      "timezone": "Europe/Sofia"
+    },
+    {
+      "name": "Ouagadougou",
+      "country": "Burkina Faso",
+      "is_capital": true,
+      "population": 1149000,
+      "latitude": 12.3723,
+      "longitude": -1.5267,
+      "strategic_value": 11,
+      "timezone": "Africa/Ouagadougou"
+    },
+    {
+      "name": "Bujumbura",
+      "country": "Burundi",
+      "is_capital": true,
+      "population": 331700,
+      "latitude": -3.3761,
+      "longitude": 29.36,
+      "strategic_value": 10,
+      "timezone": "Africa/Bujumbura"
+    },
+    {
+      "name": "Phnom Penh",
+      "country": "Cambodia",
+      "is_capital": true,
+      "population": 1466000,
+      "latitude": 11.552,
+      "longitude": 104.9147,
+      "strategic_value": 11,
+      "timezone": "Asia/Phnom_Penh"
+    },
+    {
+      "name": "Yaoundé",
+      "country": "Cameroon",
+      "is_capital": true,
+      "population": 1611000,
+      "latitude": 3.8686,
+      "longitude": 11.5147,
+      "strategic_value": 11,
+      "timezone": "Africa/Douala"
+    },
+    {
+      "name": "Ottawa",
+      "country": "Canada",
+      "is_capital": true,
+      "population": 1145000,
+      "latitude": 45.4186,
+      "longitude": -75.702,
+      "strategic_value": 11,
+      "timezone": "America/Montreal"
+    },
+    {
+      "name": "Toronto",
+      "country": "Canada",
+      "is_capital": true,
+      "population": 5213000,
+      "latitude": 43.6646,
+      "longitude": -79.3895,
+      "strategic_value": 13,
+      "timezone": "America/Toronto"
+    },
+    {
+      "name": "Praia",
+      "country": "Cape Verde",
+      "is_capital": true,
+      "population": 113364,
+      "latitude": 14.9167,
+      "longitude": -23.5167,
+      "strategic_value": 10,
+      "timezone": "Atlantic/Cape_Verde"
+    },
+    {
+      "name": "Bangui",
+      "country": "Central African Republic",
+      "is_capital": true,
+      "population": 831925,
+      "latitude": 4.3666,
+      "longitude": 18.5583,
+      "strategic_value": 10,
+      "timezone": "Africa/Bangui"
+    },
+    {
+      "name": "N'Djamena",
+      "country": "Chad",
+      "is_capital": true,
+      "population": 989000,
+      "latitude": 12.115,
+      "longitude": 15.0472,
+      "strategic_value": 10,
+      "timezone": "Africa/Ndjamena"
+    },
+    {
+      "name": "Valparaíso",
+      "country": "Chile",
+      "is_capital": true,
+      "population": 854000,
+      "latitude": -33.0477,
+      "longitude": -71.617,
+      "strategic_value": 10,
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "name": "Santiago",
+      "country": "Chile",
+      "is_capital": true,
+      "population": 5720000,
+      "latitude": -33.4402,
+      "longitude": -70.6505,
+      "strategic_value": 13,
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "name": "Ürümqi",
+      "country": "China",
+      "is_capital": true,
+      "population": 3575000,
+      "latitude": 43.807,
+      "longitude": 87.5731,
+      "strategic_value": 11,
+      "timezone": "Asia/Urumqi"
+    },
+    {
+      "name": "Chengdu",
+      "country": "China",
+      "is_capital": true,
+      "population": 4123000,
+      "latitude": 30.6719,
+      "longitude": 104.0681,
+      "strategic_value": 11,
+      "timezone": "Asia/Chongqing"
+    },
+    {
+      "name": "Beijing",
+      "country": "China",
+      "is_capital": true,
+      "population": 11106000,
+      "latitude": 39.9017,
+      "longitude": 116.3942,
+      "strategic_value": 15,
+      "timezone": "Asia/Harbin"
+    },
+    {
+      "name": "Shanghai",
+      "country": "China",
+      "is_capital": true,
+      "population": 14987000,
+      "latitude": 31.2184,
+      "longitude": 121.4346,
+      "strategic_value": 15,
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "name": "Bogota",
+      "country": "Colombia",
+      "is_capital": true,
+      "population": 7772000,
+      "latitude": 4.5984,
+      "longitude": -74.0853,
+      "strategic_value": 13,
+      "timezone": "America/Bogota"
+    },
+    {
+      "name": "Moroni",
+      "country": "Comoros",
+      "is_capital": true,
+      "population": 128698,
+      "latitude": -11.7042,
+      "longitude": 43.2402,
+      "strategic_value": 10,
+      "timezone": "Indian/Comoro"
+    },
+    {
+      "name": "Brazzaville",
+      "country": "Congo (Brazzaville)",
+      "is_capital": true,
+      "population": 1355000,
+      "latitude": -4.2572,
+      "longitude": 15.2827,
+      "strategic_value": 11,
+      "timezone": "Africa/Brazzaville"
+    },
+    {
+      "name": "Kinshasa",
+      "country": "Congo (Kinshasa)",
+      "is_capital": true,
+      "population": 7843000,
+      "latitude": -4.3278,
+      "longitude": 15.313,
+      "strategic_value": 13,
+      "timezone": "Africa/Kinshasa"
+    },
+    {
+      "name": "San José",
+      "country": "Costa Rica",
+      "is_capital": true,
+      "population": 1284000,
+      "latitude": 9.9304,
+      "longitude": -84.0788,
+      "strategic_value": 11,
+      "timezone": "America/Bogota"
+    },
+    {
+      "name": "Zagreb",
+      "country": "Croatia",
+      "is_capital": true,
+      "population": 722526,
+      "latitude": 45.8,
+      "longitude": 16.0,
+      "strategic_value": 10,
+      "timezone": "Europe/Zagreb"
+    },
+    {
+      "name": "Havana",
+      "country": "Cuba",
+      "is_capital": true,
+      "population": 2174000,
+      "latitude": 23.1339,
+      "longitude": -82.3661,
+      "strategic_value": 11,
+      "timezone": "America/Havana"
+    },
+    {
+      "name": "Nicosia",
+      "country": "Cyprus",
+      "is_capital": true,
+      "population": 224300,
+      "latitude": 35.1667,
+      "longitude": 33.3666,
+      "strategic_value": 10,
+      "timezone": "Asia/Nicosia"
+    },
+    {
+      "name": "Prague",
+      "country": "Czechia",
+      "is_capital": true,
+      "population": 1162000,
+      "latitude": 50.087,
+      "longitude": 14.4229,
+      "strategic_value": 11,
+      "timezone": "America/Chicago"
+    },
+    {
+      "name": "København",
+      "country": "Denmark",
+      "is_capital": true,
+      "population": 1085000,
+      "latitude": 55.6805,
+      "longitude": 12.5615,
+      "strategic_value": 11,
+      "timezone": "Europe/Copenhagen"
+    },
+    {
+      "name": "Djibouti",
+      "country": "Djibouti",
+      "is_capital": true,
+      "population": 923000,
+      "latitude": 11.595,
+      "longitude": 43.148,
+      "strategic_value": 10,
+      "timezone": "Africa/Djibouti"
+    },
+    {
+      "name": "Roseau",
+      "country": "Dominica",
+      "is_capital": true,
+      "population": 23336,
+      "latitude": 15.301,
+      "longitude": -61.387,
+      "strategic_value": 10,
+      "timezone": "America/Dominica"
+    },
+    {
+      "name": "Santo Domingo",
+      "country": "Dominican Republic",
+      "is_capital": true,
+      "population": 2154000,
+      "latitude": 18.4707,
+      "longitude": -69.9297,
+      "strategic_value": 11,
+      "timezone": "America/Bogota"
+    },
+    {
+      "name": "Dili",
+      "country": "East Timor",
+      "is_capital": true,
+      "population": 234331,
+      "latitude": -8.5594,
+      "longitude": 125.5795,
+      "strategic_value": 10,
+      "timezone": "Asia/Dili"
+    },
+    {
+      "name": "Quito",
+      "country": "Ecuador",
+      "is_capital": true,
+      "population": 1701000,
+      "latitude": -0.213,
+      "longitude": -78.502,
+      "strategic_value": 11,
+      "timezone": "America/Guayaquil"
+    },
+    {
+      "name": "Cairo",
+      "country": "Egypt",
+      "is_capital": true,
+      "population": 11893000,
+      "latitude": 30.0519,
+      "longitude": 31.248,
+      "strategic_value": 15,
+      "timezone": "Africa/Cairo"
+    },
+    {
+      "name": "San Salvador",
+      "country": "El Salvador",
+      "is_capital": true,
+      "population": 1433000,
+      "latitude": 13.7033,
+      "longitude": -89.2156,
+      "strategic_value": 11,
+      "timezone": "Asia/Manila"
+    },
+    {
+      "name": "Malabo",
+      "country": "Equatorial Guinea",
+      "is_capital": true,
+      "population": 155963,
+      "latitude": 3.75,
+      "longitude": 8.7833,
+      "strategic_value": 10,
+      "timezone": "Africa/Malabo"
+    },
+    {
+      "name": "Asmara",
+      "country": "Eritrea",
+      "is_capital": true,
+      "population": 620802,
+      "latitude": 15.3333,
+      "longitude": 38.9333,
+      "strategic_value": 10,
+      "timezone": "Africa/Asmara"
+    },
+    {
+      "name": "Tallinn",
+      "country": "Estonia",
+      "is_capital": true,
+      "population": 394024,
+      "latitude": 59.4339,
+      "longitude": 24.728,
+      "strategic_value": 10,
+      "timezone": "Europe/Tallinn"
+    },
+    {
+      "name": "Addis Ababa",
+      "country": "Ethiopia",
+      "is_capital": true,
+      "population": 3100000,
+      "latitude": 9.0353,
+      "longitude": 38.6981,
+      "strategic_value": 11,
+      "timezone": "Africa/Addis_Ababa"
+    },
+    {
+      "name": "Palikir",
+      "country": "Federated States of Micronesia",
+      "is_capital": true,
+      "population": 4645,
+      "latitude": 6.9166,
+      "longitude": 158.15,
+      "strategic_value": 10,
+      "timezone": "Pacific/Ponape"
+    },
+    {
+      "name": "Suva",
+      "country": "Fiji",
+      "is_capital": true,
+      "population": 175399,
+      "latitude": -18.133,
+      "longitude": 178.4417,
+      "strategic_value": 10,
+      "timezone": "Pacific/Fiji"
+    },
+    {
+      "name": "Helsinki",
+      "country": "Finland",
+      "is_capital": true,
+      "population": 1115000,
+      "latitude": 60.1638,
+      "longitude": 24.9325,
+      "strategic_value": 11,
+      "timezone": "Europe/Helsinki"
+    },
+    {
+      "name": "Paris",
+      "country": "France",
+      "is_capital": true,
+      "population": 9904000,
+      "latitude": 48.8581,
+      "longitude": 2.353,
+      "strategic_value": 13,
+      "timezone": "Europe/Paris"
+    },
+    {
+      "name": "Libreville",
+      "country": "Gabon",
+      "is_capital": true,
+      "population": 578156,
+      "latitude": 0.3854,
+      "longitude": 9.458,
+      "strategic_value": 10,
+      "timezone": "Africa/Libreville"
+    },
+    {
+      "name": "Tbilisi",
+      "country": "Georgia",
+      "is_capital": true,
+      "population": 1100000,
+      "latitude": 41.727,
+      "longitude": 44.7888,
+      "strategic_value": 11,
+      "timezone": "Asia/Tbilisi"
+    },
+    {
+      "name": "Berlin",
+      "country": "Germany",
+      "is_capital": true,
+      "population": 3406000,
+      "latitude": 52.5238,
+      "longitude": 13.3996,
+      "strategic_value": 11,
+      "timezone": "Europe/Berlin"
+    },
+    {
+      "name": "Accra",
+      "country": "Ghana",
+      "is_capital": true,
+      "population": 2121000,
+      "latitude": 5.552,
+      "longitude": -0.2187,
+      "strategic_value": 11,
+      "timezone": "Africa/Accra"
+    },
+    {
+      "name": "Athens",
+      "country": "Greece",
+      "is_capital": true,
+      "population": 3242000,
+      "latitude": 37.9853,
+      "longitude": 23.7314,
+      "strategic_value": 11,
+      "timezone": "Europe/Athens"
+    },
+    {
+      "name": "Saint George's",
+      "country": "Grenada",
+      "is_capital": true,
+      "population": 33734,
+      "latitude": 12.0526,
+      "longitude": -61.7416,
+      "strategic_value": 10,
+      "timezone": "America/Grenada"
+    },
+    {
+      "name": "Guatemala City",
+      "country": "Guatemala",
+      "is_capital": true,
+      "population": 1024000,
+      "latitude": 14.6231,
+      "longitude": -90.5289,
+      "strategic_value": 11,
+      "timezone": "America/Guatemala"
+    },
+    {
+      "name": "Conakry",
+      "country": "Guinea",
+      "is_capital": true,
+      "population": 1494000,
+      "latitude": 9.5335,
+      "longitude": -13.6822,
+      "strategic_value": 11,
+      "timezone": "Africa/Conakry"
+    },
+    {
+      "name": "Bissau",
+      "country": "Guinea Bissau",
+      "is_capital": true,
+      "population": 403339,
+      "latitude": 11.865,
+      "longitude": -15.5984,
+      "strategic_value": 10,
+      "timezone": "Africa/Bissau"
+    },
+    {
+      "name": "Georgetown",
+      "country": "Guyana",
+      "is_capital": true,
+      "population": 264350,
+      "latitude": 6.802,
+      "longitude": -58.167,
+      "strategic_value": 10,
+      "timezone": "America/Guyana"
+    },
+    {
+      "name": "Port-au-Prince",
+      "country": "Haiti",
+      "is_capital": true,
+      "population": 1998000,
+      "latitude": 18.543,
+      "longitude": -72.338,
+      "strategic_value": 11,
+      "timezone": "America/Port-au-Prince"
+    },
+    {
+      "name": "Tegucigalpa",
+      "country": "Honduras",
+      "is_capital": true,
+      "population": 946000,
+      "latitude": 14.104,
+      "longitude": -87.2195,
+      "strategic_value": 10,
+      "timezone": "America/Tegucigalpa"
+    },
+    {
+      "name": "Hong Kong",
+      "country": "Hong Kong S.A.R.",
+      "is_capital": true,
+      "population": 7206000,
+      "latitude": 22.3069,
+      "longitude": 114.1831,
+      "strategic_value": 13,
+      "timezone": "Asia/Hong_Kong"
+    },
+    {
+      "name": "Budapest",
+      "country": "Hungary",
+      "is_capital": true,
+      "population": 1679000,
+      "latitude": 47.502,
+      "longitude": 19.0814,
+      "strategic_value": 11,
+      "timezone": "Europe/Budapest"
+    },
+    {
+      "name": "Reykjavík",
+      "country": "Iceland",
+      "is_capital": true,
+      "population": 166212,
+      "latitude": 64.1435,
+      "longitude": -21.9365,
+      "strategic_value": 10,
+      "timezone": "Atlantic/Reykjavik"
+    },
+    {
+      "name": "New Delhi",
+      "country": "India",
+      "is_capital": true,
+      "population": 317797,
+      "latitude": 28.6,
+      "longitude": 77.2,
+      "strategic_value": 10,
+      "timezone": "Asia/Kolkata"
+    },
+    {
+      "name": "Bengaluru",
+      "country": "India",
+      "is_capital": true,
+      "population": 6787000,
+      "latitude": 12.9719,
+      "longitude": 77.5581,
+      "strategic_value": 13,
+      "timezone": "Asia/Kolkata"
+    },
+    {
+      "name": "Mumbai",
+      "country": "India",
+      "is_capital": true,
+      "population": 18978000,
+      "latitude": 19.0684,
+      "longitude": 72.8758,
+      "strategic_value": 15,
+      "timezone": "Asia/Kolkata"
+    },
+    {
+      "name": "Kolkata",
+      "country": "India",
+      "is_capital": true,
+      "population": 14787000,
+      "latitude": 22.5696,
+      "longitude": 88.3691,
+      "strategic_value": 15,
+      "timezone": "Asia/Kolkata"
+    },
+    {
+      "name": "Jakarta",
+      "country": "Indonesia",
+      "is_capital": true,
+      "population": 9125000,
+      "latitude": -6.1725,
+      "longitude": 106.8275,
+      "strategic_value": 13,
+      "timezone": "Asia/Jakarta"
+    },
+    {
+      "name": "Tehran",
+      "country": "Iran",
+      "is_capital": true,
+      "population": 7873000,
+      "latitude": 35.6739,
+      "longitude": 51.4224,
+      "strategic_value": 13,
+      "timezone": "Asia/Tehran"
+    },
+    {
+      "name": "Baghdad",
+      "country": "Iraq",
+      "is_capital": true,
+      "population": 5054000,
+      "latitude": 33.3406,
+      "longitude": 44.3919,
+      "strategic_value": 13,
+      "timezone": "Asia/Baghdad"
+    },
+    {
+      "name": "Dublin",
+      "country": "Ireland",
+      "is_capital": true,
+      "population": 1059000,
+      "latitude": 53.3467,
+      "longitude": -6.257,
+      "strategic_value": 11,
+      "timezone": "Europe/Dublin"
+    },
+    {
+      "name": "Jerusalem",
+      "country": "Israel",
+      "is_capital": true,
+      "population": 1029300,
+      "latitude": 31.7784,
+      "longitude": 35.2066,
+      "strategic_value": 11,
+      "timezone": "Asia/Jerusalem"
+    },
+    {
+      "name": "Tel Aviv",
+      "country": "Israel",
+      "is_capital": true,
+      "population": 3112000,
+      "latitude": 32.0819,
+      "longitude": 34.7681,
+      "strategic_value": 11,
+      "timezone": "Asia/Jerusalem"
+    },
+    {
+      "name": "Rome",
+      "country": "Italy",
+      "is_capital": true,
+      "population": 3339000,
+      "latitude": 41.8979,
+      "longitude": 12.4813,
+      "strategic_value": 11,
+      "timezone": "Europe/Rome"
+    },
+    {
+      "name": "Yamoussoukro",
+      "country": "Ivory Coast",
+      "is_capital": true,
+      "population": 206499,
+      "latitude": 6.8184,
+      "longitude": -5.2755,
+      "strategic_value": 10,
+      "timezone": "Africa/Abidjan"
+    },
+    {
+      "name": "Abidjan",
+      "country": "Ivory Coast",
+      "is_capital": true,
+      "population": 3802000,
+      "latitude": 5.3231,
+      "longitude": -4.0202,
+      "strategic_value": 11,
+      "timezone": "Africa/Abidjan"
+    },
+    {
+      "name": "Kingston",
+      "country": "Jamaica",
+      "is_capital": true,
+      "population": 937700,
+      "latitude": 17.9771,
+      "longitude": -76.7674,
+      "strategic_value": 10,
+      "timezone": "America/Jamaica"
+    },
+    {
+      "name": "Kyoto",
+      "country": "Japan",
+      "is_capital": true,
+      "population": 1805000,
+      "latitude": 35.0319,
+      "longitude": 135.7481,
+      "strategic_value": 11,
+      "timezone": "Asia/Tokyo"
+    },
+    {
+      "name": "Ōsaka",
+      "country": "Japan",
+      "is_capital": true,
+      "population": 11294000,
+      "latitude": 34.6911,
+      "longitude": 135.5038,
+      "strategic_value": 15,
+      "timezone": "Asia/Tokyo"
+    },
+    {
+      "name": "Tokyo",
+      "country": "Japan",
+      "is_capital": true,
+      "population": 35676000,
+      "latitude": 35.687,
+      "longitude": 139.7495,
+      "strategic_value": 15,
+      "timezone": "Asia/Tokyo"
+    },
+    {
+      "name": "Amman",
+      "country": "Jordan",
+      "is_capital": true,
+      "population": 1060000,
+      "latitude": 31.952,
+      "longitude": 35.9314,
+      "strategic_value": 11,
+      "timezone": "Asia/Amman"
+    },
+    {
+      "name": "Nur-Sultan",
+      "country": "Kazakhstan",
+      "is_capital": true,
+      "population": 345604,
+      "latitude": 51.1811,
+      "longitude": 71.4278,
+      "strategic_value": 10,
+      "timezone": "Asia/Qyzylorda"
+    },
+    {
+      "name": "Nairobi",
+      "country": "Kenya",
+      "is_capital": true,
+      "population": 3010000,
+      "latitude": -1.2814,
+      "longitude": 36.8147,
+      "strategic_value": 11,
+      "timezone": "Africa/Nairobi"
+    },
+    {
+      "name": "Tarawa",
+      "country": "Kiribati",
+      "is_capital": true,
+      "population": 28802,
+      "latitude": 1.3382,
+      "longitude": 173.0176,
+      "strategic_value": 10,
+      "timezone": "Pacific/Tarawa"
+    },
+    {
+      "name": "Pristina",
+      "country": "Kosovo",
+      "is_capital": true,
+      "population": 465186,
+      "latitude": 42.6667,
+      "longitude": 21.166,
+      "strategic_value": 10,
+      "timezone": "Europe/Belgrade"
+    },
+    {
+      "name": "Kuwait City",
+      "country": "Kuwait",
+      "is_capital": true,
+      "population": 2063000,
+      "latitude": 29.3717,
+      "longitude": 47.9764,
+      "strategic_value": 11,
+      "timezone": "Asia/Kuwait"
+    },
+    {
+      "name": "Bishkek",
+      "country": "Kyrgyzstan",
+      "is_capital": true,
+      "population": 837000,
+      "latitude": 42.875,
+      "longitude": 74.5833,
+      "strategic_value": 10,
+      "timezone": "Asia/Bishkek"
+    },
+    {
+      "name": "Vientiane",
+      "country": "Laos",
+      "is_capital": true,
+      "population": 754000,
+      "latitude": 17.9667,
+      "longitude": 102.6,
+      "strategic_value": 10,
+      "timezone": "Asia/Vientiane"
+    },
+    {
+      "name": "Riga",
+      "country": "Latvia",
+      "is_capital": true,
+      "population": 742572,
+      "latitude": 56.95,
+      "longitude": 24.1,
+      "strategic_value": 10,
+      "timezone": "Europe/Riga"
+    },
+    {
+      "name": "Beirut",
+      "country": "Lebanon",
+      "is_capital": true,
+      "population": 1846000,
+      "latitude": 33.8739,
+      "longitude": 35.5078,
+      "strategic_value": 11,
+      "timezone": "Asia/Beirut"
+    },
+    {
+      "name": "Maseru",
+      "country": "Lesotho",
+      "is_capital": true,
+      "population": 361324,
+      "latitude": -29.3167,
+      "longitude": 27.4833,
+      "strategic_value": 10,
+      "timezone": "Africa/Maseru"
+    },
+    {
+      "name": "Monrovia",
+      "country": "Liberia",
+      "is_capital": true,
+      "population": 1041000,
+      "latitude": 6.3146,
+      "longitude": -10.7997,
+      "strategic_value": 11,
+      "timezone": "Africa/Monrovia"
+    },
+    {
+      "name": "Tripoli",
+      "country": "Libya",
+      "is_capital": true,
+      "population": 2189000,
+      "latitude": 32.8925,
+      "longitude": 13.18,
+      "strategic_value": 11
+    },
+    {
+      "name": "Vaduz",
+      "country": "Liechtenstein",
+      "is_capital": true,
+      "population": 36281,
+      "latitude": 47.1337,
+      "longitude": 9.5167,
+      "strategic_value": 10,
+      "timezone": "Europe/Vaduz"
+    },
+    {
+      "name": "Vilnius",
+      "country": "Lithuania",
+      "is_capital": true,
+      "population": 542366,
+      "latitude": 54.6834,
+      "longitude": 25.3166,
+      "strategic_value": 10,
+      "timezone": "Europe/Vilnius"
+    },
+    {
+      "name": "Luxembourg",
+      "country": "Luxembourg",
+      "is_capital": true,
+      "population": 107260,
+      "latitude": 49.6117,
+      "longitude": 6.13,
+      "strategic_value": 10,
+      "timezone": "Europe/Luxembourg"
+    },
+    {
+      "name": "Antananarivo",
+      "country": "Madagascar",
+      "is_capital": true,
+      "population": 1697000,
+      "latitude": -18.9147,
+      "longitude": 47.5147,
+      "strategic_value": 11,
+      "timezone": "Indian/Antananarivo"
+    },
+    {
+      "name": "Lilongwe",
+      "country": "Malawi",
+      "is_capital": true,
+      "population": 646750,
+      "latitude": -13.9833,
+      "longitude": 33.7833,
+      "strategic_value": 10,
+      "timezone": "Africa/Blantyre"
+    },
+    {
+      "name": "Putrajaya",
+      "country": "Malaysia",
+      "is_capital": true,
+      "population": 67964,
+      "latitude": 2.9325,
+      "longitude": 101.695,
+      "strategic_value": 10,
+      "timezone": "Asia/Kuala_Lumpur"
+    },
+    {
+      "name": "Kuala Lumpur",
+      "country": "Malaysia",
+      "is_capital": true,
+      "population": 1448000,
+      "latitude": 3.1398,
+      "longitude": 101.6887,
+      "strategic_value": 11,
+      "timezone": "Asia/Kuala_Lumpur"
+    },
+    {
+      "name": "Malé",
+      "country": "Maldives",
+      "is_capital": true,
+      "population": 112927,
+      "latitude": 4.172,
+      "longitude": 73.5089,
+      "strategic_value": 10,
+      "timezone": "Europe/Rome"
+    },
+    {
+      "name": "Bamako",
+      "country": "Mali",
+      "is_capital": true,
+      "population": 1494000,
+      "latitude": 12.652,
+      "longitude": -8.002,
+      "strategic_value": 11,
+      "timezone": "Africa/Bamako"
+    },
+    {
+      "name": "Valletta",
+      "country": "Malta",
+      "is_capital": true,
+      "population": 368250,
+      "latitude": 35.8997,
+      "longitude": 14.5147,
+      "strategic_value": 10,
+      "timezone": "Europe/Malta"
+    },
+    {
+      "name": "Majuro",
+      "country": "Marshall Islands",
+      "is_capital": true,
+      "population": 25400,
+      "latitude": 7.103,
+      "longitude": 171.38,
+      "strategic_value": 10,
+      "timezone": "Pacific/Majuro"
+    },
+    {
+      "name": "Nouakchott",
+      "country": "Mauritania",
+      "is_capital": true,
+      "population": 742144,
+      "latitude": 18.0864,
+      "longitude": -15.9753,
+      "strategic_value": 10,
+      "timezone": "Africa/Nouakchott"
+    },
+    {
+      "name": "Port Louis",
+      "country": "Mauritius",
+      "is_capital": true,
+      "population": 595491,
+      "latitude": -20.1666,
+      "longitude": 57.5,
+      "strategic_value": 10,
+      "timezone": "Indian/Mauritius"
+    },
+    {
+      "name": "Monterrey",
+      "country": "Mexico",
+      "is_capital": true,
+      "population": 3712000,
+      "latitude": 25.6719,
+      "longitude": -100.3319,
+      "strategic_value": 11,
+      "timezone": "America/Monterrey"
+    },
+    {
+      "name": "Mexico City",
+      "country": "Mexico",
+      "is_capital": true,
+      "population": 19028000,
+      "latitude": 19.4444,
+      "longitude": -99.1329,
+      "strategic_value": 15,
+      "timezone": "America/Mexico_City"
+    },
+    {
+      "name": "Chișinău",
+      "country": "Moldova",
+      "is_capital": true,
+      "population": 688134,
+      "latitude": 47.005,
+      "longitude": 28.8577,
+      "strategic_value": 10,
+      "timezone": "Europe/Chisinau"
+    },
+    {
+      "name": "Monaco",
+      "country": "Monaco",
+      "is_capital": true,
+      "population": 36371,
+      "latitude": 43.7396,
+      "longitude": 7.4069,
+      "strategic_value": 10,
+      "timezone": "Europe/Monaco"
+    },
+    {
+      "name": "Ulaanbaatar",
+      "country": "Mongolia",
+      "is_capital": true,
+      "population": 885000,
+      "latitude": 47.9186,
+      "longitude": 106.9147,
+      "strategic_value": 10,
+      "timezone": "Asia/Ulaanbaatar"
+    },
+    {
+      "name": "Podgorica",
+      "country": "Montenegro",
+      "is_capital": true,
+      "population": 145850,
+      "latitude": 42.466,
+      "longitude": 19.2663,
+      "strategic_value": 10,
+      "timezone": "Europe/Podgorica"
+    },
+    {
+      "name": "Laayoune",
+      "country": "Morocco",
+      "is_capital": true,
+      "population": 188084,
+      "latitude": 27.15,
+      "longitude": -13.2,
+      "strategic_value": 10,
+      "timezone": "Africa/El_Aaiun"
+    },
+    {
+      "name": "Rabat",
+      "country": "Morocco",
+      "is_capital": true,
+      "population": 1705000,
+      "latitude": 34.0253,
+      "longitude": -6.8364,
+      "strategic_value": 11,
+      "timezone": "Africa/Casablanca"
+    },
+    {
+      "name": "Casablanca",
+      "country": "Morocco",
+      "is_capital": true,
+      "population": 3181000,
+      "latitude": 33.6019,
+      "longitude": -7.6183,
+      "strategic_value": 11,
+      "timezone": "Africa/Casablanca"
+    },
+    {
+      "name": "Maputo",
+      "country": "Mozambique",
+      "is_capital": true,
+      "population": 1446000,
+      "latitude": -25.9533,
+      "longitude": 32.5872,
+      "strategic_value": 11,
+      "timezone": "Africa/Maputo"
+    },
+    {
+      "name": "Naypyidaw",
+      "country": "Myanmar",
+      "is_capital": true,
+      "population": 930000,
+      "latitude": 19.7685,
+      "longitude": 96.1167,
+      "strategic_value": 10,
+      "timezone": "Asia/Rangoon"
+    },
+    {
+      "name": "Yangon",
+      "country": "Myanmar",
+      "is_capital": true,
+      "population": 4088000,
+      "latitude": 16.7853,
+      "longitude": 96.1647,
+      "strategic_value": 11,
+      "timezone": "Asia/Rangoon"
+    },
+    {
+      "name": "Windhoek",
+      "country": "Namibia",
+      "is_capital": true,
+      "population": 268132,
+      "latitude": -22.57,
+      "longitude": 17.0835,
+      "strategic_value": 10,
+      "timezone": "Africa/Windhoek"
+    },
+    {
+      "name": "Kathmandu",
+      "country": "Nepal",
+      "is_capital": true,
+      "population": 895000,
+      "latitude": 27.7186,
+      "longitude": 85.3147,
+      "strategic_value": 10,
+      "timezone": "Asia/Kathmandu"
+    },
+    {
+      "name": "The Hague",
+      "country": "Netherlands",
+      "is_capital": true,
+      "population": 1406000,
+      "latitude": 52.08,
+      "longitude": 4.27,
+      "strategic_value": 11,
+      "timezone": "Europe/Amsterdam"
+    },
+    {
+      "name": "Amsterdam",
+      "country": "Netherlands",
+      "is_capital": true,
+      "population": 1031000,
+      "latitude": 52.3519,
+      "longitude": 4.9147,
+      "strategic_value": 11,
+      "timezone": "Europe/Amsterdam"
+    },
+    {
+      "name": "Wellington",
+      "country": "New Zealand",
+      "is_capital": true,
+      "population": 393400,
+      "latitude": -41.2921,
+      "longitude": 174.7772,
+      "strategic_value": 10,
+      "timezone": "Pacific/Auckland"
+    },
+    {
+      "name": "Auckland",
+      "country": "New Zealand",
+      "is_capital": true,
+      "population": 1377200,
+      "latitude": -36.8481,
+      "longitude": 174.763,
+      "strategic_value": 11,
+      "timezone": "Pacific/Auckland"
+    },
+    {
+      "name": "Managua",
+      "country": "Nicaragua",
+      "is_capital": true,
+      "population": 920000,
+      "latitude": 12.155,
+      "longitude": -86.2704,
+      "strategic_value": 10,
+      "timezone": "America/Managua"
+    },
+    {
+      "name": "Niamey",
+      "country": "Niger",
+      "is_capital": true,
+      "population": 915000,
+      "latitude": 13.5187,
+      "longitude": 2.1147,
+      "strategic_value": 10,
+      "timezone": "Africa/Niamey"
+    },
+    {
+      "name": "Abuja",
+      "country": "Nigeria",
+      "is_capital": true,
+      "population": 1576000,
+      "latitude": 9.0546,
+      "longitude": 7.4895,
+      "strategic_value": 11,
+      "timezone": "Africa/Lagos"
+    },
+    {
+      "name": "Lagos",
+      "country": "Nigeria",
+      "is_capital": true,
+      "population": 9466000,
+      "latitude": 6.4452,
+      "longitude": 3.3896,
+      "strategic_value": 13,
+      "timezone": "Europe/Athens"
+    },
+    {
+      "name": "Pyongyang",
+      "country": "North Korea",
+      "is_capital": true,
+      "population": 3300000,
+      "latitude": 39.0214,
+      "longitude": 125.7527,
+      "strategic_value": 11,
+      "timezone": "Asia/Pyongyang"
+    },
+    {
+      "name": "Skopje",
+      "country": "North Macedonia",
+      "is_capital": true,
+      "population": 494087,
+      "latitude": 42.0,
+      "longitude": 21.4335,
+      "strategic_value": 10,
+      "timezone": "Europe/Skopje"
+    },
+    {
+      "name": "Oslo",
+      "country": "Norway",
+      "is_capital": true,
+      "population": 835000,
+      "latitude": 59.9186,
+      "longitude": 10.748,
+      "strategic_value": 10,
+      "timezone": "Europe/Oslo"
+    },
+    {
+      "name": "Muscat",
+      "country": "Oman",
+      "is_capital": true,
+      "population": 734697,
+      "latitude": 23.5852,
+      "longitude": 58.3783,
+      "strategic_value": 10,
+      "timezone": "Asia/Muscat"
+    },
+    {
+      "name": "Islamabad",
+      "country": "Pakistan",
+      "is_capital": true,
+      "population": 780000,
+      "latitude": 33.6894,
+      "longitude": 73.0806,
+      "strategic_value": 10,
+      "timezone": "Asia/Karachi"
+    },
+    {
+      "name": "Melekeok",
+      "country": "Palau",
+      "is_capital": true,
+      "population": 7026,
+      "latitude": 7.4874,
+      "longitude": 134.6265,
+      "strategic_value": 10,
+      "timezone": "Pacific/Palau"
+    },
+    {
+      "name": "Panama City",
+      "country": "Panama",
+      "is_capital": true,
+      "population": 1281000,
+      "latitude": 8.97,
+      "longitude": -79.535,
+      "strategic_value": 11,
+      "timezone": "America/Panama"
+    },
+    {
+      "name": "Port Moresby",
+      "country": "Papua New Guinea",
+      "is_capital": true,
+      "population": 283733,
+      "latitude": -9.4647,
+      "longitude": 147.1925,
+      "strategic_value": 10,
+      "timezone": "Pacific/Port_Moresby"
+    },
+    {
+      "name": "Asunción",
+      "country": "Paraguay",
+      "is_capital": true,
+      "population": 1870000,
+      "latitude": -25.2907,
+      "longitude": -57.6258,
+      "strategic_value": 11,
+      "timezone": "Asia/Manila"
+    },
+    {
+      "name": "Lima",
+      "country": "Peru",
+      "is_capital": true,
+      "population": 8012000,
+      "latitude": -12.0461,
+      "longitude": -77.052,
+      "strategic_value": 13,
+      "timezone": "America/Lima"
+    },
+    {
+      "name": "Baguio",
+      "country": "Philippines",
+      "is_capital": true,
+      "population": 447824,
+      "latitude": 16.43,
+      "longitude": 120.5699,
+      "strategic_value": 10,
+      "timezone": "Asia/Manila"
+    },
+    {
+      "name": "Manila",
+      "country": "Philippines",
+      "is_capital": true,
+      "population": 11100000,
+      "latitude": 14.6061,
+      "longitude": 120.9803,
+      "strategic_value": 15,
+      "timezone": "Asia/Manila"
+    },
+    {
+      "name": "Warsaw",
+      "country": "Poland",
+      "is_capital": true,
+      "population": 1707000,
+      "latitude": 52.2309,
+      "longitude": 21.0053,
+      "strategic_value": 11,
+      "timezone": "Europe/Warsaw"
+    },
+    {
+      "name": "Lisbon",
+      "country": "Portugal",
+      "is_capital": true,
+      "population": 2812000,
+      "latitude": 38.7247,
+      "longitude": -9.1468,
+      "strategic_value": 11,
+      "timezone": "Europe/Lisbon"
+    },
+    {
+      "name": "Doha",
+      "country": "Qatar",
+      "is_capital": true,
+      "population": 1450000,
+      "latitude": 25.2866,
+      "longitude": 51.533,
+      "strategic_value": 11,
+      "timezone": "Asia/Qatar"
+    },
+    {
+      "name": "Bucharest",
+      "country": "Romania",
+      "is_capital": true,
+      "population": 1942000,
+      "latitude": 44.4353,
+      "longitude": 26.098,
+      "strategic_value": 11,
+      "timezone": "Europe/Bucharest"
+    },
+    {
+      "name": "Moscow",
+      "country": "Russia",
+      "is_capital": true,
+      "population": 10452000,
+      "latitude": 55.7541,
+      "longitude": 37.6136,
+      "strategic_value": 15
+    },
+    {
+      "name": "Kigali",
+      "country": "Rwanda",
+      "is_capital": true,
+      "population": 860000,
+      "latitude": -1.9516,
+      "longitude": 30.0586,
+      "strategic_value": 10,
+      "timezone": "Africa/Kigali"
+    },
+    {
+      "name": "Basseterre",
+      "country": "Saint Kitts and Nevis",
+      "is_capital": true,
+      "population": 21887,
+      "latitude": 17.302,
+      "longitude": -62.717,
+      "strategic_value": 10,
+      "timezone": "America/St_Kitts"
+    },
+    {
+      "name": "Castries",
+      "country": "Saint Lucia",
+      "is_capital": true,
+      "population": 37963,
+      "latitude": 14.0079,
+      "longitude": -60.9929,
+      "strategic_value": 10,
+      "timezone": "Europe/Paris"
+    },
+    {
+      "name": "Kingstown",
+      "country": "Saint Vincent and the Grenadines",
+      "is_capital": true,
+      "population": 49485,
+      "latitude": 13.1558,
+      "longitude": -61.2202,
+      "strategic_value": 10,
+      "timezone": "America/New_York"
+    },
+    {
+      "name": "Apia",
+      "country": "Samoa",
+      "is_capital": true,
+      "population": 61916,
+      "latitude": -13.8357,
+      "longitude": -171.7686,
+      "strategic_value": 10,
+      "timezone": "America/Bogota"
+    },
+    {
+      "name": "San Marino",
+      "country": "San Marino",
+      "is_capital": true,
+      "population": 29579,
+      "latitude": 43.9361,
+      "longitude": 12.4418,
+      "strategic_value": 10,
+      "timezone": "Europe/San_Marino"
+    },
+    {
+      "name": "São Tomé",
+      "country": "Sao Tome and Principe",
+      "is_capital": true,
+      "population": 88219,
+      "latitude": 0.3375,
+      "longitude": 6.7296,
+      "strategic_value": 10,
+      "timezone": "America/Fortaleza"
+    },
+    {
+      "name": "Riyadh",
+      "country": "Saudi Arabia",
+      "is_capital": true,
+      "population": 4465000,
+      "latitude": 24.6345,
+      "longitude": 46.7205,
+      "strategic_value": 11,
+      "timezone": "Asia/Riyadh"
+    },
+    {
+      "name": "Dakar",
+      "country": "Senegal",
+      "is_capital": true,
+      "population": 2604000,
+      "latitude": 14.7178,
+      "longitude": -17.4751,
+      "strategic_value": 11,
+      "timezone": "Africa/Dakar"
+    },
+    {
+      "name": "Belgrade",
+      "country": "Serbia",
+      "is_capital": true,
+      "population": 1099000,
+      "latitude": 44.8206,
+      "longitude": 20.466,
+      "strategic_value": 11,
+      "timezone": "Europe/Belgrade"
+    },
+    {
+      "name": "Victoria",
+      "country": "Seychelles",
+      "is_capital": true,
+      "population": 33576,
+      "latitude": -4.6166,
+      "longitude": 55.45,
+      "strategic_value": 10,
+      "timezone": "Indian/Mahe"
+    },
+    {
+      "name": "Freetown",
+      "country": "Sierra Leone",
+      "is_capital": true,
+      "population": 827000,
+      "latitude": 8.472,
+      "longitude": -13.2362,
+      "strategic_value": 10,
+      "timezone": "Africa/Freetown"
+    },
+    {
+      "name": "Singapore",
+      "country": "Singapore",
+      "is_capital": true,
+      "population": 5183700,
+      "latitude": 1.295,
+      "longitude": 103.8539,
+      "strategic_value": 13,
+      "timezone": "Asia/Singapore"
+    },
+    {
+      "name": "Bratislava",
+      "country": "Slovakia",
+      "is_capital": true,
+      "population": 423737,
+      "latitude": 48.15,
+      "longitude": 17.117,
+      "strategic_value": 10,
+      "timezone": "Europe/Bratislava"
+    },
+    {
+      "name": "Ljubljana",
+      "country": "Slovenia",
+      "is_capital": true,
+      "population": 314807,
+      "latitude": 46.0553,
+      "longitude": 14.515,
+      "strategic_value": 10,
+      "timezone": "Europe/Ljubljana"
+    },
+    {
+      "name": "Honiara",
+      "country": "Solomon Islands",
+      "is_capital": true,
+      "population": 76328,
+      "latitude": -9.438,
+      "longitude": 159.9498,
+      "strategic_value": 10,
+      "timezone": "Pacific/Guadalcanal"
+    },
+    {
+      "name": "Mogadishu",
+      "country": "Somalia",
+      "is_capital": true,
+      "population": 1100000,
+      "latitude": 2.0686,
+      "longitude": 45.3647,
+      "strategic_value": 11,
+      "timezone": "Africa/Mogadishu"
+    },
+    {
+      "name": "Hargeisa",
+      "country": "Somaliland",
+      "is_capital": true,
+      "population": 477876,
+      "latitude": 9.56,
+      "longitude": 44.0653,
+      "strategic_value": 10,
+      "timezone": "Africa/Mogadishu"
+    },
+    {
+      "name": "Bloemfontein",
+      "country": "South Africa",
+      "is_capital": true,
+      "population": 463064,
+      "latitude": -29.12,
+      "longitude": 26.2299,
+      "strategic_value": 10,
+      "timezone": "Africa/Johannesburg"
+    },
+    {
+      "name": "Pretoria",
+      "country": "South Africa",
+      "is_capital": true,
+      "population": 1338000,
+      "latitude": -25.705,
+      "longitude": 28.2275,
+      "strategic_value": 11,
+      "timezone": "Africa/Johannesburg"
+    },
+    {
+      "name": "Johannesburg",
+      "country": "South Africa",
+      "is_capital": true,
+      "population": 3435000,
+      "latitude": -26.1681,
+      "longitude": 28.0281,
+      "strategic_value": 11,
+      "timezone": "Africa/Johannesburg"
+    },
+    {
+      "name": "Cape Town",
+      "country": "South Africa",
+      "is_capital": true,
+      "population": 3215000,
+      "latitude": -33.9181,
+      "longitude": 18.433,
+      "strategic_value": 11,
+      "timezone": "Africa/Johannesburg"
+    },
+    {
+      "name": "Seoul",
+      "country": "South Korea",
+      "is_capital": true,
+      "population": 9796000,
+      "latitude": 37.5683,
+      "longitude": 126.9978,
+      "strategic_value": 13,
+      "timezone": "Asia/Seoul"
+    },
+    {
+      "name": "Juba",
+      "country": "South Sudan",
+      "is_capital": true,
+      "population": 111975,
+      "latitude": 4.83,
+      "longitude": 31.58,
+      "strategic_value": 10,
+      "timezone": "Africa/Khartoum"
+    },
+    {
+      "name": "Madrid",
+      "country": "Spain",
+      "is_capital": true,
+      "population": 5567000,
+      "latitude": 40.402,
+      "longitude": -3.6853,
+      "strategic_value": 13,
+      "timezone": "Europe/Madrid"
+    },
+    {
+      "name": "Sri Jayawardenepura Kotte",
+      "country": "Sri Lanka",
+      "is_capital": true,
+      "population": 115826,
+      "latitude": 6.9,
+      "longitude": 79.95,
+      "strategic_value": 10,
+      "timezone": "Asia/Colombo"
+    },
+    {
+      "name": "Colombo",
+      "country": "Sri Lanka",
+      "is_capital": true,
+      "population": 217000,
+      "latitude": 6.932,
+      "longitude": 79.8578,
+      "strategic_value": 10,
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "name": "Khartoum",
+      "country": "Sudan",
+      "is_capital": true,
+      "population": 4754000,
+      "latitude": 15.59,
+      "longitude": 32.5322,
+      "strategic_value": 11,
+      "timezone": "Africa/Khartoum"
+    },
+    {
+      "name": "Paramaribo",
+      "country": "Suriname",
+      "is_capital": true,
+      "population": 254169,
+      "latitude": 5.835,
+      "longitude": -55.167,
+      "strategic_value": 10,
+      "timezone": "America/Paramaribo"
+    },
+    {
+      "name": "Stockholm",
+      "country": "Sweden",
+      "is_capital": true,
+      "population": 1264000,
+      "latitude": 59.3241,
+      "longitude": 18.0663,
+      "strategic_value": 11,
+      "timezone": "Europe/Stockholm"
+    },
+    {
+      "name": "Bern",
+      "country": "Switzerland",
+      "is_capital": true,
+      "population": 275329,
+      "latitude": 46.9167,
+      "longitude": 7.467,
+      "strategic_value": 10,
+      "timezone": "Europe/Zurich"
+    },
+    {
+      "name": "Geneva",
+      "country": "Switzerland",
+      "is_capital": true,
+      "population": 1240000,
+      "latitude": 46.21,
+      "longitude": 6.14,
+      "strategic_value": 11,
+      "timezone": "Europe/Zurich"
+    },
+    {
+      "name": "Damascus",
+      "country": "Syria",
+      "is_capital": true,
+      "population": 2466000,
+      "latitude": 33.502,
+      "longitude": 36.2981,
+      "strategic_value": 11
+    },
+    {
+      "name": "Taipei",
+      "country": "Taiwan",
+      "is_capital": true,
+      "population": 6900273,
+      "latitude": 25.0358,
+      "longitude": 121.5683,
+      "strategic_value": 13,
+      "timezone": "Asia/Taipei"
+    },
+    {
+      "name": "Dushanbe",
+      "country": "Tajikistan",
+      "is_capital": true,
+      "population": 1086244,
+      "latitude": 38.56,
+      "longitude": 68.7739,
+      "strategic_value": 11,
+      "timezone": "Asia/Dushanbe"
+    },
+    {
+      "name": "Dodoma",
+      "country": "Tanzania",
+      "is_capital": true,
+      "population": 218269,
+      "latitude": -6.1833,
+      "longitude": 35.75,
+      "strategic_value": 10,
+      "timezone": "Africa/Dar_es_Salaam"
+    },
+    {
+      "name": "Dar es Salaam",
+      "country": "Tanzania",
+      "is_capital": true,
+      "population": 2930000,
+      "latitude": -6.7981,
+      "longitude": 39.2664,
+      "strategic_value": 11,
+      "timezone": "Africa/Dar_es_Salaam"
+    },
+    {
+      "name": "Bangkok",
+      "country": "Thailand",
+      "is_capital": true,
+      "population": 6704000,
+      "latitude": 13.7519,
+      "longitude": 100.5147,
+      "strategic_value": 13,
+      "timezone": "Asia/Bangkok"
+    },
+    {
+      "name": "Nassau",
+      "country": "The Bahamas",
+      "is_capital": true,
+      "population": 227940,
+      "latitude": 25.0834,
+      "longitude": -77.35,
+      "strategic_value": 10,
+      "timezone": "America/Nassau"
+    },
+    {
+      "name": "Banjul",
+      "country": "The Gambia",
+      "is_capital": true,
+      "population": 43094,
+      "latitude": 13.4539,
+      "longitude": -16.5917,
+      "strategic_value": 10,
+      "timezone": "Africa/Banjul"
+    },
+    {
+      "name": "Lomé",
+      "country": "Togo",
+      "is_capital": true,
+      "population": 1452000,
+      "latitude": 6.1339,
+      "longitude": 1.2208,
+      "strategic_value": 11,
+      "timezone": "Africa/Lome"
+    },
+    {
+      "name": "Nuku'alofa",
+      "country": "Tonga",
+      "is_capital": true,
+      "population": 42620,
+      "latitude": -21.1385,
+      "longitude": -175.2206,
+      "strategic_value": 10,
+      "timezone": "Pacific/Tongatapu"
+    },
+    {
+      "name": "Port-of-Spain",
+      "country": "Trinidad and Tobago",
+      "is_capital": true,
+      "population": 294934,
+      "latitude": 10.652,
+      "longitude": -61.517,
+      "strategic_value": 10,
+      "timezone": "America/Port_of_Spain"
+    },
+    {
+      "name": "Tunis",
+      "country": "Tunisia",
+      "is_capital": true,
+      "population": 2412500,
+      "latitude": 36.8028,
+      "longitude": 10.1797,
+      "strategic_value": 11,
+      "timezone": "Africa/Tunis"
+    },
+    {
+      "name": "Ankara",
+      "country": "Turkey",
+      "is_capital": true,
+      "population": 3716000,
+      "latitude": 39.9292,
+      "longitude": 32.8624,
+      "strategic_value": 11,
+      "timezone": "Europe/Istanbul"
+    },
+    {
+      "name": "Istanbul",
+      "country": "Turkey",
+      "is_capital": true,
+      "population": 10061000,
+      "latitude": 41.0176,
+      "longitude": 28.9743,
+      "strategic_value": 15,
+      "timezone": "Europe/Istanbul"
+    },
+    {
+      "name": "Ashgabat",
+      "country": "Turkmenistan",
+      "is_capital": true,
+      "population": 727700,
+      "latitude": 37.95,
+      "longitude": 58.3833,
+      "strategic_value": 10,
+      "timezone": "Asia/Ashgabat"
+    },
+    {
+      "name": "Funafuti",
+      "country": "Tuvalu",
+      "is_capital": true,
+      "population": 4749,
+      "latitude": -8.5167,
+      "longitude": 179.2166,
+      "strategic_value": 10,
+      "timezone": "Pacific/Funafuti"
+    },
+    {
+      "name": "Kampala",
+      "country": "Uganda",
+      "is_capital": true,
+      "population": 1420000,
+      "latitude": 0.3186,
+      "longitude": 32.5814,
+      "strategic_value": 11,
+      "timezone": "Africa/Kampala"
+    },
+    {
+      "name": "Kyiv",
+      "country": "Ukraine",
+      "is_capital": true,
+      "population": 2709000,
+      "latitude": 50.4353,
+      "longitude": 30.5147,
+      "strategic_value": 11,
+      "timezone": "Europe/Kiev"
+    },
+    {
+      "name": "Abu Dhabi",
+      "country": "United Arab Emirates",
+      "is_capital": true,
+      "population": 603492,
+      "latitude": 24.4667,
+      "longitude": 54.3666,
+      "strategic_value": 10,
+      "timezone": "Asia/Dubai"
+    },
+    {
+      "name": "Dubai",
+      "country": "United Arab Emirates",
+      "is_capital": true,
+      "population": 1379000,
+      "latitude": 25.2149,
+      "longitude": 55.2869,
+      "strategic_value": 11,
+      "timezone": "Asia/Dubai"
+    },
+    {
+      "name": "London",
+      "country": "United Kingdom",
+      "is_capital": true,
+      "population": 8567000,
+      "latitude": 51.5019,
+      "longitude": -0.1187,
+      "strategic_value": 13,
+      "timezone": "Europe/London"
+    },
+    {
+      "name": "Denver",
+      "country": "United States of America",
+      "is_capital": true,
+      "population": 2313000,
+      "latitude": 39.7411,
+      "longitude": -104.986,
+      "strategic_value": 11
+    },
+    {
+      "name": "Atlanta",
+      "country": "United States of America",
+      "is_capital": true,
+      "population": 4506000,
+      "latitude": 33.7395,
+      "longitude": -84.3676,
+      "strategic_value": 11,
+      "timezone": "America/New_York"
+    },
+    {
+      "name": "Washington,  D.C.",
+      "country": "United States of America",
+      "is_capital": true,
+      "population": 4338000,
+      "latitude": 38.9015,
+      "longitude": -77.0114,
+      "strategic_value": 11,
+      "timezone": "America/New_York"
+    },
+    {
+      "name": "Montevideo",
+      "country": "Uruguay",
+      "is_capital": true,
+      "population": 1513000,
+      "latitude": -34.9054,
+      "longitude": -56.1868,
+      "strategic_value": 11,
+      "timezone": "America/Chicago"
+    },
+    {
+      "name": "Tashkent",
+      "country": "Uzbekistan",
+      "is_capital": true,
+      "population": 2184000,
+      "latitude": 41.3038,
+      "longitude": 69.2688,
+      "strategic_value": 11,
+      "timezone": "Asia/Tashkent"
+    },
+    {
+      "name": "Port Vila",
+      "country": "Vanuatu",
+      "is_capital": true,
+      "population": 44040,
+      "latitude": -17.7334,
+      "longitude": 168.3166,
+      "strategic_value": 10,
+      "timezone": "Pacific/Efate"
+    },
+    {
+      "name": "Vatican City",
+      "country": "Vatican",
+      "is_capital": true,
+      "population": 832,
+      "latitude": 41.9033,
+      "longitude": 12.4534,
+      "strategic_value": 10,
+      "timezone": "Europe/Vatican"
+    },
+    {
+      "name": "Caracas",
+      "country": "Venezuela",
+      "is_capital": true,
+      "population": 2985000,
+      "latitude": 10.5029,
+      "longitude": -66.919,
+      "strategic_value": 11,
+      "timezone": "America/Caracas"
+    },
+    {
+      "name": "Hanoi",
+      "country": "Vietnam",
+      "is_capital": true,
+      "population": 4378000,
+      "latitude": 21.0353,
+      "longitude": 105.8481,
+      "strategic_value": 11,
+      "timezone": "Asia/Ho_Chi_Minh"
+    },
+    {
+      "name": "Bir Lehlou",
+      "country": "Western Sahara",
+      "is_capital": true,
+      "population": 500,
+      "latitude": 26.1192,
+      "longitude": -9.6525,
+      "strategic_value": 10
+    },
+    {
+      "name": "Sanaa",
+      "country": "Yemen",
+      "is_capital": true,
+      "population": 2008000,
+      "latitude": 15.3567,
+      "longitude": 44.2046,
+      "strategic_value": 11
+    },
+    {
+      "name": "Lusaka",
+      "country": "Zambia",
+      "is_capital": true,
+      "population": 1328000,
+      "latitude": -15.4147,
+      "longitude": 28.2814,
+      "strategic_value": 11,
+      "timezone": "Africa/Lusaka"
+    },
+    {
+      "name": "Harare",
+      "country": "Zimbabwe",
+      "is_capital": true,
+      "population": 1572000,
+      "latitude": -17.8158,
+      "longitude": 31.0428,
+      "strategic_value": 11,
+      "timezone": "Africa/Harare"
+    },
+    {
+      "name": "Lobamba",
+      "country": "eSwatini",
+      "is_capital": true,
+      "population": 9782,
+      "latitude": -26.4667,
+      "longitude": 31.2,
+      "strategic_value": 10,
+      "timezone": "Africa/Mbabane"
+    },
+    {
+      "name": "Mbabane",
+      "country": "eSwatini",
+      "is_capital": true,
+      "population": 90138,
+      "latitude": -26.3167,
+      "longitude": 31.1333,
+      "strategic_value": 10,
+      "timezone": "Africa/Mbabane"
+    }
+  ],
+  "total_capitals": 236
+}

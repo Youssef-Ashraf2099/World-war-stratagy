@@ -1,6 +1,7 @@
 //! World state management using bevy_ecs
 
 use bevy_ecs::prelude::*;
+use chrono::{Datelike, Days, NaiveDate};
 use serde::{Deserialize, Serialize};
 
 use super::types::*;
@@ -15,8 +16,123 @@ pub struct WorldState {
     pub tick: Tick,
     /// Simulation seed for determinism
     pub seed: u64,
+    /// Game clock configuration/state
+    pub game_clock: GameClock,
     /// Metadata
     pub metadata: WorldMetadata,
+}
+
+/// Game speed settings used by API/UI control
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
+pub enum GameSpeed {
+    Paused,
+    Slow,
+    Normal,
+    Fast,
+    VeryFast,
+}
+
+impl GameSpeed {
+    pub fn ticks_per_step(self) -> u64 {
+        match self {
+            Self::Paused => 0,
+            Self::Slow => 1,
+            Self::Normal => 3,
+            Self::Fast => 7,
+            Self::VeryFast => 15,
+        }
+    }
+
+    pub fn as_str(self) -> &'static str {
+        match self {
+            Self::Paused => "paused",
+            Self::Slow => "slow",
+            Self::Normal => "normal",
+            Self::Fast => "fast",
+            Self::VeryFast => "very_fast",
+        }
+    }
+}
+
+impl Default for GameSpeed {
+    fn default() -> Self {
+        Self::Normal
+    }
+}
+
+/// Calendar and pacing configuration for simulation time.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct GameClock {
+    pub start_year: i32,
+    pub start_month: u32,
+    pub start_day: u32,
+    pub hours_per_tick: u32,
+    pub speed: GameSpeed,
+}
+
+impl Default for GameClock {
+    fn default() -> Self {
+        Self {
+            start_year: 2010,
+            start_month: 1,
+            start_day: 1,
+            hours_per_tick: 4,
+            speed: GameSpeed::Normal,
+        }
+    }
+}
+
+impl GameClock {
+    pub fn set_start_date(&mut self, year: i32, month: u32, day: u32) -> Result<(), &'static str> {
+        if NaiveDate::from_ymd_opt(year, month, day).is_none() {
+            return Err("invalid start date");
+        }
+
+        self.start_year = year;
+        self.start_month = month;
+        self.start_day = day;
+        Ok(())
+    }
+
+    pub fn set_hours_per_tick(&mut self, hours_per_tick: u32) {
+        self.hours_per_tick = hours_per_tick.max(1).min(24);
+    }
+
+    pub fn datetime_for_tick(&self, tick: Tick) -> (i32, u32, u32, u32, u32) {
+        let start = NaiveDate::from_ymd_opt(self.start_year, self.start_month, self.start_day)
+            .unwrap_or_else(|| NaiveDate::from_ymd_opt(2010, 1, 1).expect("valid fallback date"));
+
+        let elapsed_hours = tick.saturating_mul(self.hours_per_tick as u64);
+        let elapsed_days = elapsed_hours / 24;
+        let hour = (elapsed_hours % 24) as u32;
+
+        let date = start
+            .checked_add_days(Days::new(elapsed_days))
+            .unwrap_or(start);
+
+        (date.year(), date.month(), date.day(), hour, 0)
+    }
+
+    pub fn formatted_datetime_for_tick(&self, tick: Tick) -> String {
+        let (year, month, day, hour, minute) = self.datetime_for_tick(tick);
+        let month_name = match month {
+            1 => "January",
+            2 => "February",
+            3 => "March",
+            4 => "April",
+            5 => "May",
+            6 => "June",
+            7 => "July",
+            8 => "August",
+            9 => "September",
+            10 => "October",
+            11 => "November",
+            12 => "December",
+            _ => "Unknown",
+        };
+
+        format!("{:02}:{:02}, {} {}, {}", hour, minute, day, month_name, year)
+    }
 }
 
 /// World metadata
@@ -49,6 +165,7 @@ impl WorldState {
             world,
             tick: 0,
             seed,
+            game_clock: GameClock::default(),
             metadata: WorldMetadata::default(),
         }
     }
@@ -204,6 +321,8 @@ impl WorldState {
             crate::core::types::MilitaryCapacity::default(),
             crate::core::types::Logistics::default(),
             crate::core::types::WarState::default(),
+            crate::core::types::AIMemory::default(),
+            crate::core::types::IntelligenceProfile::default(),
         ));
 
         if player_controlled {
@@ -264,6 +383,30 @@ impl WorldState {
         self.tick
     }
 
+    pub fn current_datetime_string(&self) -> String {
+        self.game_clock.formatted_datetime_for_tick(self.tick)
+    }
+
+    pub fn current_datetime(&self) -> (i32, u32, u32, u32, u32) {
+        self.game_clock.datetime_for_tick(self.tick)
+    }
+
+    pub fn set_game_speed(&mut self, speed: GameSpeed) {
+        self.game_clock.speed = speed;
+    }
+
+    pub fn speed_ticks_per_step(&self) -> u64 {
+        self.game_clock.speed.ticks_per_step()
+    }
+
+    pub fn set_start_date(&mut self, year: i32, month: u32, day: u32) -> Result<(), &'static str> {
+        self.game_clock.set_start_date(year, month, day)
+    }
+
+    pub fn set_hours_per_tick(&mut self, hours_per_tick: u32) {
+        self.game_clock.set_hours_per_tick(hours_per_tick);
+    }
+
     /// Add a border between two provinces
     pub fn add_province_border(&mut self, province_a: ProvinceId, province_b: ProvinceId) {
         if let Some(mut graph) = self.world.get_resource_mut::<ProvinceGraph>() {
@@ -297,6 +440,7 @@ mod tests {
         let world = WorldState::new(42);
         assert_eq!(world.tick, 0);
         assert_eq!(world.seed, 42);
+        assert_eq!(world.game_clock.start_year, 2010);
     }
 
     #[test]
@@ -338,5 +482,14 @@ mod tests {
         
         world.advance_tick();
         assert_eq!(world.current_tick(), 2);
+    }
+
+    #[test]
+    fn test_clock_progression() {
+        let mut world = WorldState::new(42);
+        assert_eq!(world.current_datetime_string(), "00:00, 1 January, 2010");
+
+        world.advance_tick();
+        assert_eq!(world.current_datetime_string(), "04:00, 1 January, 2010");
     }
 }

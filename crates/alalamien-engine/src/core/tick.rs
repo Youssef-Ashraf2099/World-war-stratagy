@@ -74,6 +74,34 @@ impl TickPipeline {
         Self { phases }
     }
 
+    /// Create a new tick pipeline with V0.35 phases (Advanced AI)
+    ///
+    /// Same deterministic order as V0.3, but upgrades AI decisions:
+    /// 1. Advanced AI Decision
+    /// 2. Warfare
+    /// 3. Economy
+    /// 4. Trade
+    /// 5. Logistics
+    /// 6. Combat
+    /// 7. Occupation
+    /// 8. Stability
+    /// 9. Demographics
+    pub fn new_v0_35() -> Self {
+        use crate::subsystems::*;
+        let phases: Vec<Box<dyn TickPhase>> = vec![
+            Box::new(AdvancedAIDecisionPhase::new()),
+            Box::new(WarfarePhase::new()),
+            Box::new(EconomicPhase::new()),
+            Box::new(TradePhase::new()),
+            Box::new(LogisticsPhase::new()),
+            Box::new(CombatPhase::new()),
+            Box::new(OccupationPhase::new()),
+            Box::new(StabilityPhase::new()),
+            Box::new(DemographicPhase::new()),
+        ];
+        Self { phases }
+    }
+
     /// Create a tick pipeline with debug instrumentation (for development)
     pub fn new_v0_2_debug(config: &crate::EngineConfig) -> Self {
         let phases: Vec<Box<dyn TickPhase>> = vec![

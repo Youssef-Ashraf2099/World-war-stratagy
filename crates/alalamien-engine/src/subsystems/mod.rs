@@ -19,6 +19,7 @@ pub mod combat;
 pub mod warfare;
 pub mod occupation;
 pub mod ai_basic;
+pub mod ai_advanced;
 pub mod vassalage;
 
 pub use demographic::DemographicPhase;
@@ -32,4 +33,5 @@ pub use combat::CombatPhase;
 pub use warfare::WarfarePhase;
 pub use occupation::OccupationPhase;
 pub use ai_basic::AIDecisionPhase;
+pub use ai_advanced::AdvancedAIDecisionPhase;
 pub use vassalage::VassalagePhase;

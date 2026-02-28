@@ -586,6 +586,52 @@ impl Default for AIPersonality {
     }
 }
 
+/// Persistent AI memory used by V0.35 decision logic
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct AIMemory {
+    pub recent_enemies: Vec<NationId>,
+    pub successful_wars: u32,
+    pub failed_wars: u32,
+    pub last_decision_tick: Tick,
+}
+
+impl Default for AIMemory {
+    fn default() -> Self {
+        Self {
+            recent_enemies: Vec::new(),
+            successful_wars: 0,
+            failed_wars: 0,
+            last_decision_tick: 0,
+        }
+    }
+}
+
+/// AI threat knowledge entry used by intelligence system
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ThreatRecord {
+    pub nation_id: NationId,
+    pub score: f64,
+    pub last_updated: Tick,
+}
+
+/// Intelligence profile used for fog-of-war-ready strategic awareness
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct IntelligenceProfile {
+    pub intel_quality: f64,          // 0-1 confidence quality
+    pub known_threats: Vec<ThreatRecord>,
+    pub fog_strength: f64,           // 0-1, higher = more uncertainty
+}
+
+impl Default for IntelligenceProfile {
+    fn default() -> Self {
+        Self {
+            intel_quality: 0.5,
+            known_threats: Vec::new(),
+            fog_strength: 0.5,
+        }
+    }
+}
+
 // ============================================================================
 // V0.3 VASSALAGE & DIPLOMACY
 // ============================================================================

@@ -26,8 +26,20 @@ pub struct HealthResponse {
 pub struct WorldStateResponse {
     tick: u64,
     seed: u64,
+    date_time: String,
     nation_count: usize,
     province_count: usize,
+    game_clock: GameClockResponse,
+}
+
+#[derive(Debug, Serialize)]
+pub struct GameClockResponse {
+    start_year: i32,
+    start_month: u32,
+    start_day: u32,
+    hours_per_tick: u32,
+    speed: String,
+    speed_ticks_per_step: u64,
 }
 
 #[derive(Debug, Serialize)]
@@ -85,8 +97,17 @@ pub async fn get_world_state(
     Ok(Json(WorldStateResponse {
         tick: world.current_tick(),
         seed: world.seed,
+        date_time: world.current_datetime_string(),
         nation_count: world.nation_count(),
         province_count: world.province_count(),
+        game_clock: GameClockResponse {
+            start_year: world.game_clock.start_year,
+            start_month: world.game_clock.start_month,
+            start_day: world.game_clock.start_day,
+            hours_per_tick: world.game_clock.hours_per_tick,
+            speed: world.game_clock.speed.as_str().to_string(),
+            speed_ticks_per_step: world.speed_ticks_per_step(),
+        },
     }))
 }
 
@@ -100,7 +121,14 @@ pub async fn advance_tick(
     AxumState(state): AxumState<ApiState>,
     Json(req): Json<AdvanceTickRequest>,
 ) -> Result<Json<Value>, StatusCode> {
-    let ticks = req.ticks.unwrap_or(1);
+    let ticks = req.ticks.unwrap_or_else(|| {
+        let default_ticks = state
+            .world
+            .read()
+            .map(|world| world.speed_ticks_per_step())
+            .unwrap_or(1);
+        if default_ticks == 0 { 1 } else { default_ticks }
+    });
 
     let mut world = state.world.write().map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
     let mut pipeline = state.pipeline.write().map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
@@ -110,8 +138,71 @@ pub async fn advance_tick(
 
     Ok(Json(json!({
         "current_tick": world.current_tick(),
+        "date_time": world.current_datetime_string(),
+        "speed": world.game_clock.speed.as_str(),
         "ticks_advanced": ticks
     })))
+}
+
+#[derive(Debug, Deserialize)]
+pub struct UpdateClockRequest {
+    start_year: Option<i32>,
+    start_month: Option<u32>,
+    start_day: Option<u32>,
+    hours_per_tick: Option<u32>,
+    speed: Option<String>,
+}
+
+pub async fn update_clock(
+    AxumState(state): AxumState<ApiState>,
+    Json(req): Json<UpdateClockRequest>,
+) -> Result<Json<Value>, StatusCode> {
+    let mut world = state.world.write().map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+
+    if let Some(hours_per_tick) = req.hours_per_tick {
+        world.set_hours_per_tick(hours_per_tick);
+    }
+
+    if let Some(speed) = req.speed {
+        let speed = parse_game_speed(&speed).ok_or(StatusCode::BAD_REQUEST)?;
+        world.set_game_speed(speed);
+    }
+
+    if req.start_year.is_some() || req.start_month.is_some() || req.start_day.is_some() {
+        let year = req.start_year.unwrap_or(world.game_clock.start_year);
+        let month = req.start_month.unwrap_or(world.game_clock.start_month);
+        let day = req.start_day.unwrap_or(world.game_clock.start_day);
+
+        world
+            .set_start_date(year, month, day)
+            .map_err(|_| StatusCode::BAD_REQUEST)?;
+    }
+
+    Ok(Json(json!({
+        "tick": world.current_tick(),
+        "date_time": world.current_datetime_string(),
+        "game_clock": {
+            "start_year": world.game_clock.start_year,
+            "start_month": world.game_clock.start_month,
+            "start_day": world.game_clock.start_day,
+            "hours_per_tick": world.game_clock.hours_per_tick,
+            "speed": world.game_clock.speed.as_str(),
+            "speed_ticks_per_step": world.speed_ticks_per_step()
+        }
+    })))
+}
+
+fn parse_game_speed(value: &str) -> Option<alalamien_engine::core::world::GameSpeed> {
+    use alalamien_engine::core::world::GameSpeed;
+
+    match value.to_ascii_lowercase().as_str() {
+        "paused" | "pause" | "0" => Some(GameSpeed::Paused),
+        "slow" | "1" => Some(GameSpeed::Slow),
+        "normal" | "2" => Some(GameSpeed::Normal),
+        "fast" | "3" => Some(GameSpeed::Fast),
+        "very_fast" | "veryfast" | "4" => Some(GameSpeed::VeryFast),
+        _ => None,
+    }
 }
 
 /// Get all nations

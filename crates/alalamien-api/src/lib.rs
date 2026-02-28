@@ -40,6 +40,7 @@ fn create_router(api_state: ApiState) -> Router {
         .route("/health", get(handlers::health_check))
         .route("/world/state", get(handlers::get_world_state))
         .route("/world/tick", post(handlers::advance_tick))
+        .route("/world/clock", post(handlers::update_clock))
         .route("/nations", get(handlers::get_nations))
         .route("/nations/:id", get(handlers::get_nation_by_id))
         .route("/provinces", get(handlers::get_provinces))

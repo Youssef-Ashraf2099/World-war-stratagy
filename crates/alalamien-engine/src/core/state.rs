@@ -12,6 +12,7 @@ use super::world::WorldState;
 pub struct StateSnapshot {
     pub tick: u64,
     pub seed: u64,
+    pub game_clock: super::world::GameClock,
     pub metadata: super::world::WorldMetadata,
     // ECS data will be added as we build out components
 }
@@ -22,6 +23,7 @@ impl WorldState {
         let snapshot = StateSnapshot {
             tick: self.tick,
             seed: self.seed,
+            game_clock: self.game_clock.clone(),
             metadata: self.metadata.clone(),
         };
 
@@ -44,6 +46,7 @@ impl WorldState {
 
         let mut world_state = WorldState::new(snapshot.seed);
         world_state.tick = snapshot.tick;
+        world_state.game_clock = snapshot.game_clock;
         world_state.metadata = snapshot.metadata;
 
         Ok(world_state)
@@ -61,6 +64,11 @@ impl WorldState {
         let mut hasher = DefaultHasher::new();
         self.tick.hash(&mut hasher);
         self.seed.hash(&mut hasher);
+        self.game_clock.start_year.hash(&mut hasher);
+        self.game_clock.start_month.hash(&mut hasher);
+        self.game_clock.start_day.hash(&mut hasher);
+        self.game_clock.hours_per_tick.hash(&mut hasher);
+        self.game_clock.speed.as_str().hash(&mut hasher);
 
         let nation_name_by_id = {
             let mut query = self.world.query::<&Nation>();
@@ -154,6 +162,9 @@ mod tests {
 
         // Create and save a world
         let mut world = WorldState::new(42);
+        world.set_start_date(2015, 6, 10).unwrap();
+        world.set_hours_per_tick(6);
+        world.set_game_speed(super::super::world::GameSpeed::Fast);
         world.advance_tick();
         world.advance_tick();
         
@@ -164,6 +175,9 @@ mod tests {
         
         assert_eq!(loaded.tick, 2);
         assert_eq!(loaded.seed, 42);
+        assert_eq!(loaded.game_clock.start_year, 2015);
+        assert_eq!(loaded.game_clock.hours_per_tick, 6);
+        assert_eq!(loaded.game_clock.speed, super::super::world::GameSpeed::Fast);
 
         Ok(())
     }

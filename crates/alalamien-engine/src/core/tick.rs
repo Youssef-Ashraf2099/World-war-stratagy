@@ -6,11 +6,13 @@ use bevy_ecs::prelude::*;
 use tracing::{info, debug};
 
 use super::world::WorldState;
+use super::state::AutoSaveConfig;
 use crate::subsystems::*;
 
 /// Tick execution pipeline
 pub struct TickPipeline {
     phases: Vec<Box<dyn TickPhase>>,
+    auto_save_config: Option<AutoSaveConfig>,
 }
 
 /// A phase in the tick pipeline
@@ -26,7 +28,10 @@ impl TickPipeline {
             Box::new(demographic::DemographicPhase::new()),
             Box::new(economic::EconomicPhase::new()),
         ];
-        Self { phases }
+        Self { 
+            phases,
+            auto_save_config: None,
+        }
     }
 
     /// Create a new tick pipeline with default v0.2 phases
@@ -44,7 +49,10 @@ impl TickPipeline {
             Box::new(stability::StabilityPhase::new()),
             Box::new(demographic::DemographicPhase::new()),
         ];
-        Self { phases }
+        Self { 
+            phases,
+            auto_save_config: None,
+        }
     }
 
     /// Create a new tick pipeline with V0.3 phases (War & AI)
@@ -71,7 +79,10 @@ impl TickPipeline {
             Box::new(StabilityPhase::new()),
             Box::new(DemographicPhase::new()),
         ];
-        Self { phases }
+        Self { 
+            phases,
+            auto_save_config: None,
+        }
     }
 
     /// Create a new tick pipeline with V0.35 phases (Advanced AI)
@@ -99,7 +110,10 @@ impl TickPipeline {
             Box::new(StabilityPhase::new()),
             Box::new(DemographicPhase::new()),
         ];
-        Self { phases }
+        Self { 
+            phases,
+            auto_save_config: None,
+        }
     }
 
     /// Create a tick pipeline with V0.4 phases (Alliances & Diplomacy)
@@ -131,7 +145,10 @@ impl TickPipeline {
             Box::new(StabilityPhase::new()),
             Box::new(DemographicPhase::new()),
         ];
-        Self { phases }
+        Self { 
+            phases,
+            auto_save_config: None,
+        }
     }
 
     /// Create a tick pipeline with V0.5 phases (Legitimacy system)
@@ -165,7 +182,10 @@ impl TickPipeline {
             Box::new(DemographicPhase::new()),
             Box::new(LegitimacyPhase::new()),
         ];
-        Self { phases }
+        Self { 
+            phases,
+            auto_save_config: None,
+        }
     }
 
     /// Create a tick pipeline with V0.6 phases (Factions & Dynamic Events)
@@ -204,7 +224,10 @@ impl TickPipeline {
             Box::new(FactionCivilWarPhase::new()),
             Box::new(InterventionPhase::new()),
         ];
-        Self { phases }
+        Self { 
+            phases,
+            auto_save_config: None,
+        }
     }
     
     pub fn new_v0_2_debug(config: &crate::EngineConfig) -> Self {
@@ -216,7 +239,27 @@ impl TickPipeline {
             Box::new(demographic::DemographicPhase::new()),
             Box::new(crate::instrumentation::DebuggerPhase::new(config.clone())),
         ];
-        Self { phases }
+        Self { 
+            phases,
+            auto_save_config: None,
+        }
+    }
+
+    /// Enable auto-save with custom configuration
+    pub fn with_auto_save(mut self, config: AutoSaveConfig) -> Self {
+        self.auto_save_config = Some(config);
+        self
+    }
+
+    /// Enable auto-save with default configuration
+    pub fn with_auto_save_default(mut self) -> Self {
+        self.auto_save_config = Some(AutoSaveConfig::default());
+        self
+    }
+
+    /// Set auto-save configuration
+    pub fn set_auto_save(&mut self, config: Option<AutoSaveConfig>) {
+        self.auto_save_config = config;
     }
 
     /// Add a new phase to the pipeline
@@ -235,6 +278,18 @@ impl TickPipeline {
         }
 
         world_state.advance_tick();
+        
+        // Perform auto-save if configured
+        if let Some(ref config) = self.auto_save_config {
+            if let Err(e) = world_state.auto_save(config) {
+                tracing::warn!(error = ?e, "Auto-save failed");
+            } else if world_state.current_tick() % config.interval_ticks == 0 {
+                tracing::info!(
+                    tick = world_state.current_tick(),
+                    "Auto-save completed"
+                );
+            }
+        }
         
         if tick % 100 == 0 {
             info!(tick = tick, "Tick milestone reached");

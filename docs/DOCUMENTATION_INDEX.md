@@ -1,103 +1,47 @@
 # 📖 Alalamien War - Documentation Index
 
-**Last Updated:** February 28, 2026  
-**Project Status:** v0.35 COMPLETE ✅  
-**Current Version:** 0.35 - Advanced AI + Game Calendar System
+**Last Updated:** March 2, 2026  
+**Project Status:** v0.7 PRE-UI HARDENING COMPLETE ✅  
+**Current Version:** 0.7 - Notification System Integration + Pre-UI Validation
 
 ---
 
 ## 🎯 START HERE
 
-### New to the Project?
+### Latest Updates (V0.7 - Just Completed)
 
-1. **[V0.1 Final Summary](versions/V0.1_FINAL_SUMMARY.md)** ⭐ **READ THIS FIRST**
-   - What was built in v0.1
-   - How to run the simulation
-   - 177 real nations loaded
-   - Next steps for v0.2
+1. **[V0.7 PRE-UI HARDENING COMPLETE](V0.7_PRE_UI_HARDENING_COMPLETE.md)** ⭐ **READ THIS FIRST**
+   - Full notification system integration (6 subsystems)
+   - Pre-UI hardening test suite (+11 new tests = 383 total)
+   - Long-run stress validation (1000+ ticks, 30 nations)
+   - Determinism verified and guaranteed
+   - Ready for UI development phase
 
-2. **[Project Status](../PROJECT_STATUS.md)** - Quick overview
-3. **[Version Index](versions/VERSION_INDEX.md)** - All version docs organized
+2. **[STATUS_OVERVIEW.md](STATUS_OVERVIEW.md)** - Current project snapshot
+3. **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** - Quick lookup guide
 
 ### Ready to Develop?
 
 1. **[Development Guide](DEVELOPMENT_GUIDE.md)** - How to build and extend
 2. **[Architecture](ARCHITECTURE.md)** - System design and structure
-3. **[Geodata Integration](../GEODATA_INTEGRATION.md)** - Natural Earth data loading
+3. **[V0.7 System Design](V0.7_PRE_UI_HARDENING_COMPLETE.md#-architecture-readiness)** - Latest architecture
+
+---
+
+## 📊 PROJECT MILESTONES
+
+- ✅ **V0.1-V0.6:** Foundation + Emergent Systems (372 tests)
+- ✅ **V0.7:** Pre-UI Hardening Complete (383 tests, +11 new)
+- 📋 **V0.8:** UI Development Phase (NEXT)
+- 📋 **V1.0:** Public Release
 
 ---
 
 ## 📁 Documentation Structure
 
-### 🏆 Version Documents (docs/versions/)
+### 🏆 Version Documents — Core Status
 
-**The most important documents - read these first!**
-
-#### Latest Release: V0.35 ✅
-
-- **[V0.35_COMPLETE.md](versions/V0.35_COMPLETE.md)** 🎯 **CURRENT VERSION**
-  - Advanced AI with memory system
-  - Tactical combat implementation
-  - Game calendar with infinite time progression
-  - 1000-tick determinism validation (PASSED)
-  - 65/65 tests passing
-  - Full API documentation
-
-- **[V0.3_PLAN.md](versions/V0.3_PLAN.md)** 📐
-  - V0.3 vision and architecture
-  - V0.35 update and completion status
-  - Combat system design
-  - AI decision trees
-  - Implementation schedule
-
-#### Previous Release: V0.1 ✅
-
-- **[V0.1_FINAL_SUMMARY.md](versions/V0.1_FINAL_SUMMARY.md)** ⭐
-  - Complete v0.1 summary
-  - What shipped, what was removed
-  - How to run, API endpoints
-  - Known issues and next steps
-- **[V0.1_TARGETS_REVIEW.md](versions/V0.1_TARGETS_REVIEW.md)** ⭐
-  - Original v0.1 targets vs actual completion
-  - **Now at 100% compliance (10/10)**
-  - Province graph and 500-tick test completed
-
-- **[V0.1_COMPLETION_CERTIFICATE.md](versions/V0.1_COMPLETION_CERTIFICATE.md)** 🏆
-  - 100% v0.1 spec compliance
-  - 500-tick stability verification
-  - API + desktop build verification
-- **[VERSION_INDEX.md](versions/VERSION_INDEX.md)**
-  - All versions organized
-  - Version comparison table
-  - Navigation guide
-
-### 📋 Planning Documents (docs/)
-
-- **[V0.1_PLAN.md](V0.1_PLAN.md)** - Original v0.1 plan
-- **[ROADMAP.md](ROADMAP.md)** - Multi-version roadmap
-- **[strategy game.md](strategy%20game.md)** - Original game design doc
-
-### 🏗️ Technical Documents (docs/)
-
-- **[ARCHITECTURE.md](ARCHITECTURE.md)** - System architecture
-- **[DEVELOPMENT_GUIDE.md](DEVELOPMENT_GUIDE.md)** - Developer guide
-- **[GEOSPATIAL_DATA_PLAN.md](GEOSPATIAL_DATA_PLAN.md)** - Natural Earth plan
-- **[GEOLOADER_INTEGRATION.md](GEOLOADER_INTEGRATION.md)** - Loader implementation
-- **[GEOSPATIAL_SUMMARY.md](GEOSPATIAL_SUMMARY.md)** - Geospatial features
-
-### 📝 Reference Documents (root/)
-
-- **[PROJECT_STATUS.md](../PROJECT_STATUS.md)** - Current status snapshot
-- **[GEODATA_INTEGRATION.md](../GEODATA_INTEGRATION.md)** - Integration notes
-- **[README.md](../README.md)** - Project README
-
-### 🗃️ Legacy Documents (docs/)
-
-- **[V0.1_BUILD_COMPLETE.md](V0.1_BUILD_COMPLETE.md)** - Old completion doc (outdated)
-- **[V0.1_GEOLOADER_COMPLETE.md](V0.1_GEOLOADER_COMPLETE.md)** - Geoloader milestone
-- **[COMPLETION_SUMMARY.md](COMPLETION_SUMMARY.md)** - Early summary
-- **[PROJECT_INITIALIZED.md](PROJECT_INITIALIZED.md)** - Initialization report
-- **[FILE_MANIFEST.md](FILE_MANIFEST.md)** - File listing
+**READ THESE FOR PROJECT STATUS**
 - **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** - Code snippets
 - **[STATUS_OVERVIEW.md](STATUS_OVERVIEW.md)** - Status snapshot
 

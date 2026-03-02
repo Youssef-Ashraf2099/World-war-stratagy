@@ -5,6 +5,8 @@
 /// previously broken and fixed.
 
 use crate::tests::fixtures::TestWorldBuilder;
+use crate::core::types::{Nation, NotificationLog, NotificationType};
+use crate::subsystems::{nuclear, warfare};
 
 #[test]
 fn test_world_state_persists_ticks() {
@@ -118,4 +120,61 @@ fn test_no_panic_on_extended_execution() {
     }
 
     assert_eq!(world.current_tick(), 100);
+}
+
+#[test]
+fn test_regression_war_declaration_emits_notifications() {
+    let mut fixture = TestWorldBuilder::new().with_seed(4010).build();
+
+    let attacker = fixture.world.spawn_nation("Attacker".to_string(), [255, 0, 0], false);
+    let defender = fixture.world.spawn_nation("Defender".to_string(), [0, 255, 0], false);
+    let attacker_id = fixture.world.world.get::<Nation>(attacker).unwrap().id;
+    let defender_id = fixture.world.world.get::<Nation>(defender).unwrap().id;
+
+    warfare::declare_war(
+        &mut fixture.world.world,
+        attacker_id,
+        defender_id,
+        crate::core::types::CasusBelli::PreemptiveStrike,
+        crate::core::types::WarGoal::Total,
+        10,
+    );
+
+    let log_attacker = fixture.world.world.get::<NotificationLog>(attacker).unwrap();
+    let log_defender = fixture.world.world.get::<NotificationLog>(defender).unwrap();
+
+    assert!(
+        log_attacker.notifications.iter().any(|n| matches!(n.notification_type, NotificationType::WarDeclared { .. })),
+        "Attacker should receive war declaration notification"
+    );
+    assert!(
+        log_defender.notifications.iter().any(|n| matches!(n.notification_type, NotificationType::WarDeclared { .. })),
+        "Defender should receive war declaration notification"
+    );
+}
+
+#[test]
+fn test_regression_nuclear_use_notifies_bystanders() {
+    let mut fixture = TestWorldBuilder::new().with_seed(4011).build();
+
+    let attacker = fixture.world.spawn_nation_with_nuclear("NukeA".to_string(), [255, 0, 0], false, Some(60.0));
+    let target = fixture.world.spawn_nation_with_nuclear("NukeB".to_string(), [0, 255, 0], false, Some(60.0));
+    let bystander = fixture.world.spawn_nation("Observer".to_string(), [0, 0, 255], false);
+
+    let attacker_id = fixture.world.world.get::<Nation>(attacker).unwrap().id;
+    let target_id = fixture.world.world.get::<Nation>(target).unwrap().id;
+
+    nuclear::apply_nuclear_use_effects(
+        &mut fixture.world.world,
+        attacker_id,
+        target_id,
+        vec![],
+        20,
+    );
+
+    let bystander_log = fixture.world.world.get::<NotificationLog>(bystander).unwrap();
+    assert!(
+        bystander_log.notifications.iter().any(|n| matches!(n.notification_type, NotificationType::NuclearWeaponUsed { .. })),
+        "Bystander should receive global nuclear-use notification"
+    );
 }

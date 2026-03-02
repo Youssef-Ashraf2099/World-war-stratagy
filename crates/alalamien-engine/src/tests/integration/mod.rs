@@ -20,5 +20,6 @@ pub mod civil_war_cascade;
 pub mod espionage_scenario;
 pub mod nuclear_weapons_scenario;
 pub mod notification_scenarios;
+pub mod pre_ui_hardening;
 
 pub use super::fixtures::{TestWorldBuilder, TestWorldFixture, assertions};

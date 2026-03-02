@@ -16,6 +16,7 @@ pub mod quality_metrics;
 pub mod regression;
 pub mod chaos_fuzz;
 pub mod subsystem_performance;
+pub mod system_validation;
 
 pub use super::fixtures::{
     TestWorldBuilder, TestWorldFixture, TickMetrics,

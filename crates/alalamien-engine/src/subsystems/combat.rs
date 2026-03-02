@@ -9,7 +9,7 @@ use tracing::debug;
 
 use crate::core::tick::TickPhase;
 use crate::core::types::{
-    Army, ArmyId, BattleCasualties, BattleId, NationId, ProvinceBattle, ProvinceId, WarState,
+    Army, ArmyId, BattleCasualties, BattleId, NationId, ProvinceBattle, ProvinceId, WarState, CasualtyLog,
 };
 
 const BASE_CASUALTY_RATE: f64 = 0.01;
@@ -78,11 +78,37 @@ fn resolve_battle(_world: &mut World, _battle_id: BattleId) {
     let attacker_losses = calculate_casualties(defender_strength, attacker_strength, BASE_CASUALTY_RATE);
     let defender_losses = calculate_casualties(attacker_strength, defender_strength, BASE_CASUALTY_RATE);
 
+    // Get nation owners from armies involved
+    let mut nation_query = _world.query::<&Army>();
+    let mut attacker_nations = std::collections::HashSet::new();
+    let mut defender_nations = std::collections::HashSet::new();
+    
+    for army in nation_query.iter(_world) {
+        for attacker_id in &battle.attackers {
+            if army.army_id == *attacker_id {
+                attacker_nations.insert(army.owner);
+            }
+        }
+        for defender_id in &battle.defenders {
+            if army.army_id == *defender_id {
+                defender_nations.insert(army.owner);
+            }
+        }
+    }
+
     // 4) Apply casualties to armies
     apply_side_casualties(_world, &battle.attackers, &attacker_losses);
     apply_side_casualties(_world, &battle.defenders, &defender_losses);
 
-    // 5) Update battle state
+    // 5) Update nation casualty logs (for legitimacy calculations)
+    for attacker_nation in &attacker_nations {
+        update_nation_casualties(_world, *attacker_nation, &attacker_losses);
+    }
+    for defender_nation in &defender_nations {
+        update_nation_casualties(_world, *defender_nation, &defender_losses);
+    }
+
+    // 6) Update battle state
     battle.duration = battle.duration.saturating_add(1);
     add_casualties(&mut battle.attacker_casualties, &attacker_losses);
     add_casualties(&mut battle.defender_casualties, &defender_losses);
@@ -110,6 +136,7 @@ fn resolve_battle(_world: &mut World, _battle_id: BattleId) {
         *live_battle = battle;
     }
 }
+
 
 /// Detect new battles where opposing armies meet
 fn detect_new_battles(_world: &mut World) {
@@ -318,6 +345,40 @@ fn find_warring_pair(
     }
 
     None
+}
+
+/// Update nation casualty logs based on battle losses
+fn update_nation_casualties(
+    world: &mut World,
+    nation_id: NationId,
+    casualties: &BattleCasualties,
+) {
+    // Calculate total personnel lost from this battle
+    let personnel_lost = casualties.infantry_lost
+        .saturating_add(casualties.armor_lost)
+        .saturating_add(casualties.artillery_lost);
+    
+    // Find all armies of this nation to calculate total personnel
+    let mut total_personnel = 0u64;
+    let mut nation_query = world.query::<&Army>();
+    for army in nation_query.iter(world) {
+        if army.owner == nation_id {
+            total_personnel = total_personnel.saturating_add(
+                army.infantry
+                    .saturating_add(army.armor)
+                    .saturating_add(army.artillery)
+            );
+        }
+    }
+    
+    // Update CasualtyLog for this nation
+    let mut casualty_query = world.query::<(&NationId, &mut CasualtyLog)>();
+    for (query_nation_id, mut casualty_log) in casualty_query.iter_mut(world) {
+        if *query_nation_id == nation_id {
+            casualty_log.personnel_lost = casualty_log.personnel_lost.saturating_add(personnel_lost);
+            casualty_log.total_personnel = total_personnel.max(1000); // Ensure minimum for ratio calculation
+        }
+    }
 }
 
 #[cfg(test)]

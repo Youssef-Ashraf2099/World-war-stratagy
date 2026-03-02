@@ -5,7 +5,7 @@
 use bevy_ecs::prelude::*;
 use tracing::trace;
 
-use crate::core::types::{Resources, ResourceType, Population, Infrastructure, Province, OwnedBy, Nation, MilitaryCapacity, Logistics, GDP, NationId};
+use crate::core::types::{Resources, ResourceType, Population, Infrastructure, Province, OwnedBy, Nation, MilitaryCapacity, Logistics, GDP, NationId, EconomicStress};
 use crate::core::tick::TickPhase;
 
 const IRON_TO_MILITARY_RATE: f64 = 0.1;
@@ -107,9 +107,10 @@ impl TickPhase for EconomicPhase {
             &mut MilitaryCapacity,
             &mut Logistics,
             &mut GDP,
+            Option<&mut EconomicStress>,
         )>();
 
-        for (nation, mut military, mut logistics, mut gdp) in nation_query.iter_mut(world) {
+        for (nation, mut military, mut logistics, mut gdp, economic_stress) in nation_query.iter_mut(world) {
             if let Some((iron, oil)) = nation_incomes.get(&nation.id) {
                 // Production chains
                 military.value += iron * IRON_TO_MILITARY_RATE;
@@ -118,6 +119,33 @@ impl TickPhase for EconomicPhase {
                 // Simple scalar GDP abstraction for the entire economy's output
                 let gdp_gain = (*iron * 2.0) + (*oil * 3.0);
                 gdp.value += gdp_gain / 1000.0;
+            }
+            
+            // Calculate deficit if EconomicStress is present
+            if let Some(mut econ_stress) = economic_stress {
+                let military_upkeep = military.value * 0.01; // 1% of military value per tick
+                let logistics_cost = logistics.value * 0.005;  // 0.5% of logistics value per tick
+                
+                let total_costs = military_upkeep + logistics_cost;
+                let income = gdp.value * 0.1; // 10% of GDP is available for spending
+                
+                let deficit = total_costs - income;
+                
+                // Update EconomicStress with current deficit and accumulated deficit
+                econ_stress.current_deficit = deficit;
+                econ_stress.accumulated_deficit += deficit.max(0.0); // Only accumulate positive deficits
+                econ_stress.gdp = gdp.value;
+                
+                if deficit.abs() > 0.01 {
+                    trace!(
+                        nation = %nation.name,
+                        military_upkeep = military_upkeep,
+                        logistics_cost = logistics_cost,
+                        income = income,
+                        deficit = deficit,
+                        "Nation economic status"
+                    );
+                }
             }
         }
     }

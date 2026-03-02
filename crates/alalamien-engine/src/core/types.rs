@@ -229,6 +229,161 @@ impl Default for GDP {
     }
 }
 
+/// Nation economic stress (V0.5)
+/// Tracks deficit and economic pressure for legitimacy calculations
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct EconomicStress {
+    /// Current tick's total deficit (costs - income)
+    pub current_deficit: f64,
+    /// Running total of deficits (resets annually)
+    pub accumulated_deficit: f64,
+    /// GDP for inflation calculation
+    pub gdp: f64,
+}
+
+impl Default for EconomicStress {
+    fn default() -> Self {
+        Self {
+            current_deficit: 0.0,
+            accumulated_deficit: 0.0,
+            gdp: 1_000_000.0,
+        }
+    }
+}
+
+impl EconomicStress {
+    /// Calculate deficit-to-GDP ratio for legitimacy impact
+    pub fn deficit_inflation_rate(&self) -> f64 {
+        if self.gdp <= 0.0 {
+            0.0
+        } else {
+            (self.current_deficit / self.gdp).max(0.0)
+        }
+    }
+}
+
+/// Nation casualty tracking (V0.5)
+/// Tracks personnel losses across all armies for legitimacy calculations
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct CasualtyLog {
+    /// Total personnel killed this tick
+    pub personnel_lost: u64,
+    /// Total personnel at start of tick (for casualty ratio)
+    pub total_personnel: u64,
+}
+
+impl Default for CasualtyLog {
+    fn default() -> Self {
+        Self {
+            personnel_lost: 0,
+            total_personnel: 1000, // Placeholder
+        }
+    }
+}
+
+impl CasualtyLog {
+    /// Calculate casualty ratio (losses / total) for legitimacy calculations
+    pub fn casualty_ratio(&self) -> f64 {
+        if self.total_personnel == 0 {
+            0.0
+        } else {
+            (self.personnel_lost as f64 / self.total_personnel as f64).min(1.0)
+        }
+    }
+
+    /// Reset this tick's losses (call at end of combat phase)
+    pub fn reset_losses(&mut self) {
+        self.personnel_lost = 0;
+    }
+}
+
+/// Nation alliance crisis tracking (V0.5)
+/// Tracks alliance crises (cohesion < 25) for legitimacy calculations
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct AllianceCrisisLog {
+    /// Number of alliances in crisis state
+    pub alliances_in_crisis: u32,
+    /// Total alliance count (for burden calculation)
+    pub total_alliances: u32,
+}
+
+impl Default for AllianceCrisisLog {
+    fn default() -> Self {
+        Self {
+            alliances_in_crisis: 0,
+            total_alliances: 0,
+        }
+    }
+}
+
+impl AllianceCrisisLog {
+    /// Check if this nation is in alliance crisis
+    pub fn has_crisis(&self) -> bool {
+        self.alliances_in_crisis > 0
+    }
+
+    /// Calculate alliance burden including crisis penalty
+    /// Base burden: -0.1 per alliance
+    /// Crisis penalty: -0.2 per alliance in crisis
+    pub fn alliance_burden(&self) -> f64 {
+        let base_burden = self.total_alliances as f64 * -0.1;
+        let crisis_penalty = self.alliances_in_crisis as f64 * -0.2;
+        base_burden + crisis_penalty
+    }
+}
+
+/// Nation diplomatic isolation tracking (V0.5)
+/// Tracks diplomatic relations quality for legitimacy calculations
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct DiplomaticIsolationLog {
+    /// Number of hostile relations (reputation < -25)
+    pub hostile_relations: u32,
+    /// Number of friendly relations (reputation > 25)
+    pub friendly_relations: u32,
+    /// Total number of diplomatic relations
+    pub total_relations: u32,
+}
+
+impl Default for DiplomaticIsolationLog {
+    fn default() -> Self {
+        Self {
+            hostile_relations: 0,
+            friendly_relations: 0,
+            total_relations: 0,
+        }
+    }
+}
+
+impl DiplomaticIsolationLog {
+    /// Calculate isolation penalty for legitimacy
+    /// Penalty increases with hostile relations and lack of friends
+    pub fn isolation_penalty(&self) -> f64 {
+        if self.total_relations == 0 {
+            return 0.0; // No penalty if no relations tracked yet
+        }
+        
+        let hostile_ratio = self.hostile_relations as f64 / self.total_relations as f64;
+        let friendly_ratio = self.friendly_relations as f64 / self.total_relations as f64;
+        
+        // Hostile relations: -0.15 per 10% of relations that are hostile
+        let hostile_penalty = hostile_ratio * -1.5;
+        
+        // Lack of friends: -0.1 if less than 25% relations are friendly
+        let isolation_penalty = if friendly_ratio < 0.25 {
+            -0.1
+        } else {
+            0.0
+        };
+        
+        hostile_penalty + isolation_penalty
+    }
+    
+    /// Check if nation is diplomatically isolated
+    pub fn is_isolated(&self) -> bool {
+        self.total_relations > 0 && self.friendly_relations == 0
+    }
+}
+
 /// Nation military capacity
 #[derive(Debug, Clone, Component, Default, Serialize, Deserialize)]
 pub struct MilitaryCapacity {

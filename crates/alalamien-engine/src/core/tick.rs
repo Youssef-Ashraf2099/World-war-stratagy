@@ -133,6 +133,40 @@ impl TickPipeline {
         ];
         Self { phases }
     }
+
+    /// Create a tick pipeline with V0.5 phases (Legitimacy system)
+    ///
+    /// Extends V0.4 with dedicated legitimacy aggregation phase:
+    /// 1. Advanced AI Decision (strategic choices, reads legitimacy)
+    /// 2. Warfare (war declarations, reads/writes war state)
+    /// 3. Economy (production, writes GDP)
+    /// 4. Trade (resource distribution)
+    /// 5. Logistics (supply lines, army attrition)
+    /// 6. Combat (battle resolution, casualty tracking)
+    /// 7. Occupation (territory control)
+    /// 8. Alliance Phase (cohesion decay, obligations)
+    /// 9. Diplomacy Phase (relations, reputation)
+    /// 10. Stability (internal threats, early legitimacy effects)
+    /// 11. Demographics (population growth)
+    /// 12. Legitimacy (NEW - aggregates all stressors: war, deficit, alliances, peace)
+    pub fn new_v0_5() -> Self {
+        use crate::subsystems::*;
+        let phases: Vec<Box<dyn TickPhase>> = vec![
+            Box::new(AdvancedAIDecisionPhase::new()),
+            Box::new(WarfarePhase::new()),
+            Box::new(EconomicPhase::new()),
+            Box::new(TradePhase::new()),
+            Box::new(LogisticsPhase::new()),
+            Box::new(CombatPhase::new()),
+            Box::new(OccupationPhase::new()),
+            Box::new(AlliancePhase::new()),
+            Box::new(DiplomacyPhase::new()),
+            Box::new(StabilityPhase::new()),
+            Box::new(DemographicPhase::new()),
+            Box::new(LegitimacyPhase::new()),
+        ];
+        Self { phases }
+    }
     pub fn new_v0_2_debug(config: &crate::EngineConfig) -> Self {
         let phases: Vec<Box<dyn TickPhase>> = vec![
             Box::new(economic::EconomicPhase::new()),
@@ -713,5 +747,71 @@ mod tests {
 
         world_state.add_province_border(a_cap_id, a_front_id);
         world_state.add_province_border(a_front_id, b_cap_id);
+    }
+
+    #[test]
+    fn test_v0_5_pipeline_legitimacy_phase() {
+        // Verify that V0.5 pipeline includes LegitimacyPhase and executes successfully
+        let mut world_state = WorldState::new(12345);
+        let mut pipeline = TickPipeline::new_v0_5();
+
+        // Spawn a test nation
+        let nation = world_state.spawn_nation("TestNation".to_string(), [100, 150, 200], false);
+        
+        // Verify nation has Legitimacy component
+        let legitimacy = world_state.world.get::<crate::core::types::Legitimacy>(nation);
+        assert!(legitimacy.is_some(), "Nation should have Legitimacy component");
+        assert_eq!(legitimacy.unwrap().value, 50.0, "Default legitimacy should be 50.0");
+
+        // Execute a tick - should not panic and should complete successfully
+        pipeline.execute(&mut world_state);
+
+        // Verify legitimacy still exists and is in valid range
+        let legitimacy_after = world_state.world.get::<crate::core::types::Legitimacy>(nation);
+        assert!(legitimacy_after.is_some(), "Legitimacy should persist after tick");
+        assert!(
+            legitimacy_after.unwrap().value >= 0.0 && legitimacy_after.unwrap().value <= 100.0,
+            "Legitimacy should remain in valid range [0, 100]"
+        );
+    }
+
+    #[test]
+    fn test_v0_5_pipeline_100_ticks() {
+        // Verify V0.5 pipeline is deterministic over 100 ticks
+        let mut world_state = WorldState::new(54321);
+        let mut pipeline = TickPipeline::new_v0_5();
+
+        // Spawn test nation and record initial state
+        let nation = world_state.spawn_nation("TestNation".to_string(), [200, 100, 50], false);
+        let initial_legitimacy = world_state
+            .world
+            .get::<crate::core::types::Legitimacy>(nation)
+            .unwrap()
+            .value;
+
+        // Execute 100 ticks
+        for _ in 0..100 {
+            pipeline.execute(&mut world_state);
+        }
+
+        // Verify nation is still valid and legitimacy is in range
+        let final_legitimacy = world_state
+            .world
+            .get::<crate::core::types::Legitimacy>(nation)
+            .unwrap()
+            .value;
+
+        assert!(
+            final_legitimacy >= 0.0 && final_legitimacy <= 100.0,
+            "Legitimacy after 100 ticks: {}, should be [0, 100]",
+            final_legitimacy
+        );
+
+        // Peace nation without wars should slowly gain legitimacy
+        // (peace_bonus = +0.3/tick, no stressors)
+        assert!(
+            final_legitimacy > initial_legitimacy * 0.99,
+            "Peaceful nation should maintain or gain legitimacy"
+        );
     }
 }

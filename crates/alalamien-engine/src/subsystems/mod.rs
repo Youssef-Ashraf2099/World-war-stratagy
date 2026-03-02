@@ -27,6 +27,9 @@ pub mod alliance;
 pub mod alliance_dataset;
 pub mod diplomacy;
 
+// V0.5 subsystems
+pub mod legitimacy;
+
 pub use demographic::DemographicPhase;
 pub use economic::EconomicPhase;
 pub use trade::TradePhase;
@@ -44,3 +47,6 @@ pub use vassalage::VassalagePhase;
 // V0.4 exports
 pub use alliance::AlliancePhase;
 pub use diplomacy::DiplomacyPhase;
+
+// V0.5 exports
+pub use legitimacy::LegitimacyPhase;

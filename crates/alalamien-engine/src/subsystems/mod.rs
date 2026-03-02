@@ -33,6 +33,7 @@ pub mod legitimacy;
 // V0.6 subsystems
 pub mod factions;
 pub mod events;
+pub mod intervention;
 
 pub use demographic::DemographicPhase;
 pub use economic::EconomicPhase;
@@ -58,3 +59,4 @@ pub use legitimacy::LegitimacyPhase;
 // V0.6 exports
 pub use factions::FactionCivilWarPhase;
 pub use events::EventPhase;
+pub use intervention::InterventionPhase;

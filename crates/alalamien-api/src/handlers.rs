@@ -95,6 +95,36 @@ pub struct DiplomaticRelationResponse {
     allied_since: Option<u64>,
 }
 
+#[derive(Debug, Serialize)]
+pub struct InterventionResponse {
+    id: String,
+    intervener_id: String,
+    civil_war_parent_id: String,
+    supported_faction_id: String,
+    start_tick: u64,
+    military_aid: u32,
+    status: String,
+}
+
+#[derive(Debug, Serialize)]
+pub struct ProtectorateAllyResponse {
+    protector_id: String,
+    protected_faction_id: String,
+    original_parent_id: String,
+    formed_tick: u64,
+    mutual_defense: bool,
+    trade_bonus: f64,
+}
+
+#[derive(Debug, Serialize)]
+pub struct RefugeeCrisisResponse {
+    source_nation_id: String,
+    lost_faction_id: String,
+    refugee_population: u64,
+    morale_penalty: f64,
+    integration_ticks_remaining: u64,
+}
+
 // ============================================================================
 // Handlers
 // ============================================================================
@@ -500,4 +530,109 @@ pub async fn get_nation_alliances(
     }
 
     Ok(Json(alliances))
+}
+
+/// Get all active interventions
+pub async fn get_interventions(
+    AxumState(state): AxumState<ApiState>,
+) -> Result<Json<Vec<InterventionResponse>>, StatusCode> {
+    use alalamien_engine::subsystems::intervention::Intervention;
+
+    let mut world = state.world.write().map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+
+    let mut interventions = Vec::new();
+    let mut query = world.world.query::<&Intervention>();
+    for intervention in query.iter(&world.world) {
+        interventions.push(InterventionResponse {
+            id: intervention.id.0.to_string(),
+            intervener_id: intervention.intervener_nation_id.0.to_string(),
+            civil_war_parent_id: intervention.civil_war_parent_id.0.to_string(),
+            supported_faction_id: intervention.supported_faction_id.0.to_string(),
+            start_tick: intervention.start_tick,
+            military_aid: intervention.military_aid,
+            status: format!("{:?}", intervention.status),
+        });
+    }
+
+    Ok(Json(interventions))
+}
+
+/// Get interventions for a specific nation
+pub async fn get_nation_interventions(
+    AxumState(state): AxumState<ApiState>,
+    Path(nation_id_str): Path<String>,
+) -> Result<Json<Vec<InterventionResponse>>, StatusCode> {
+    use alalamien_engine::subsystems::intervention::Intervention;
+    use uuid::Uuid;
+
+    let nation_uuid = Uuid::parse_str(&nation_id_str)
+        .map_err(|_| StatusCode::BAD_REQUEST)?;
+
+    let mut world = state.world.write().map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+
+    let mut interventions = Vec::new();
+    let mut query = world.world.query::<&Intervention>();
+    for intervention in query.iter(&world.world) {
+        if intervention.intervener_nation_id.0 == nation_uuid 
+            || intervention.civil_war_parent_id.0 == nation_uuid {
+            interventions.push(InterventionResponse {
+                id: intervention.id.0.to_string(),
+                intervener_id: intervention.intervener_nation_id.0.to_string(),
+                civil_war_parent_id: intervention.civil_war_parent_id.0.to_string(),
+                supported_faction_id: intervention.supported_faction_id.0.to_string(),
+                start_tick: intervention.start_tick,
+                military_aid: intervention.military_aid,
+                status: format!("{:?}", intervention.status),
+            });
+        }
+    }
+
+    Ok(Json(interventions))
+}
+
+/// Get all active protectorate alliances
+pub async fn get_protectorates(
+    AxumState(state): AxumState<ApiState>,
+) -> Result<Json<Vec<ProtectorateAllyResponse>>, StatusCode> {
+    use alalamien_engine::subsystems::intervention::ProtectorateAlly;
+
+    let mut world = state.world.write().map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+
+    let mut protectorates = Vec::new();
+    let mut query = world.world.query::<&ProtectorateAlly>();
+    for protectorate in query.iter(&world.world) {
+        protectorates.push(ProtectorateAllyResponse {
+            protector_id: protectorate.protector_nation_id.0.to_string(),
+            protected_faction_id: protectorate.protected_faction_id.0.to_string(),
+            original_parent_id: protectorate.original_parent_id.0.to_string(),
+            formed_tick: protectorate.formed_tick,
+            mutual_defense: protectorate.mutual_defense,
+            trade_bonus: protectorate.trade_bonus,
+        });
+    }
+
+    Ok(Json(protectorates))
+}
+
+/// Get all active refugee crises
+pub async fn get_refugee_crises(
+    AxumState(state): AxumState<ApiState>,
+) -> Result<Json<Vec<RefugeeCrisisResponse>>, StatusCode> {
+    use alalamien_engine::subsystems::intervention::RefugeeCrisis;
+
+    let mut world = state.world.write().map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+
+    let mut crises = Vec::new();
+    let mut query = world.world.query::<&RefugeeCrisis>();
+    for crisis in query.iter(&world.world) {
+        crises.push(RefugeeCrisisResponse {
+            source_nation_id: crisis.source_nation_id.0.to_string(),
+            lost_faction_id: crisis.lost_faction_id.0.to_string(),
+            refugee_population: crisis.refugee_population,
+            morale_penalty: crisis.morale_penalty,
+            integration_ticks_remaining: crisis.integration_ticks_remaining,
+        });
+    }
+
+    Ok(Json(crises))
 }

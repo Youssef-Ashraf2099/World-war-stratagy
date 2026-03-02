@@ -10,16 +10,17 @@
 ## 📊 WHAT'S BEEN COMPLETED
 
 ### ✅ V0.1-V0.5: Core Engine (110 Tests)
-| Version | Component | Status | Tests |
-|---------|-----------|--------|-------|
-| V0.1 | World Foundation | ✅ | 12 |
-| V0.2 | Economy & Trade | ✅ | 15 |
-| V0.3 | Warfare & Logistics | ✅ | 20 |
-| V0.4 | Alliances & Diplomacy | ✅ | 20 |
-| V0.5 | Legitimacy & Stress | ✅ | 20 |
-| V0.6a | Factions Foundation | ✅ | 6 |
-| V0.6b | Faction Warfare | ✅ | 5 |
-| **V0.6c** | **World Events** | **✅ JUST DONE** | **8** |
+
+| Version   | Component             | Status           | Tests |
+| --------- | --------------------- | ---------------- | ----- |
+| V0.1      | World Foundation      | ✅               | 12    |
+| V0.2      | Economy & Trade       | ✅               | 15    |
+| V0.3      | Warfare & Logistics   | ✅               | 20    |
+| V0.4      | Alliances & Diplomacy | ✅               | 20    |
+| V0.5      | Legitimacy & Stress   | ✅               | 20    |
+| V0.6a     | Factions Foundation   | ✅               | 6     |
+| V0.6b     | Faction Warfare       | ✅               | 5     |
+| **V0.6c** | **World Events**      | **✅ JUST DONE** | **8** |
 
 **Total:** 129 tests passing
 
@@ -30,6 +31,7 @@
 **21 Event Types Implemented:**
 
 **Economic (5):**
+
 - Trade Boom (+10% GDP, 20 ticks)
 - Market Crash (-20% GDP, 15 ticks)
 - Resource Discovery (+50% resources, 30 ticks)
@@ -37,23 +39,27 @@
 - Currency Crisis (-15% GDP, -10 legitimacy)
 
 **Military (4):**
+
 - Military Coup (-30 legitimacy instant)
 - Military Reform (+15% combat, 25 ticks)
 - Terrorist Attack (-5000 population, -5 legitimacy)
 - Veteran Uprising (+20 morale for armies)
 
 **Diplomatic (3):**
+
 - Peace Movement (-50% war exhaustion)
 - Border Incident (+tension with neighbors)
 - Diplomatic Triumph (+20 relations all)
 
 **Natural (4):**
+
 - Earthquake (-30% infrastructure)
 - Flood (-40% food production, 20 ticks)
 - Drought (-2% population, 10 ticks)
 - Plague (-10% population, -15 legitimacy)
 
 **Social/Political (5):**
+
 - Election Success (+15 legitimacy instant)
 - Corruption Scandal (-20 legitimacy instant)
 - Cultural Renaissance (+5% GDP, +10 legitimacy)
@@ -61,6 +67,7 @@
 - Immigration Wave (+50K population, +5% GDP)
 
 **Features:**
+
 - ✅ 2% base probability per tick (configurable)
 - ✅ Max 2 active events per nation
 - ✅ 20-tick cooldown between events
@@ -70,6 +77,7 @@
 - ✅ Complete subsystem integration
 
 **Tests Added:** 8 new
+
 - test_event_creation
 - test_event_categories
 - test_event_duration
@@ -86,6 +94,7 @@
 ### 📋 V0.6 Week 4: External Intervention (1 week)
 
 **NOT YET IMPLEMENTED:**
+
 - [ ] External nations intervening in civil wars
 - [ ] Protectorate mechanics (faction allying with external power)
 - [ ] Refugee flows to neighboring nations
@@ -100,6 +109,7 @@
 ### 📋 V0.6-HARDENING: Validation Suite (1 week)
 
 **NOT YET IMPLEMENTED:**
+
 - [ ] 100K-tick deterministic replay test (3 runs, verify identical)
 - [ ] Memory stability profiling (detect leaks)
 - [ ] Event probability distribution validation (verify 2% observed ≈ 2% expected)
@@ -115,6 +125,7 @@
 ### 📋 V1.0: Portfolio Release (2-3 weeks)
 
 **NOT YET IMPLEMENTED:**
+
 - [ ] CLI interface (load scenario, run N ticks, query state)
 - [ ] CSV export (one row per nation per tick)
 - [ ] Python matplotlib visualization scripts
@@ -178,14 +189,14 @@ V1.0 📋 TODO (CLI + portfolio release)
 ✅ 18,000+ lines of clean Rust code  
 ✅ Zero compilation errors  
 ✅ Proven determinism (121→129 tests)  
-✅ <15ms/tick performance (200 nations baseline)  
+✅ <15ms/tick performance (200 nations baseline)
 
 ### What You're Building Next
 
 📋 Neighboring nations can intervene in civil wars  
 📋 Complete validation at 100K-tick scale  
 📋 Demonstrable CLI tool + CSV analytics  
-📋 Documentation suite for portfolio  
+📋 Documentation suite for portfolio
 
 ### What This Enables
 
@@ -212,6 +223,7 @@ This completes the "civil war" narrative arc:
 **Working on:** Making external nations strategically intervene in civil wars
 
 Example scenario:
+
 - Nation A collapses into 3 factions
 - Nation B (neighbor) wants to support Faction A1 (friendly)
 - Nation C (rival) wants to support Faction A2 (rival of A1)
@@ -227,24 +239,26 @@ This adds diplomatic complexity and realism.
 
 If you want to understand what's been built:
 
-| Document | Read For | Time |
-|----------|----------|------|
-| [ROADMAP.md](ROADMAP.md) | Full project vision + timeline | 30 min |
-| [V0.6_PROGRESS.md](V0.6_PROGRESS.md) | V0.6 summary (what just shipped) | 15 min |
-| [STATUS_OVERVIEW.md](STATUS_OVERVIEW.md) | Current overall status | 10 min |
-| Factions code | See implementation | 30 min |
-| Events code | See implementation | 30 min |
+| Document                                 | Read For                         | Time   |
+| ---------------------------------------- | -------------------------------- | ------ |
+| [ROADMAP.md](ROADMAP.md)                 | Full project vision + timeline   | 30 min |
+| [V0.6_PROGRESS.md](V0.6_PROGRESS.md)     | V0.6 summary (what just shipped) | 15 min |
+| [STATUS_OVERVIEW.md](STATUS_OVERVIEW.md) | Current overall status           | 10 min |
+| Factions code                            | See implementation               | 30 min |
+| Events code                              | See implementation               | 30 min |
 
 ---
 
 ## ✨ Key Achievements This Week
 
 **Before V0.6c:**
+
 - Events were stubs with no actual implementation
 - World felt static once alliances formed
 - No mechanism for nations to surprise each other
 
 **After V0.6c:**
+
 - 21 distinct event types, each with cascading effects
 - Random but deterministic occurrences keep game dynamic
 - Events can trigger other events (famine→plague, etc)
@@ -261,7 +275,7 @@ If you want to understand what's been built:
 **21 event types** - Complex emergent behavior  
 **Zero bugs** - Clean, professional code  
 **Deterministic** - Reproducible at 100K+ ticks  
-**Production-grade** - Real Rust architecture  
+**Production-grade** - Real Rust architecture
 
 You're not building a hobby project. You're building a research-grade simulation engine.
 

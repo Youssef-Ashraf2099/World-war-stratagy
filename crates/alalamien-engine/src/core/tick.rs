@@ -167,6 +167,44 @@ impl TickPipeline {
         ];
         Self { phases }
     }
+
+    /// Create a tick pipeline with V0.6 phases (Factions & Dynamic Events)
+    ///
+    /// Extends V0.5 with faction collapse and civil war mechanics:
+    /// 1. Advanced AI Decision
+    /// 2. Warfare
+    /// 3. Economy
+    /// 4. Trade
+    /// 5. Logistics
+    /// 6. Combat
+    /// 7. Occupation
+    /// 8. Alliance Phase
+    /// 9. Diplomacy Phase
+    /// 10. Stability
+    /// 11. Demographics
+    /// 12. Legitimacy (aggregates all stressors)
+    /// 13. Faction Civil War (NEW - detects legitimacy=0, spawns factions)
+    pub fn new_v0_6() -> Self {
+        use crate::subsystems::*;
+        let phases: Vec<Box<dyn TickPhase>> = vec![
+            Box::new(AdvancedAIDecisionPhase::new()),
+            Box::new(WarfarePhase::new()),
+            Box::new(EconomicPhase::new()),
+            Box::new(TradePhase::new()),
+            Box::new(LogisticsPhase::new()),
+            Box::new(CombatPhase::new()),
+            Box::new(OccupationPhase::new()),
+            Box::new(AlliancePhase::new()),
+            Box::new(DiplomacyPhase::new()),
+            Box::new(StabilityPhase::new()),
+            Box::new(EventPhase::new()),
+            Box::new(DemographicPhase::new()),
+            Box::new(LegitimacyPhase::new()),
+            Box::new(FactionCivilWarPhase::new()),
+        ];
+        Self { phases }
+    }
+    
     pub fn new_v0_2_debug(config: &crate::EngineConfig) -> Self {
         let phases: Vec<Box<dyn TickPhase>> = vec![
             Box::new(economic::EconomicPhase::new()),

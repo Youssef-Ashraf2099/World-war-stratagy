@@ -6,6 +6,7 @@ use serde::{Deserialize, Serialize};
 
 use super::types::*;
 use super::province_graph::ProvinceGraph;
+use super::deterministic::DeterministicRng;
 
 /// Central world state container
 #[derive(Default)]
@@ -160,6 +161,9 @@ impl WorldState {
         
         // Initialize province graph resource
         world.insert_resource(ProvinceGraph::new());
+        
+        // Initialize deterministic RNG resource
+        world.insert_resource(DeterministicRng::new(seed));
         
         Self {
             world,

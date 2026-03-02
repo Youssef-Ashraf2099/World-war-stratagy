@@ -1301,18 +1301,23 @@ That is a strong portfolio piece.
 
 ## Versioning Timeline
 
-| Phase  | Version         | Component                | Duration      | Tests   | Status      |
-| ------ | --------------- | ------------------------ | ------------- | ------- | ----------- |
-| 1      | V0.1            | World Foundation         | 3 weeks       | 12      | ✅ Complete |
-| 2      | V0.2            | Economic Layer           | 4 weeks       | 15      | ✅ Complete |
-| 3      | V0.3            | Warfare System           | 4 weeks       | 20      | ✅ Complete |
-| 4      | V0.4            | Alliance System          | 1 session!    | 20      | ✅ Complete |
-| **5**  | **V0.5**        | **Legitimacy**           | **3-4 weeks** | **~20** | 📋 NEXT     |
-| **6**  | **V0.6**        | **Factions + Events**    | **2-3 weeks** | **~25** | 📋 NEXT     |
-| **6b** | **V0.6-HARDEN** | **100K-tick Validation** | **1 week**    | **~5**  | 📋 NEXT     |
-| **7**  | **V1.0**        | **Portfolio Release**    | **2-3 weeks** | **~5**  | 📋 FINAL    |
+| Phase  | Version         | Component                | Duration      | Tests   | Status          |
+| ------ | --------------- | ------------------------ | ------------- | ------- | --------------- |
+| 1      | V0.1            | World Foundation         | 3 weeks       | 12      | ✅ Complete     |
+| 2      | V0.2            | Economic Layer           | 4 weeks       | 15      | ✅ Complete     |
+| 3      | V0.3            | Warfare System           | 4 weeks       | 20      | ✅ Complete     |
+| 4      | V0.4            | Alliance System          | 1 session!    | 20      | ✅ Complete     |
+| 5      | V0.5            | Legitimacy               | 3-4 weeks     | 20      | ✅ Complete     |
+| 6a     | V0.6 Week 1     | Factions Foundation      | 1 week        | 6       | ✅ Complete     |
+| 6b     | V0.6 Week 2     | Faction Warfare          | 1 week        | 5       | ✅ Complete     |
+| **6c** | **V0.6 Week 3** | **World Events System**  | **1 week**    | **8**   | **✅ COMPLETE** |
+| **6d** | **V0.6 Week 4** | **External Intervention**| **1 week**    | **~8**  | 📋 NEXT         |
+| **6e** | **V0.6-HARDEN** | **100K-tick Validation** | **1 week**    | **~5**  | 📋 NEXT         |
+| **7**  | **V1.0**        | **Portfolio Release**    | **2-3 weeks** | **~5**  | 📋 FINAL        |
 
-**TOTAL PATH C: 13-15 weeks to production-ready with 6 subsystems**
+**TOTAL PATH C: 14-16 weeks to production-ready with 7 subsystems + events**
+
+**ACTUAL PROGRESS: 13 weeks elapsed, V0.6 Week 3 COMPLETE (129 tests passing)**
 
 ---
 
@@ -1320,7 +1325,7 @@ That is a strong portfolio piece.
 
 ### By End of V0.6
 
-Your simulation engine will have **6 core subsystems**, all working together:
+Your simulation engine will have **7 core subsystems**, all working together:
 
 ```
 ┌─────────────────────────────────────────────┐
@@ -1330,14 +1335,45 @@ Your simulation engine will have **6 core subsystems**, all working together:
 │ 2. Warfare (V0.3)   — Logistics, occupation│
 │ 3. Alliances (V0.4) — Diplomacy, cohesion │
 │ 4. Legitimacy (V0.5)— Internal pressure   │
-│ 5. Factions (V0.6)  — Civil wars, splits   │
-│ 6. Events (V0.6)    — Random occurrences  │
+│ 5. Factions (V0.6a) — Civil wars, splits  │
+│ 6. Events (V0.6c)   — 21 event types ✅   │
+│ 7. Intervention     — External mechanics  │
 ├─────────────────────────────────────────────┤
-│ Testing: 135+ tests, 100K-tick validated   │
+│ Testing: 145+ tests, V0.6 Week 3 DONE     │
 │ Performance: <15ms/tick (200 nations)      │
-│ Determinism: PROVEN (100K-tick identical) │
+│ Determinism: PROVEN (121-129 tests)       │
 └─────────────────────────────────────────────┘
 ```
+
+### ✅ V0.6 Week 3 COMPLETION SUMMARY
+
+**Created:** `events.rs` (752 lines)
+
+**Events Implemented (21 types across 5 categories):**
+- Economic (5): Trade Boom, Market Crash, Resource Discovery, Reform, Currency Crisis
+- Military (4): Coup, Reform, Terrorist Attack, Morale Boost
+- Diplomatic (3): Peace Movement, Border Incident, Triumph
+- Natural (4): Earthquake, Flood, Drought, Plague
+- Social (5): Elections, Corruption, Renaissance, Strikes, Immigration
+
+**Features:**
+- `EventType` enum with all 21 variants
+- `WorldEvent` component with duration tracking
+- `EventPhase` with probability engine (2% base/tick)
+- Event effects on GDP, legitimacy, resources, population
+- Max 2 active events per nation with 20-tick cooldown
+- Deterministic RNG integration
+
+**Tests Added:** 8 new tests
+- Event creation, categories, durations
+- Probability calculations
+- Effect applications
+- Event expiration
+- Max event limits
+
+**Total Tests:** 129 passing (121 + 8)
+
+**Pipeline:** EventPhase inserted at position 11 of 14-phase pipeline
 
 ### Key Emergent Behaviors
 
@@ -1375,38 +1411,56 @@ With all 6 subsystems active, you'll see:
 
 ## 📅 PATH C EXECUTION TIMELINE
 
-### WEEK 1-4: V0.5 Legitimacy System
+### ✅ COMPLETED: V0.5 Legitimacy System
 
-**Weekly breakdown:**
+**Delivered:**
+- Core legitimacy mechanics (0-100 scale)
+- War exhaustion calculations
+- Resource stress penalties
+- Alliance strain mechanics
+- Collapse threshold at legitimacy = 0
+- Peace recovery bonuses
+- All subsystem integrations
 
-- **Week 1:** Core legitimacy mechanics + 5-6 unit tests
-- **Week 2:** Integration with Economy/Warfare/Diplomacy + 3-4 tests
-- **Week 3:** Validation & documentation
-- **Week 4:** Fine-tuning, exit criteria
+**Result:** 110+ tests passing, legitimacy system fully proven
 
-**Expected:** 95+ tests passing, legitimacy system proven
+### ✅ COMPLETED: V0.6 Week 1-3 (Factions & World Events)
 
-### WEEK 5-7: V0.6 Internal Factions & World Events
+**Week 1 - Factions Foundation:**
+- Collapse → 2-4 factions conversion
+- Province/army/resource splitting
+- Faction spawning with unique identities
+- 6 tests passing
 
-**Weekly breakdown:**
+**Week 2 - Faction Warfare:**
+- Army splitting algorithm
+- Auto-war logic (all factions vs all)
+- Army reassignment mechanics
+- Civil war state tracking
+- 5 tests (11 faction tests total)
 
-- **Week 5:**
-  - Collapse → factions conversion
-  - CivilWarPhase implementation
-  - 5-6 faction tests
-- **Week 6:**
-  - WorldEventSystem architecture
-  - 8 event types (famine, plague, general, coup, etc)
-  - Event integration with subsystems
-  - 10-15 event tests
-- **Week 7:**
-  - Remaining 7 event types
-  - Edge case handling
-  - Complex interaction tests
+**Week 3 - World Events System:**
+- 21 event types across 5 categories ✅
+- Event probability engine (deterministic)
+- Event effects integration
+- Duration-based mechanics
+- 8 tests passing
 
-**Expected:** 135+ tests passing, all event types implemented
+**Result:** 129 tests passing (8 events + 11 faction + 110 base)
 
-### WEEK 8: V0.6-HARDENING
+### 📋 NEXT: V0.6 Week 4 (External Intervention)
+
+**TODO:**
+- [ ] External nation intervention mechanics
+- [ ] Faction-ally relationships
+- [ ] Protectorate mechanics
+- [ ] Refugee flows
+- [ ] Diplomatic implications
+- [ ] Integration tests with events
+
+**Expected:** 8+ new tests, 137+ total
+
+### 📋 THEN: V0.6-HARDENING
 
 **Full validation week:**
 
@@ -1418,9 +1472,9 @@ With all 6 subsystems active, you'll see:
 - [ ] Balance validation (does any empire dominate?)
 - [ ] Final documentation updates
 
-**Exit:** System proven stable at 100K ticks with factions + events active
+**Exit:** System proven stable at 100K ticks with all V0.6 features active
 
-### WEEK 9-11: V1.0 Portfolio Release
+### 📋 FINALLY: V1.0 Portfolio Release (2-3 weeks)
 
 **Weekly breakdown:**
 

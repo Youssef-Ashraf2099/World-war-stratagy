@@ -30,6 +30,10 @@ pub mod diplomacy;
 // V0.5 subsystems
 pub mod legitimacy;
 
+// V0.6 subsystems
+pub mod factions;
+pub mod events;
+
 pub use demographic::DemographicPhase;
 pub use economic::EconomicPhase;
 pub use trade::TradePhase;
@@ -50,3 +54,7 @@ pub use diplomacy::DiplomacyPhase;
 
 // V0.5 exports
 pub use legitimacy::LegitimacyPhase;
+
+// V0.6 exports
+pub use factions::FactionCivilWarPhase;
+pub use events::EventPhase;

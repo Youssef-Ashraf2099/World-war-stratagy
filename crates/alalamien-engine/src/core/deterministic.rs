@@ -2,29 +2,49 @@
 //!
 //! Ensures reproducible simulation runs from the same seed.
 
-use std::cell::Cell;
+use bevy_ecs::system::Resource;
+use std::sync::atomic::{AtomicU64, Ordering};
 
 /// Deterministic PRNG using xorshift algorithm
+#[derive(Resource)]
 pub struct DeterministicRng {
-    state: Cell<u64>,
+    state: AtomicU64,
 }
 
 impl DeterministicRng {
     /// Create a new RNG with a seed
     pub fn new(seed: u64) -> Self {
         Self {
-            state: Cell::new(if seed == 0 { 1 } else { seed }),
+            state: AtomicU64::new(if seed == 0 { 1 } else { seed }),
         }
     }
 
     /// Generate next random u64
     pub fn next_u64(&self) -> u64 {
-        let mut x = self.state.get();
-        x ^= x << 13;
-        x ^= x >> 7;
-        x ^= x << 17;
-        self.state.set(x);
-        x
+        let mut x = self.state.load(Ordering::SeqCst);
+        loop {
+            let new_x = {
+                let mut val = x;
+                val ^= val << 13;
+                val ^= val >> 7;
+                val ^= val << 17;
+                val
+            };
+            match self.state.compare_exchange(x, new_x, Ordering::SeqCst, Ordering::SeqCst) {
+                Ok(_) => return new_x,
+                Err(cur) => x = cur,
+            }
+        }
+    }
+
+    /// Generate random u32
+    pub fn next_u32(&self) -> u32 {
+        (self.next_u64() & 0xFFFFFFFF) as u32
+    }
+
+    /// Generate random usize in range [0, bound)
+    pub fn next_usize(&self, bound: usize) -> usize {
+        (self.next_u64() % bound as u64) as usize
     }
 
     /// Generate random f64 in range [0.0, 1.0)

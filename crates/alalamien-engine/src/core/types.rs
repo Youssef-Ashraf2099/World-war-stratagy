@@ -694,6 +694,159 @@ pub struct ResourceDeficit {
 }
 
 // ============================================================================
+// V0.4 ALLIANCES & DIPLOMACY
+// ============================================================================
+
+/// Alliance identifier
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+pub struct AllianceId(pub Uuid);
+
+impl AllianceId {
+    pub fn new() -> Self {
+        Self(Uuid::new_v4())
+    }
+}
+
+impl Default for AllianceId {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+/// Alliance doctrine types (mirrors alliance_dataset::AllianceDoctrine for serialization)
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+pub enum AllianceDoctrine {
+    DefensiveAgreement,
+    OffensivePact,
+    EconomicBloc,
+    ResearchConsortium,
+    BalanceOfPower,
+}
+
+impl AllianceDoctrine {
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::DefensiveAgreement => "DefensiveAgreement",
+            Self::OffensivePact => "OffensivePact",
+            Self::EconomicBloc => "EconomicBloc",
+            Self::ResearchConsortium => "ResearchConsortium",
+            Self::BalanceOfPower => "BalanceOfPower",
+        }
+    }
+}
+
+impl Default for AllianceDoctrine {
+    fn default() -> Self {
+        Self::DefensiveAgreement
+    }
+}
+
+/// Represents an alliance between multiple nations (V0.4 feature)
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct Alliance {
+    pub alliance_id: AllianceId,
+    pub alliance_name: String,           // e.g., "Sovereign Shield Pact"
+    pub founding_nation: NationId,
+    pub members: Vec<NationId>,
+    pub cohesion: f64,                   // 0-100, decay each tick
+    pub doctrine: AllianceDoctrine,
+    pub founded_tick: Tick,
+    pub threat_reduction: f64,           // 0.15-0.50, affects war calculations
+    pub cohesion_decay_rate: f64,        // 0.5-2.5 per tick
+}
+
+impl Default for Alliance {
+    fn default() -> Self {
+        Self {
+            alliance_id: AllianceId::new(),
+            alliance_name: "Unnamed Alliance".to_string(),
+            founding_nation: NationId::default(),
+            members: Vec::new(),
+            cohesion: 100.0,
+            doctrine: AllianceDoctrine::DefensiveAgreement,
+            founded_tick: 0,
+            threat_reduction: 0.25,
+            cohesion_decay_rate: 1.0,
+        }
+    }
+}
+
+impl Alliance {
+    pub fn add_member(&mut self, nation_id: NationId) {
+        if !self.members.contains(&nation_id) {
+            self.members.push(nation_id);
+        }
+    }
+
+    pub fn remove_member(&mut self, nation_id: NationId) {
+        self.members.retain(|&id| id != nation_id);
+    }
+
+    pub fn member_count(&self) -> usize {
+        self.members.len()
+    }
+
+    pub fn is_dissolved(&self) -> bool {
+        self.cohesion < 15.0 || self.member_count() < 2
+    }
+
+    pub fn decay_cohesion(&mut self) {
+        self.cohesion = (self.cohesion - self.cohesion_decay_rate).max(0.0);
+    }
+
+    pub fn boost_cohesion(&mut self, amount: f64) {
+        self.cohesion = (self.cohesion + amount).min(100.0);
+    }
+}
+
+/// Diplomatic relation between two nations (V0.4)
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct DiplomaticRelation {
+    pub nation_a: NationId,
+    pub nation_b: NationId,
+    pub reputation: f64,                 // -100 to +100
+    pub trade_dependency: f64,           // 0-1, how dependent on each other
+    pub threat_alignment: f64,           // -1 to +1, shared enemy = +1, conflict = -1
+    pub last_war: Option<Tick>,
+    pub allied_since: Option<Tick>,
+    pub last_updated: Tick,
+}
+
+impl Default for DiplomaticRelation {
+    fn default() -> Self {
+        Self {
+            nation_a: NationId::default(),
+            nation_b: NationId::default(),
+            reputation: 0.0,
+            trade_dependency: 0.0,
+            threat_alignment: 0.0,
+            last_war: None,
+            allied_since: None,
+            last_updated: 0,
+        }
+    }
+}
+
+impl DiplomaticRelation {
+    pub fn alliance_score(&self) -> f64 {
+        // Composite score for alliance decision-making
+        self.trade_dependency * 0.3 + self.threat_alignment.abs() * 0.4 + (self.reputation + 100.0) / 200.0 * 0.3
+    }
+
+    pub fn is_friendly(&self) -> bool {
+        self.reputation > 25.0
+    }
+
+    pub fn is_hostile(&self) -> bool {
+        self.reputation < -25.0
+    }
+
+    pub fn modify_reputation(&mut self, delta: f64) {
+        self.reputation = (self.reputation + delta).clamp(-100.0, 100.0);
+    }
+}
+
+// ============================================================================
 // TAGS AND MARKERS
 // ============================================================================
 

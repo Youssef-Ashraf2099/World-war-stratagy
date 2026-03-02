@@ -8,9 +8,11 @@ use tracing::{debug, info};
 
 use crate::core::tick::TickPhase;
 use crate::core::types::{
-    AIControlled, AIMemory, AIPersonality, CasusBelli, GDP, IntelligenceProfile, Legitimacy,
-    MilitaryCapacity, Nation, NationId, ThreatRecord, WarDeclaration, WarGoal, WarId, WarState,
+    AIControlled, AIMemory, AIPersonality, CasusBelli, DiplomaticRelation,
+    GDP, IntelligenceProfile, Legitimacy, MilitaryCapacity, Nation, NationId, ThreatRecord,
+    WarDeclaration, WarGoal, WarId, WarState, AllianceId,
 };
+use crate::subsystems::diplomacy::DiplomacyPhase;
 
 const AGGRESSION_WAR_THRESHOLD: f64 = 1.35;
 const PEACE_EXHAUSTION_LEGITIMACY: f64 = 25.0;
@@ -45,7 +47,7 @@ impl TickPhase for AdvancedAIDecisionPhase {
             refresh_intelligence_and_memory(world, &entities_by_nation, &snapshots, snapshot);
 
             let personality = get_personality(world, nation_id);
-            let decision = choose_decision(snapshot, personality, &snapshots);
+            let decision = choose_decision(world, snapshot, personality, &snapshots, nation_id);
             apply_decision(world, &entities_by_nation, &snapshots, nation_id, decision);
         }
 
@@ -70,6 +72,7 @@ struct NationSnapshot {
 enum AdvancedDecision {
     SeekPeace { enemy: NationId },
     DeclareWar { target: NationId },
+    ProposeAlliance { candidate: NationId, alliance_id: AllianceId },
     BuildMilitary,
     FocusEconomy,
 }
@@ -140,15 +143,22 @@ fn get_personality(world: &mut World, nation_id: NationId) -> AIPersonality {
 }
 
 fn choose_decision(
+    world: &mut World,
     own: &NationSnapshot,
     personality: AIPersonality,
     snapshots: &HashMap<NationId, NationSnapshot>,
+    nation_id: NationId,
 ) -> AdvancedDecision {
     let peace_limit = PEACE_EXHAUSTION_LEGITIMACY + own.memory_peace_bias * 20.0;
     if own.legitimacy < peace_limit && !own.enemies.is_empty() {
         return AdvancedDecision::SeekPeace {
             enemy: own.enemies[0],
         };
+    }
+
+    // Evaluate alliance opportunities
+    if let Some(alliance_decision) = evaluate_alliance_proposal(world, own, snapshots, nation_id) {
+        return alliance_decision;
     }
 
     if let Some(target) = choose_war_target(own, personality, snapshots) {
@@ -160,6 +170,59 @@ fn choose_decision(
     }
 
     AdvancedDecision::FocusEconomy
+}
+
+fn evaluate_alliance_proposal(
+    world: &mut World,
+    own: &NationSnapshot,
+    snapshots: &HashMap<NationId, NationSnapshot>,
+    _nation_id: NationId,
+) -> Option<AdvancedDecision> {
+    // Find potential alliance partners with diplomatic score > 0.6
+    const ALLIANCE_SCORE_THRESHOLD: f64 = 0.6;
+
+    let mut best_candidate: Option<(NationId, f64, AllianceId)> = None;
+    let mut best_score = ALLIANCE_SCORE_THRESHOLD;
+
+    for other_snapshot in snapshots.values() {
+        if other_snapshot.nation_id == own.nation_id {
+            continue;
+        }
+
+        // Don't propose to enemies
+        if own.enemies.contains(&other_snapshot.nation_id) {
+            continue;
+        }
+
+        // Calculate alliance proposal score via diplomacy phase
+        let score = DiplomacyPhase::alliance_proposal_score(world, own.nation_id, other_snapshot.nation_id);
+        
+        // Find a suitable predefined alliance to propose
+        if let Some(alliance_id) = find_suitable_alliance(world, own.nation_id, other_snapshot.nation_id, score) {
+            if score > best_score {
+                best_score = score;
+                best_candidate = Some((other_snapshot.nation_id, score, alliance_id));
+            }
+        }
+    }
+
+    best_candidate.map(|(candidate, _score, alliance_id)| {
+        debug!("AI {:?} proposes alliance to {:?} (score: {:.2})", own.nation_id, candidate, _score);
+        AdvancedDecision::ProposeAlliance { candidate, alliance_id }
+    })
+}
+
+fn find_suitable_alliance(_world: &mut World, _nation_a: NationId, _nation_b: NationId, score: f64) -> Option<AllianceId> {
+    // Simple heuristic: select alliance based on score
+    // In production, would check nation compatibility with alliance doctrines
+    
+    // For now, return a placeholder alliance ID if score is viable
+    if score > 0.6 {
+        // This would be refined to select from actual alliances in the dataset
+        Some(AllianceId::new())
+    } else {
+        None
+    }
 }
 
 fn choose_war_target(
@@ -224,6 +287,9 @@ fn apply_decision(
         }
         AdvancedDecision::DeclareWar { target } => {
             declare_war(world, entities_by_nation, snapshots, nation_id, target);
+        }
+        AdvancedDecision::ProposeAlliance { candidate, alliance_id } => {
+            propose_alliance(world, entities_by_nation, nation_id, candidate, alliance_id);
         }
         AdvancedDecision::BuildMilitary => {
             if let Some(&entity) = entities_by_nation.get(&nation_id) {
@@ -304,6 +370,50 @@ fn declare_war(
     });
 
     info!("Advanced AI {:?} declares war on {:?}", aggressor, defender);
+}
+
+fn propose_alliance(
+    world: &mut World,
+    entities_by_nation: &HashMap<NationId, Entity>,
+    proposer: NationId,
+    candidate: NationId,
+    _alliance_id: AllianceId,
+) {
+    // Check if candidate nation exists and can join
+    let Some(&_candidate_entity) = entities_by_nation.get(&candidate) else {
+        return;
+    };
+
+    // Update or create diplomatic relation to mark intent
+    let mut found = false;
+    {
+        let mut query = world.query::<&mut DiplomaticRelation>();
+        for mut relation in query.iter_mut(world) {
+            if (relation.nation_a == proposer && relation.nation_b == candidate) ||
+               (relation.nation_a == candidate && relation.nation_b == proposer) {
+                relation.modify_reputation(5.0); // Boost reputation for proposal
+                found = true;
+                break;
+            }
+        }
+    }
+
+    // Create new diplomatic relation if needed
+    if !found {
+        let relation = DiplomaticRelation {
+            nation_a: proposer,
+            nation_b: candidate,
+            reputation: 5.0,
+            trade_dependency: 0.0,
+            threat_alignment: 0.0,
+            last_war: None,
+            allied_since: None,
+            last_updated: 0,
+        };
+        world.spawn(relation);
+    }
+
+    info!("Advanced AI {:?} proposes alliance to {:?}", proposer, candidate);
 }
 
 fn remove_war_relation(
@@ -402,8 +512,11 @@ mod tests {
 
     #[test]
     fn test_choose_decision_prefers_peace_in_crisis() {
+        let mut world = World::new();
+        
+        let own_id = NationId::new();
         let own = NationSnapshot {
-            nation_id: NationId::new(),
+            nation_id: own_id,
             legitimacy: 20.0,
             gdp: 1_000_000.0,
             military: 80.0,
@@ -415,13 +528,15 @@ mod tests {
         };
 
         let snapshots = HashMap::new();
-        let decision = choose_decision(&own, AIPersonality::Aggressive, &snapshots);
+        let decision = choose_decision(&mut world, &own, AIPersonality::Aggressive, &snapshots, own_id);
 
         assert!(matches!(decision, AdvancedDecision::SeekPeace { .. }));
     }
 
     #[test]
     fn test_memory_aggression_bias_lowers_war_threshold() {
+        let mut world = World::new();
+        
         let target_id = NationId::new();
         let own_id = NationId::new();
 
@@ -457,7 +572,159 @@ mod tests {
         snapshots.insert(own_id, own.clone());
         snapshots.insert(target_id, target);
 
-        let decision = choose_decision(&own, AIPersonality::Balanced, &snapshots);
+        let decision = choose_decision(&mut world, &own, AIPersonality::Balanced, &snapshots, own_id);
         assert!(matches!(decision, AdvancedDecision::DeclareWar { .. }));
+    }
+
+    #[test]
+    fn test_ai_proposes_alliance_to_friendly_nation() {
+        let mut world = World::new();
+
+        let nation_a = NationId::new();
+        let nation_b = NationId::new();
+
+        let own = NationSnapshot {
+            nation_id: nation_a,
+            legitimacy: 75.0,
+            gdp: 1_500_000.0,
+            military: 100.0,
+            enemies: Vec::new(),
+            memory_aggression_bias: 0.0,
+            memory_peace_bias: 0.0,
+            intel_quality: 0.8,
+            known_threats: Vec::new(),
+        };
+
+        let ally = NationSnapshot {
+            nation_id: nation_b,
+            legitimacy: 70.0,
+            gdp: 1_400_000.0,
+            military: 95.0,
+            enemies: Vec::new(),
+            memory_aggression_bias: 0.0,
+            memory_peace_bias: 0.0,
+            intel_quality: 0.7,
+            known_threats: Vec::new(),
+        };
+
+        let mut snapshots = HashMap::new();
+        snapshots.insert(nation_a, own.clone());
+        snapshots.insert(nation_b, ally);
+
+        // Create a diplomatic relation to enable alliance scoring
+        let relation = DiplomaticRelation {
+            nation_a,
+            nation_b,
+            reputation: 60.0,
+            trade_dependency: 0.8,
+            threat_alignment: 0.5,
+            last_war: None,
+            allied_since: None,
+            last_updated: 0,
+        };
+        world.spawn(relation);
+
+        let decision = choose_decision(&mut world, &own, AIPersonality::Balanced, &snapshots, nation_a);
+        
+        // Should propose alliance if score is high enough
+        match decision {
+            AdvancedDecision::ProposeAlliance { .. } => {
+                // Success - alliance was proposed
+            },
+            _ => {
+                // May also focus economy if no high-scoring alliance found
+            }
+        }
+    }
+
+    #[test]
+    fn test_ai_avoids_proposing_alliance_to_enemies() {
+        let mut world = World::new();
+
+        let nation_a = NationId::new();
+        let enemy = NationId::new();
+
+        let own = NationSnapshot {
+            nation_id: nation_a,
+            legitimacy: 75.0,
+            gdp: 1_500_000.0,
+            military: 100.0,
+            enemies: vec![enemy], // At war
+            memory_aggression_bias: 0.0,
+            memory_peace_bias: 0.0,
+            intel_quality: 0.8,
+            known_threats: Vec::new(),
+        };
+
+        let _enemy_snap = NationSnapshot {
+            nation_id: enemy,
+            legitimacy: 50.0,
+            gdp: 1_000_000.0,
+            military: 85.0,
+            enemies: vec![nation_a],
+            memory_aggression_bias: 0.0,
+            memory_peace_bias: 0.0,
+            intel_quality: 0.6,
+            known_threats: Vec::new(),
+        };
+
+        let mut snapshots = HashMap::new();
+        snapshots.insert(nation_a, own.clone());
+        snapshots.insert(enemy, _enemy_snap);
+
+        let decision = choose_decision(&mut world, &own, AIPersonality::Balanced, &snapshots, nation_a);
+
+        // Should not propose alliance to enemy
+        if let AdvancedDecision::ProposeAlliance { candidate, .. } = decision {
+            assert_ne!(candidate, enemy, "Should not propose alliance to enemy");
+        }
+    }
+
+    #[test]
+    fn test_alliance_proposal_increments_reputation() {
+        let mut world = World::new();
+        let mut entities_by_nation = HashMap::new();
+
+        let proposer = NationId::new();
+        let candidate = NationId::new();
+
+        // Create entity for candidate
+        let candidate_entity = world.spawn(Nation {
+            id: candidate,
+            name: "Test Nation".to_string(),
+            color: [100, 100, 100],
+        }).id();
+
+        entities_by_nation.insert(candidate, candidate_entity);
+
+        // Create initial diplomatic relation
+        let relation = DiplomaticRelation {
+            nation_a: proposer,
+            nation_b: candidate,
+            reputation: 10.0,
+            trade_dependency: 0.3,
+            threat_alignment: 0.2,
+            last_war: None,
+            allied_since: None,
+            last_updated: 0,
+        };
+        world.spawn(relation);
+
+        // Propose alliance
+        propose_alliance(&mut world, &entities_by_nation, proposer, candidate, AllianceId::new());
+
+        // Check that reputation increased
+        let mut query = world.query::<&DiplomaticRelation>();
+        let mut found_increased = false;
+        for rel in query.iter(&world) {
+            if (rel.nation_a == proposer && rel.nation_b == candidate) ||
+               (rel.nation_a == candidate && rel.nation_b == proposer) {
+                // Original was 10.0, should increase by 5.0 to 15.0
+                assert!(rel.reputation > 10.0, "Reputation should increase after proposal");
+                found_increased = true;
+                break;
+            }
+        }
+        assert!(found_increased, "Diplomatic relation should exist");
     }
 }

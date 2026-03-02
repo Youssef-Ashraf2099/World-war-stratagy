@@ -22,6 +22,11 @@ pub mod ai_basic;
 pub mod ai_advanced;
 pub mod vassalage;
 
+// V0.4 subsystems
+pub mod alliance;
+pub mod alliance_dataset;
+pub mod diplomacy;
+
 pub use demographic::DemographicPhase;
 pub use economic::EconomicPhase;
 pub use trade::TradePhase;
@@ -35,3 +40,7 @@ pub use occupation::OccupationPhase;
 pub use ai_basic::AIDecisionPhase;
 pub use ai_advanced::AdvancedAIDecisionPhase;
 pub use vassalage::VassalagePhase;
+
+// V0.4 exports
+pub use alliance::AlliancePhase;
+pub use diplomacy::DiplomacyPhase;

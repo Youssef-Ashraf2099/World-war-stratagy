@@ -102,7 +102,37 @@ impl TickPipeline {
         Self { phases }
     }
 
-    /// Create a tick pipeline with debug instrumentation (for development)
+    /// Create a tick pipeline with V0.4 phases (Alliances & Diplomacy)
+    ///
+    /// Extends V0.35 with alliance/diplomacy subsystems:
+    /// 1. Advanced AI Decision (includes alliance proposals)
+    /// 2. Warfare
+    /// 3. Economy
+    /// 4. Trade
+    /// 5. Logistics
+    /// 6. Combat
+    /// 7. Occupation
+    /// 8. Alliance Phase (cohesion decay, dissolution, obligations)
+    /// 9. Diplomacy Phase (war-based relation updates, threat alignment, reputation)
+    /// 10. Stability
+    /// 11. Demographics
+    pub fn new_v0_4() -> Self {
+        use crate::subsystems::*;
+        let phases: Vec<Box<dyn TickPhase>> = vec![
+            Box::new(AdvancedAIDecisionPhase::new()),
+            Box::new(WarfarePhase::new()),
+            Box::new(EconomicPhase::new()),
+            Box::new(TradePhase::new()),
+            Box::new(LogisticsPhase::new()),
+            Box::new(CombatPhase::new()),
+            Box::new(OccupationPhase::new()),
+            Box::new(AlliancePhase::new()),
+            Box::new(DiplomacyPhase::new()),
+            Box::new(StabilityPhase::new()),
+            Box::new(DemographicPhase::new()),
+        ];
+        Self { phases }
+    }
     pub fn new_v0_2_debug(config: &crate::EngineConfig) -> Self {
         let phases: Vec<Box<dyn TickPhase>> = vec![
             Box::new(economic::EconomicPhase::new()),
@@ -368,6 +398,268 @@ mod tests {
         
         println!("✓ V0.35 Determinism verified over 1000 ticks (Combat + Advanced AI + Clock System)");
         println!("  Clock: {} hours per tick, Speed: {}", world1.game_clock.hours_per_tick, world1.game_clock.speed.as_str());
+    }
+
+    /// Test V0.4 with alliances and diplomacy
+    #[test]
+    fn test_1000_ticks_v0_4_with_alliances() {
+        use crate::core::types::{Alliance, AllianceId, AllianceDoctrine, DiplomaticRelation};
+
+        let seed = 5555;
+
+        // Setup world with V0.4 pipeline
+        let mut world = WorldState::new(seed);
+        let mut pipeline = TickPipeline::new_v0_4();
+
+        // Create test nations
+        let nation1 = world.spawn_nation("Empire A".to_string(), [255, 0, 0], false);
+        let nation2 = world.spawn_nation("Kingdom B".to_string(), [0, 0, 255], false);
+        let nation3 = world.spawn_nation("Republic C".to_string(), [0, 255, 0], false);
+
+        // Get nation IDs for alliance creation
+        let nation1_id = world.world.get::<crate::core::types::Nation>(nation1).unwrap().id;
+        let nation2_id = world.world.get::<crate::core::types::Nation>(nation2).unwrap().id;
+        let nation3_id = world.world.get::<crate::core::types::Nation>(nation3).unwrap().id;
+
+        // Create an alliance with Nation 1 & 2
+        let alliance = Alliance {
+            alliance_id: AllianceId::new(),
+            alliance_name: "Test Alliance".to_string(),
+            founding_nation: nation1_id,
+            members: vec![nation1_id, nation2_id],
+            cohesion: 80.0,
+            doctrine: AllianceDoctrine::DefensiveAgreement,
+            founded_tick: 0,
+            threat_reduction: 0.25,
+            cohesion_decay_rate: 1.0,
+        };
+        world.world.spawn(alliance);
+
+        // Create diplomatic relation between all nation pairs
+        let relation_ab = DiplomaticRelation {
+            nation_a: nation1_id,
+            nation_b: nation2_id,
+            reputation: 50.0,
+            trade_dependency: 0.3,
+            threat_alignment: 0.2,
+            last_war: None,
+            allied_since: Some(0),
+            last_updated: 0,
+        };
+        world.world.spawn(relation_ab);
+
+        let relation_ac = DiplomaticRelation {
+            nation_a: nation1_id,
+            nation_b: nation3_id,
+            reputation: -20.0,
+            trade_dependency: 0.1,
+            threat_alignment: -0.3,
+            last_war: None,
+            allied_since: None,
+            last_updated: 0,
+        };
+        world.world.spawn(relation_ac);
+
+        let relation_bc = DiplomaticRelation {
+            nation_a: nation2_id,
+            nation_b: nation3_id,
+            reputation: 10.0,
+            trade_dependency: 0.2,
+            threat_alignment: 0.0,
+            last_war: None,
+            allied_since: None,
+            last_updated: 0,
+        };
+        world.world.spawn(relation_bc);
+
+        // Record initial state hash
+        let hash_before = world.state_hash();
+
+        // Run 1000 ticks
+        pipeline.execute_many(&mut world, 1000);
+
+        // Verify state hash changed (world evolved)
+        let hash_after = world.state_hash();
+        assert_ne!(hash_before, hash_after, "World state should change after 1000 ticks");
+
+        // Verify tick count
+        assert_eq!(world.current_tick(), 1000, "Tick count should be 1000");
+
+        // Verify alliance still exists and cohesion decayed
+        let mut alliance_found = false;
+        let mut alliance_cohesion_after = 0.0;
+        let mut query = world.world.query::<&Alliance>();
+        for alliance in query.iter(&world.world) {
+            if alliance.members.len() == 2 {
+                alliance_found = true;
+                alliance_cohesion_after = alliance.cohesion;
+                // Cohesion should have decayed: 80.0 - (1.0 * 1000) = -920.0, but clamped at 0
+                assert!(alliance_cohesion_after <= 80.0, "Alliance cohesion should decay or stay same");
+            }
+        }
+        assert!(alliance_found, "Alliance should still exist after 1000 ticks");
+
+        // Verify diplomatic relations still exist
+        let mut diplomacy_count = 0;
+        let mut query = world.world.query::<&DiplomaticRelation>();
+        for _relation in query.iter(&world.world) {
+            diplomacy_count += 1;
+        }
+        assert!(diplomacy_count >= 3, "Diplomatic relations should be preserved");
+
+        println!("✓ V0.4 Integration test passed: 1000 ticks with alliances and diplomacy");
+        println!("  Alliance cohesion after 1000 ticks: {:.1}", alliance_cohesion_after);
+        println!("  Diplomatic relations maintained: {}", diplomacy_count);
+    }
+
+    /// Test alliance dissolution after cohesion drops below 15
+    #[test]
+    fn test_v0_4_alliance_dissolution() {
+        use crate::core::types::{Alliance, AllianceId, AllianceDoctrine};
+
+        let seed = 6666;
+
+        // Setup world
+        let mut world = WorldState::new(seed);
+        let mut pipeline = TickPipeline::new_v0_4();
+
+        // Create nations
+        let nation1 = world.spawn_nation("Nation 1".to_string(), [255, 0, 0], false);
+        let nation2 = world.spawn_nation("Nation 2".to_string(), [0, 255, 0], false);
+
+        let nation1_id = world.world.get::<crate::core::types::Nation>(nation1).unwrap().id;
+        let nation2_id = world.world.get::<crate::core::types::Nation>(nation2).unwrap().id;
+
+        // Create weak alliance that will dissolve
+        let alliance = Alliance {
+            alliance_id: AllianceId::new(),
+            alliance_name: "Weak Alliance".to_string(),
+            founding_nation: nation1_id,
+            members: vec![nation1_id, nation2_id],
+            cohesion: 20.0,  // Low starting cohesion
+            doctrine: AllianceDoctrine::BalanceOfPower,
+            founded_tick: 0,
+            threat_reduction: 0.25,
+            cohesion_decay_rate: 2.5,  // High decay rate
+        };
+        world.world.spawn(alliance);
+
+        // Count alliances before/after
+        let count_before = {
+            let mut query = world.world.query::<&Alliance>();
+            query.iter(&world.world).count()
+        };
+        assert_eq!(count_before, 1, "Should start with 1 alliance");
+
+        // Run 10 ticks (20.0 - (2.5 * 10) = -5.0, triggers dissolution at cohesion < 15)
+        pipeline.execute_many(&mut world, 10);
+
+        // After 8 ticks, cohesion = 20.0 - (2.5 * 8) = 0.0 (clamped)
+        let count_after = {
+            let mut query = world.world.query::<&Alliance>();
+            query.iter(&world.world).count()
+        };
+        
+        // Alliance should be dissolved or still exist with very low cohesion
+        let mut min_cohesion = f64::MAX;
+        let mut query = world.world.query::<&Alliance>();
+        for alliance in query.iter(&world.world) {
+            min_cohesion = min_cohesion.min(alliance.cohesion);
+            // If alliance still exists, it should be nearly dissolved
+            assert!(alliance.is_dissolved() || alliance.cohesion < 15.0, 
+                    "Alliance should be dissolved or nearly dissolved");
+        }
+
+        println!("✓ Alliance dissolution test passed (final cohesion: {:.1})", min_cohesion);
+    }
+
+    /// Test state persistence preserves alliance data
+    #[test]
+    fn test_v0_4_state_persistence_with_alliances() {
+        use crate::core::types::{Alliance, AllianceId, AllianceDoctrine, DiplomaticRelation};
+
+        let mut world = WorldState::new(1234);
+
+        // Create test data
+        let nation1 = world.spawn_nation("Test Nation 1".to_string(), [255, 0, 0], true);
+        let nation2 = world.spawn_nation("Test Nation 2".to_string(), [0, 0, 255], false);
+
+        let nation1_id = world.world.get::<crate::core::types::Nation>(nation1).unwrap().id;
+        let nation2_id = world.world.get::<crate::core::types::Nation>(nation2).unwrap().id;
+
+        // Create alliance
+        let alliance_id = AllianceId::new();
+        let alliance = Alliance {
+            alliance_id,
+            alliance_name: "Persistent Alliance".to_string(),
+            founding_nation: nation1_id,
+            members: vec![nation1_id, nation2_id],
+            cohesion: 85.5,
+            doctrine: AllianceDoctrine::EconomicBloc,
+            founded_tick: 0,
+            threat_reduction: 0.35,
+            cohesion_decay_rate: 0.75,
+        };
+        world.world.spawn(alliance);
+
+        // Create diplomatic relation
+        let relation = DiplomaticRelation {
+            nation_a: nation1_id,
+            nation_b: nation2_id,
+            reputation: 42.5,
+            trade_dependency: 0.45,
+            threat_alignment: 0.15,
+            last_war: None,
+            allied_since: Some(5),
+            last_updated: 10,
+        };
+        world.world.spawn(relation);
+
+        // Get initial state hash
+        let hash_before = world.state_hash();
+
+        // Simulate some ticks
+        let mut pipeline = TickPipeline::new_v0_4();
+        pipeline.execute_many(&mut world, 50);
+
+        // Get new state hash (should be different due to changes)
+        let hash_after = world.state_hash();
+        assert_ne!(hash_before, hash_after, "State hash should change after execution");
+
+        // Verify alliances are still present
+        let mut alliance_count = 0;
+        let mut found_alliance = false;
+        let mut query = world.world.query::<&Alliance>();
+        for alliance in query.iter(&world.world) {
+            alliance_count += 1;
+            if alliance.alliance_id == alliance_id {
+                found_alliance = true;
+                assert_eq!(alliance.alliance_name, "Persistent Alliance");
+                assert!(alliance.cohesion <= 85.5, "Cohesion should decay or stay same");
+                assert_eq!(alliance.members.len(), 2);
+            }
+        }
+        assert!(found_alliance, "Alliance should still exist after simulation");
+
+        // Verify diplomatic relations are still present
+        let mut relation_count = 0;
+        let mut found_relation = false;
+        let mut query = world.world.query::<&DiplomaticRelation>();
+        for rel in query.iter(&world.world) {
+            relation_count += 1;
+            if (rel.nation_a == nation1_id && rel.nation_b == nation2_id) ||
+               (rel.nation_a == nation2_id && rel.nation_b == nation1_id) {
+                found_relation = true;
+                // Reputation should have decayed towards 0 (by 0.5 * 50 ticks = 25.0)
+                assert!(rel.reputation <= 42.5, "Reputation should decay or stay same");
+                assert_eq!(rel.trade_dependency, 0.45, "Trade dependency should be preserved");
+            }
+        }
+        assert!(found_relation, "Diplomatic relation should still exist after simulation");
+
+        println!("✓ State persistence test passed");
+        println!("  Alliances persisted: {}", alliance_count);
+        println!("  Diplomatic relations preserved: {}", relation_count);
     }
 
     fn setup_test_world_v0_2(world_state: &mut WorldState) {

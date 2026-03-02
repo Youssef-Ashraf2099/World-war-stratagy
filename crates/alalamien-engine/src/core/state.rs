@@ -7,6 +7,32 @@ use anyhow::{Context, Result};
 
 use super::world::WorldState;
 
+/// Serializable snapshot of an alliance
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct AllianceSnapshot {
+    pub alliance_id: String,  // UUID as string
+    pub alliance_name: String,
+    pub members: Vec<String>,            // Nation IDs as strings
+    pub cohesion: f64,
+    pub doctrine: String,                // AllianceDoctrine serialized
+    pub founded_tick: u64,
+    pub threat_reduction: f64,
+    pub cohesion_decay_rate: f64,
+}
+
+/// Serializable snapshot of diplomatic relations
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct DiplomaticSnapshot {
+    pub nation_a: String,
+    pub nation_b: String,
+    pub reputation: f64,
+    pub trade_dependency: f64,
+    pub threat_alignment: f64,
+    pub last_war: Option<u64>,
+    pub allied_since: Option<u64>,
+    pub last_updated: u64,
+}
+
 /// Serializable snapshot of world state
 #[derive(Debug, Serialize, Deserialize)]
 pub struct StateSnapshot {
@@ -15,16 +41,42 @@ pub struct StateSnapshot {
     pub game_clock: super::world::GameClock,
     pub metadata: super::world::WorldMetadata,
     // ECS data will be added as we build out components
+    #[serde(default)]
+    pub alliances: Vec<AllianceSnapshot>,
+    #[serde(default)]
+    pub diplomatic_relations: Vec<DiplomaticSnapshot>,
 }
 
 impl WorldState {
     /// Save current state to JSON file
-    pub fn save_to_file<P: AsRef<Path>>(&self, path: P) -> Result<()> {
+    pub fn save_to_file<P: AsRef<Path>>(&mut self, path: P) -> Result<()> {
+        use crate::core::types::Alliance;
+
+        // Serialize alliances
+        let alliances = {
+            let mut query = self.world.query::<&Alliance>();
+            query
+                .iter(&self.world)
+                .map(|a| AllianceSnapshot {
+                    alliance_id: a.alliance_id.0.to_string(),
+                    alliance_name: a.alliance_name.clone(),
+                    members: a.members.iter().map(|n| n.0.to_string()).collect(),
+                    cohesion: a.cohesion,
+                    doctrine: a.doctrine.as_str().to_string(),
+                    founded_tick: a.founded_tick,
+                    threat_reduction: a.threat_reduction,
+                    cohesion_decay_rate: a.cohesion_decay_rate,
+                })
+                .collect()
+        };
+
         let snapshot = StateSnapshot {
             tick: self.tick,
             seed: self.seed,
             game_clock: self.game_clock.clone(),
             metadata: self.metadata.clone(),
+            alliances,
+            diplomatic_relations: Vec::new(), // TODO: Serialize DiplomaticRelation when integrated
         };
 
         let json = serde_json::to_string_pretty(&snapshot)
@@ -38,6 +90,8 @@ impl WorldState {
 
     /// Load state from JSON file
     pub fn load_from_file<P: AsRef<Path>>(path: P) -> Result<Self> {
+        use crate::core::types::{Alliance, AllianceId, NationId, AllianceDoctrine};
+        
         let json = fs::read_to_string(path)
             .context("Failed to read state file")?;
         
@@ -49,6 +103,44 @@ impl WorldState {
         world_state.game_clock = snapshot.game_clock;
         world_state.metadata = snapshot.metadata;
 
+        // Restore alliances
+        for alliance_snap in snapshot.alliances {
+            let doctrine = match alliance_snap.doctrine.as_str() {
+                "DefensiveAgreement" => AllianceDoctrine::DefensiveAgreement,
+                "OffensivePact" => AllianceDoctrine::OffensivePact,
+                "EconomicBloc" => AllianceDoctrine::EconomicBloc,
+                "ResearchConsortium" => AllianceDoctrine::ResearchConsortium,
+                "BalanceOfPower" => AllianceDoctrine::BalanceOfPower,
+                _ => AllianceDoctrine::DefensiveAgreement,
+            };
+
+            let members = alliance_snap
+                .members
+                .iter()
+                .filter_map(|m| {
+                    uuid::Uuid::parse_str(m)
+                        .ok()
+                        .map(|u| NationId(u))
+                })
+                .collect();
+
+            let alliance = Alliance {
+                alliance_id: uuid::Uuid::parse_str(&alliance_snap.alliance_id)
+                    .map(AllianceId)
+                    .unwrap_or_else(|_| AllianceId::new()),
+                alliance_name: alliance_snap.alliance_name,
+                founding_nation: NationId::default(),
+                members,
+                cohesion: alliance_snap.cohesion,
+                doctrine,
+                founded_tick: alliance_snap.founded_tick,
+                threat_reduction: alliance_snap.threat_reduction,
+                cohesion_decay_rate: alliance_snap.cohesion_decay_rate,
+            };
+
+            world_state.world.spawn(alliance);
+        }
+
         Ok(world_state)
     }
 
@@ -58,7 +150,7 @@ impl WorldState {
         use std::hash::{Hash, Hasher};
         use crate::core::types::{
             GDP, Legitimacy, Logistics, MilitaryCapacity, Nation, OwnedBy, Population, Province,
-            Resources, WarState,
+            Resources, WarState, Alliance,
         };
 
         let mut hasher = DefaultHasher::new();
@@ -145,6 +237,34 @@ impl WorldState {
         };
             province_rows.sort_by(|a, b| a.0.cmp(&b.0));
         province_rows.hash(&mut hasher);
+
+        // Hash alliance data for determinism
+        let mut alliance_rows = {
+            let mut query = self.world.query::<&Alliance>();
+            query
+                .iter(&self.world)
+                .map(|a| {
+                    let member_names: Vec<String> = a
+                        .members
+                        .iter()
+                        .map(|m| {
+                            nation_name_by_id
+                                .get(m)
+                                .cloned()
+                                .unwrap_or_else(|| "UNKNOWN".to_string())
+                        })
+                        .collect();
+                    (
+                        a.alliance_name.clone(),
+                        a.cohesion.to_bits(),
+                        a.doctrine.as_str().to_string(),
+                        member_names,
+                    )
+                })
+                .collect::<Vec<_>>()
+        };
+            alliance_rows.sort_by(|a, b| a.0.cmp(&b.0));
+        alliance_rows.hash(&mut hasher);
         
         hasher.finish()
     }

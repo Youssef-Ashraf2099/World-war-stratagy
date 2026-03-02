@@ -73,6 +73,28 @@ pub struct ResourcesResponse {
     trade_ports: u32,
 }
 
+#[derive(Debug, Serialize)]
+pub struct AllianceResponse {
+    id: String,
+    name: String,
+    members: Vec<String>,
+    cohesion: f64,
+    doctrine: String,
+    threat_reduction: f64,
+    cohesion_decay_rate: f64,
+}
+
+#[derive(Debug, Serialize)]
+pub struct DiplomaticRelationResponse {
+    nation_a: String,
+    nation_b: String,
+    reputation: f64,
+    trade_dependency: f64,
+    threat_alignment: f64,
+    last_war: Option<u64>,
+    allied_since: Option<u64>,
+}
+
 // ============================================================================
 // Handlers
 // ============================================================================
@@ -375,4 +397,107 @@ pub async fn get_metrics(
 ) -> Json<Value> {
     let snapshot = state.metrics.snapshot();
     Json(serde_json::to_value(snapshot).unwrap())
+}
+/// Get all alliances
+pub async fn get_alliances(
+    AxumState(state): AxumState<ApiState>,
+) -> Result<Json<Vec<AllianceResponse>>, StatusCode> {
+    use alalamien_engine::core::types::*;
+
+    let mut world = state.world.write().map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+
+    let mut alliances = Vec::new();
+
+    let mut query = world.world.query::<&Alliance>();
+    for alliance in query.iter(&world.world) {
+        let members: Vec<String> = alliance.members.iter()
+            .map(|m| m.0.to_string())
+            .collect();
+
+        alliances.push(AllianceResponse {
+            id: alliance.alliance_id.0.to_string(),
+            name: alliance.alliance_name.clone(),
+            members,
+            cohesion: alliance.cohesion,
+            doctrine: format!("{:?}", alliance.doctrine),
+            threat_reduction: alliance.threat_reduction,
+            cohesion_decay_rate: alliance.cohesion_decay_rate,
+        });
+    }
+
+    Ok(Json(alliances))
+}
+
+/// Get diplomatic relation between two nations
+pub async fn get_diplomacy(
+    AxumState(state): AxumState<ApiState>,
+    Path((nation_a_str, nation_b_str)): Path<(String, String)>,
+) -> Result<Json<DiplomaticRelationResponse>, StatusCode> {
+    use alalamien_engine::core::types::*;
+
+    let mut world = state.world.write().map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+
+    let nation_a_uuid = uuid::Uuid::parse_str(&nation_a_str)
+        .map_err(|_| StatusCode::BAD_REQUEST)?;
+    let nation_b_uuid = uuid::Uuid::parse_str(&nation_b_str)
+        .map_err(|_| StatusCode::BAD_REQUEST)?;
+
+    let nation_a = NationId(nation_a_uuid);
+    let nation_b = NationId(nation_b_uuid);
+
+    // Try to find the diplomatic relation
+    let mut query = world.world.query::<&DiplomaticRelation>();
+    for relation in query.iter(&world.world) {
+        if (relation.nation_a == nation_a && relation.nation_b == nation_b)
+            || (relation.nation_a == nation_b && relation.nation_b == nation_a)
+        {
+            return Ok(Json(DiplomaticRelationResponse {
+                nation_a: relation.nation_a.0.to_string(),
+                nation_b: relation.nation_b.0.to_string(),
+                reputation: relation.reputation,
+                trade_dependency: relation.trade_dependency,
+                threat_alignment: relation.threat_alignment,
+                last_war: relation.last_war,
+                allied_since: relation.allied_since,
+            }));
+        }
+    }
+
+    Err(StatusCode::NOT_FOUND)
+}
+
+/// Get alliances for a specific nation
+pub async fn get_nation_alliances(
+    AxumState(state): AxumState<ApiState>,
+    Path(nation_id_str): Path<String>,
+) -> Result<Json<Vec<AllianceResponse>>, StatusCode> {
+    use alalamien_engine::core::types::*;
+
+    let mut world = state.world.write().map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+
+    let nation_uuid = uuid::Uuid::parse_str(&nation_id_str)
+        .map_err(|_| StatusCode::BAD_REQUEST)?;
+    let nation_id = NationId(nation_uuid);
+    let mut alliances = Vec::new();
+
+    let mut query = world.world.query::<&Alliance>();
+    for alliance in query.iter(&world.world) {
+        if alliance.members.contains(&nation_id) {
+            let members: Vec<String> = alliance.members.iter()
+                .map(|m| m.0.to_string())
+                .collect();
+
+            alliances.push(AllianceResponse {
+                id: alliance.alliance_id.0.to_string(),
+                name: alliance.alliance_name.clone(),
+                members,
+                cohesion: alliance.cohesion,
+                doctrine: format!("{:?}", alliance.doctrine),
+                threat_reduction: alliance.threat_reduction,
+                cohesion_decay_rate: alliance.cohesion_decay_rate,
+            });
+        }
+    }
+
+    Ok(Json(alliances))
 }

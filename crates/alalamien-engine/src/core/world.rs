@@ -429,6 +429,94 @@ impl WorldState {
             .map(|graph| graph.are_neighbors(province_a, province_b))
             .unwrap_or(false)
     }
+
+    // ========================================================================
+    // V0.4 ALLIANCE MANAGEMENT
+    // ========================================================================
+
+    /// Spawn a new alliance entity
+    pub fn spawn_alliance(
+        &mut self,
+        name: String,
+        founding_nation: NationId,
+        doctrine: crate::core::types::AllianceDoctrine,
+        threat_reduction: f64,
+        cohesion_decay_rate: f64,
+    ) -> Entity {
+        let alliance = Alliance {
+            alliance_id: AllianceId::new(),
+            alliance_name: name,
+            founding_nation,
+            members: vec![founding_nation],
+            cohesion: 100.0,
+            doctrine,
+            founded_tick: self.tick,
+            threat_reduction,
+            cohesion_decay_rate,
+        };
+
+        self.world.spawn(alliance).id()
+    }
+
+    /// Get an alliance by entity
+    pub fn get_alliance(&self, alliance_entity: Entity) -> Option<&Alliance> {
+        self.world.get::<Alliance>(alliance_entity)
+    }
+
+    /// Get a mutable reference to an alliance
+    pub fn get_alliance_mut(&mut self, alliance_entity: Entity) -> Option<bevy_ecs::world::Mut<Alliance>> {
+        self.world.get_mut::<Alliance>(alliance_entity)
+    }
+
+    /// Get all alliances a nation is a member of
+    pub fn get_nation_alliances(&mut self, nation_id: NationId) -> Vec<(Entity, &Alliance)> {
+        let mut query = self.world.query::<&Alliance>();
+        query
+            .iter(&self.world)
+            .filter_map(|alliance| {
+                if alliance.members.contains(&nation_id) {
+                    Some((Entity::PLACEHOLDER, alliance))
+                } else {
+                    None
+                }
+            })
+            .collect()
+    }
+
+    /// Add a member to an existing alliance
+    pub fn add_alliance_member(&mut self, alliance_entity: Entity, nation_id: NationId) -> bool {
+        if let Some(mut alliance) = self.world.get_mut::<Alliance>(alliance_entity) {
+            if !alliance.members.contains(&nation_id) {
+                alliance.add_member(nation_id);
+                return true;
+            }
+        }
+        false
+    }
+
+    /// Remove a member from an alliance
+    pub fn remove_alliance_member(&mut self, alliance_entity: Entity, nation_id: NationId) -> bool {
+        if let Some(mut alliance) = self.world.get_mut::<Alliance>(alliance_entity) {
+            let original_len = alliance.member_count();
+            alliance.remove_member(nation_id);
+            return alliance.member_count() < original_len;
+        }
+        false
+    }
+
+    /// Get all active alliances
+    pub fn get_all_alliances(&mut self) -> Vec<&Alliance> {
+        let mut query = self.world.query::<&Alliance>();
+        query.iter(&self.world).collect()
+    }
+
+    /// Decay cohesion for all alliances (call once per tick)
+    pub fn update_alliance_cohesion(&mut self) {
+        let mut query = self.world.query::<&mut Alliance>();
+        for mut alliance in query.iter_mut(&mut self.world) {
+            alliance.decay_cohesion();
+        }
+    }
 }
 
 #[cfg(test)]
@@ -491,5 +579,75 @@ mod tests {
 
         world.advance_tick();
         assert_eq!(world.current_datetime_string(), "04:00, 1 January, 2010");
+    }
+
+    #[test]
+    fn test_alliance_spawn() {
+        let mut world = WorldState::new(42);
+        let nation = world.spawn_nation("TestNation".to_string(), [255, 0, 0], true);
+        let nation_id = world.world.get::<Nation>(nation).unwrap().id;
+
+        let alliance_entity = world.spawn_alliance(
+            "Test Alliance".to_string(),
+            nation_id,
+            crate::core::types::AllianceDoctrine::DefensiveAgreement,
+            0.25,
+            1.0,
+        );
+
+        let alliance = world.get_alliance(alliance_entity).unwrap();
+        assert_eq!(alliance.alliance_name, "Test Alliance");
+        assert_eq!(alliance.member_count(), 1);
+        assert!(alliance.members.contains(&nation_id));
+    }
+
+    #[test]
+    fn test_alliance_member_add_remove() {
+        let mut world = WorldState::new(42);
+        let nation1 = world.spawn_nation("Nation1".to_string(), [255, 0, 0], true);
+        let nation2 = world.spawn_nation("Nation2".to_string(), [0, 255, 0], true);
+        
+        let nation_id1 = world.world.get::<Nation>(nation1).unwrap().id;
+        let nation_id2 = world.world.get::<Nation>(nation2).unwrap().id;
+
+        let alliance_entity = world.spawn_alliance(
+            "Test Alliance".to_string(),
+            nation_id1,
+            crate::core::types::AllianceDoctrine::EconomicBloc,
+            0.20,
+            0.8,
+        );
+
+        // Add member
+        assert!(world.add_alliance_member(alliance_entity, nation_id2));
+        let alliance = world.get_alliance(alliance_entity).unwrap();
+        assert_eq!(alliance.member_count(), 2);
+
+        // Remove member
+        assert!(world.remove_alliance_member(alliance_entity, nation_id2));
+        let alliance = world.get_alliance(alliance_entity).unwrap();
+        assert_eq!(alliance.member_count(), 1);
+    }
+
+    #[test]
+    fn test_alliance_cohesion_decay() {
+        let mut world = WorldState::new(42);
+        let nation = world.spawn_nation("TestNation".to_string(), [255, 0, 0], true);
+        let nation_id = world.world.get::<Nation>(nation).unwrap().id;
+
+        let alliance_entity = world.spawn_alliance(
+            "Test Alliance".to_string(),
+            nation_id,
+            crate::core::types::AllianceDoctrine::DefensiveAgreement,
+            0.25,
+            2.0, // High decay rate
+        );
+
+        let initial_cohesion = world.get_alliance(alliance_entity).unwrap().cohesion;
+        world.update_alliance_cohesion();
+        let new_cohesion = world.get_alliance(alliance_entity).unwrap().cohesion;
+
+        assert!(new_cohesion < initial_cohesion);
+        assert!((initial_cohesion - new_cohesion - 2.0).abs() < 0.01);
     }
 }

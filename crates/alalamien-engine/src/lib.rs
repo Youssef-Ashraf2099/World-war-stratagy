@@ -14,6 +14,7 @@ pub mod subsystems;
 pub mod instrumentation;
 pub mod utils;
 pub mod game;
+pub mod tests;
 
 pub use core::{
     types::{Nation, Province, ResourceType, Resources},

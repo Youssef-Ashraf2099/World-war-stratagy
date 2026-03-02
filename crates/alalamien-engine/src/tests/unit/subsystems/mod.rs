@@ -13,6 +13,7 @@ pub mod alliance;
 pub mod intervention;
 pub mod events;
 pub mod factions;
+pub mod nuclear;
 
 // Import test fixtures for subsystem tests
 pub use super::super::fixtures::{TestWorldBuilder, TestWorldFixture, assertions};

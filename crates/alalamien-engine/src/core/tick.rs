@@ -262,6 +262,7 @@ impl TickPipeline {
             Box::new(OccupationPhase::new()),
             Box::new(AlliancePhase::new()),
             Box::new(DiplomacyPhase::new()),
+            Box::new(NuclearPhase::new()),
             Box::new(VassalagePhase::new()),
             Box::new(EspionagePhase::new()),
             Box::new(StabilityPhase::new()),

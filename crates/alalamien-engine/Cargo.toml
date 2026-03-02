@@ -20,6 +20,7 @@ thiserror = { workspace = true }
 tracing = { workspace = true }
 tracing-subscriber = { workspace = true }
 chrono = { workspace = true }
+rand = "0.8"
 
 [dev-dependencies]
 criterion = { workspace = true }

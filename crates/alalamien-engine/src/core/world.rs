@@ -310,6 +310,17 @@ impl WorldState {
         color: [u8; 3],
         player_controlled: bool,
     ) -> Entity {
+        self.spawn_nation_with_nuclear(name, color, player_controlled, None)
+    }
+
+    /// Create a nation entity with optional nuclear capability
+    pub fn spawn_nation_with_nuclear(
+        &mut self,
+        name: String,
+        color: [u8; 3],
+        player_controlled: bool,
+        nuclear_capability: Option<f64>,  // if Some, initial readiness 0-100; None = not nuclear-capable
+    ) -> Entity {
         let nation_id = NationId::new();
         let nation = Nation {
             id: nation_id,
@@ -331,7 +342,15 @@ impl WorldState {
             crate::core::types::WarState::default(),
             crate::core::types::AIMemory::default(),
             crate::core::types::IntelligenceProfile::default(),
+            crate::core::types::NuclearViolationRecord::default(),
+            crate::core::types::NuclearUseRecord::default(),
         ));
+
+        // Initialize nuclear capability if provided
+        if let Some(initial_readiness) = nuclear_capability {
+            entity.insert(crate::core::types::NuclearCapability::new(initial_readiness));
+            entity.insert(crate::core::types::NuclearPosture::default());
+        }
 
         if player_controlled {
             entity.insert(PlayerControlled);

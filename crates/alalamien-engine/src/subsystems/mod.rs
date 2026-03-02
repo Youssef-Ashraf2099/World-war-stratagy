@@ -38,6 +38,9 @@ pub mod intervention;
 // V0.7 subsystems
 pub mod espionage;
 
+// V0.8 subsystems
+pub mod nuclear;
+
 pub use demographic::DemographicPhase;
 pub use economic::EconomicPhase;
 pub use trade::TradePhase;
@@ -65,3 +68,6 @@ pub use events::EventPhase;
 pub use intervention::InterventionPhase;
 // V0.7 exports
 pub use espionage::EspionagePhase;
+
+// V0.8 exports
+pub use nuclear::NuclearPhase;

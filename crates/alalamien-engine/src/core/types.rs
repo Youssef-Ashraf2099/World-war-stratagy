@@ -1002,6 +1002,210 @@ impl DiplomaticRelation {
 }
 
 // ============================================================================
+// V0.4 NUCLEAR WEAPONS SYSTEM
+// ============================================================================
+
+/// Nuclear capability readiness (0-100)
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct NuclearCapability {
+    pub readiness: f64,  // 0-100, percentage of readiness
+    pub development_rate: f64,  // how fast ability increases per tick if developing
+}
+
+impl Default for NuclearCapability {
+    fn default() -> Self {
+        Self {
+            readiness: 0.0,
+            development_rate: 0.5,  // default: +0.5% per tick if not violating treaty
+        }
+    }
+}
+
+impl NuclearCapability {
+    pub fn new(initial: f64) -> Self {
+        Self {
+            readiness: initial.clamp(0.0, 100.0),
+            development_rate: 0.5,
+        }
+    }
+
+    pub fn can_use(&self) -> bool {
+        self.readiness >= 30.0  // minimum 30% to deploy
+    }
+
+    pub fn develop(&mut self, rate: f64) {
+        self.readiness = (self.readiness + rate).min(100.0);
+    }
+
+    pub fn reset(&mut self) {
+        self.readiness = 0.0;
+    }
+}
+
+/// Nuclear posture of a nation
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Component, Serialize, Deserialize)]
+pub enum NuclearPosture {
+    Dormant,      // Not developing, treaty compliant
+    Developing,   // Actively researching
+    Deployed,     // Ready to use
+    Deterrent,    // Being used as deterrence against allies/rivals
+}
+
+impl Default for NuclearPosture {
+    fn default() -> Self {
+        Self::Dormant
+    }
+}
+
+/// Nuclear treaty identification
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Component, Serialize, Deserialize)]
+pub struct NuclearTreatyId(pub Uuid);
+
+impl NuclearTreatyId {
+    pub fn new() -> Self {
+        Self(Uuid::new_v4())
+    }
+}
+
+impl Default for NuclearTreatyId {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+/// Membership in a nuclear non-proliferation treaty
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct NuclearTreatyMembership {
+    pub treaty_id: NuclearTreatyId,
+    pub joined_tick: Tick,
+}
+
+impl NuclearTreatyMembership {
+    pub fn new(treaty_id: NuclearTreatyId, tick: Tick) -> Self {
+        Self {
+            treaty_id,
+            joined_tick: tick,
+        }
+    }
+}
+
+/// Record of a treaty violation
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct NuclearViolation {
+    pub violation_tick: Tick,
+    pub violation_type: NuclearViolationType,
+}
+
+/// Types of treaty violations
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+pub enum NuclearViolationType {
+    DevelopmentWhileInTreaty,  // Increased readiness while in treaty
+    UseWhileInTreaty,          // Actually deployed nuclear weapon while in treaty
+}
+
+/// Tracks all nuclear treaty violations for a nation
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct NuclearViolationRecord {
+    pub violations: Vec<NuclearViolation>,
+}
+
+impl Default for NuclearViolationRecord {
+    fn default() -> Self {
+        Self {
+            violations: Vec::new(),
+        }
+    }
+}
+
+impl NuclearViolationRecord {
+    pub fn is_violator(&self) -> bool {
+        !self.violations.is_empty()
+    }
+
+    pub fn add_violation(&mut self, violation_type: NuclearViolationType, tick: Tick) {
+        self.violations.push(NuclearViolation {
+            violation_tick: tick,
+            violation_type,
+        });
+    }
+
+    pub fn violation_count(&self) -> usize {
+        self.violations.len()
+    }
+}
+
+/// Record of a nuclear weapon use
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct NuclearUseIncident {
+    pub use_tick: Tick,
+    pub attacker: NationId,
+    pub target: NationId,
+    pub target_provinces: Vec<ProvinceId>,  // which provinces were hit
+    pub war_context: Option<WarId>,
+}
+
+/// Tracks all nuclear weapon uses
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct NuclearUseRecord {
+    pub uses: Vec<NuclearUseIncident>,
+}
+
+impl Default for NuclearUseRecord {
+    fn default() -> Self {
+        Self {
+            uses: Vec::new(),
+        }
+    }
+}
+
+impl NuclearUseRecord {
+    pub fn add_use(
+        &mut self,
+        attacker: NationId,
+        target: NationId,
+        target_provinces: Vec<ProvinceId>,
+        war_context: Option<WarId>,
+        tick: Tick,
+    ) {
+        self.uses.push(NuclearUseIncident {
+            use_tick: tick,
+            attacker,
+            target,
+            target_provinces,
+            war_context,
+        });
+    }
+
+    pub fn total_uses(&self) -> usize {
+        self.uses.len()
+    }
+
+    pub fn uses_against(&self, target: NationId) -> usize {
+        self.uses.iter().filter(|u| u.target == target).count()
+    }
+}
+
+/// Tracks initial war state for desperation calculations (bot AI)
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct WarStartSnapshot {
+    pub war_id: WarId,
+    pub start_tick: Tick,
+    pub territory_at_start: usize,  // number of provinces owned when war started
+    pub military_at_start: f64,     // military capacity at war start
+}
+
+impl WarStartSnapshot {
+    pub fn new(war_id: WarId, start_tick: Tick, territory: usize, military: f64) -> Self {
+        Self {
+            war_id,
+            start_tick,
+            territory_at_start: territory,
+            military_at_start: military,
+        }
+    }
+}
+
+// ============================================================================
 // TAGS AND MARKERS
 // ============================================================================
 

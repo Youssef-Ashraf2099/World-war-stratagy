@@ -7,6 +7,10 @@ use tracing::trace;
 
 use crate::core::types::{Resources, ResourceType, Population, Infrastructure, Province, OwnedBy, Nation, MilitaryCapacity, Logistics, GDP, NationId, EconomicStress};
 use crate::core::tick::TickPhase;
+use crate::subsystems::notifications::{
+    create_economic_crisis_notification,
+    create_legitimacy_crisis_notification,
+};
 
 const IRON_TO_MILITARY_RATE: f64 = 0.1;
 const OIL_TO_LOGISTICS_RATE: f64 = 0.1;
@@ -147,6 +151,71 @@ impl TickPhase for EconomicPhase {
                     );
                 }
             }
+        }
+        
+        // Check for economic and legitimacy crises
+        check_crises(world);
+    }
+}
+
+/// Check for economic and legitimacy crises, creating notifications
+fn check_crises(world: &mut World) {
+    // Collect previous GDP values and check for significant drops
+    let mut crisis_nations = Vec::new();
+    
+    {
+        let mut query = world.query::<(&Nation, &GDP, Option<&EconomicStress>)>();
+        for (nation, gdp, econ_stress) in query.iter(world) {
+            // Check for economic crisis (GDP < 5.0 is very low, or high accumulated deficit)
+            if gdp.value < 5.0 {
+                crisis_nations.push((nation.id, true, false)); // economic crisis
+            } else if let Some(stress) = econ_stress {
+                // High accumulated deficit indicates sustained economic problems
+                if stress.accumulated_deficit > 50.0 {
+                    crisis_nations.push((nation.id, true, false)); // economic crisis
+                }
+            }
+        }
+    }
+    
+    // Check for legitimacy crises
+    {
+        let mut query = world.query::<(&Nation, &crate::core::types::Legitimacy)>();
+        for (nation, legitimacy) in query.iter(world) {
+            if legitimacy.value < 25.0 {
+                // Add or update crisis entry with legitimacy flag
+                if let Some(entry) = crisis_nations.iter_mut().find(|(id, _, _)| *id == nation.id) {
+                    entry.2 = true; // legitimacy crisis
+                } else {
+                    crisis_nations.push((nation.id, false, true)); // only legitimacy crisis
+                }
+            }
+        }
+    }
+    
+    // Create notifications for crises
+    for (nation_id, econ_crisis, legit_crisis) in crisis_nations {
+        if econ_crisis {
+            // Get actual GDP value for notification
+            let gdp_value = {
+                let mut query = world.query::<(&Nation, &GDP)>();
+                query.iter(world)
+                    .find(|(n, _)| n.id == nation_id)
+                    .map(|(_, gdp)| gdp.value)
+                    .unwrap_or(0.0)
+            };
+            create_economic_crisis_notification(world, nation_id, gdp_value, 0);
+        }
+        if legit_crisis {
+            // Get actual legitimacy value for notification
+            let legit_value = {
+                let mut query = world.query::<(&Nation, &crate::core::types::Legitimacy)>();
+                query.iter(world)
+                    .find(|(n, _)| n.id == nation_id)
+                    .map(|(_, leg)| leg.value)
+                    .unwrap_or(0.0)
+            };
+            create_legitimacy_crisis_notification(world, nation_id, legit_value, 0);
         }
     }
 }

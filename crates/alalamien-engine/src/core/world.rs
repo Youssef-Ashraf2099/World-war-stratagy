@@ -346,6 +346,9 @@ impl WorldState {
             crate::core::types::NuclearUseRecord::default(),
         ));
 
+        // Add NotificationLog separately (to avoid bundle size limit)
+        entity.insert(crate::core::types::NotificationLog::default());
+
         // Initialize nuclear capability if provided
         if let Some(initial_readiness) = nuclear_capability {
             entity.insert(crate::core::types::NuclearCapability::new(initial_readiness));
@@ -470,9 +473,10 @@ impl WorldState {
         threat_reduction: f64,
         cohesion_decay_rate: f64,
     ) -> Entity {
+        let alliance_id = AllianceId::new();
         let alliance = Alliance {
-            alliance_id: AllianceId::new(),
-            alliance_name: name,
+            alliance_id,
+            alliance_name: name.clone(),
             founding_nation,
             members: vec![founding_nation],
             cohesion: 100.0,
@@ -482,7 +486,16 @@ impl WorldState {
             cohesion_decay_rate,
         };
 
-        self.world.spawn(alliance).id()
+        let entity_id = self.world.spawn(alliance).id();
+        
+        // Create notification for alliance formation
+        crate::subsystems::notifications::create_alliance_notification(
+            &mut self.world,
+            vec![founding_nation],
+            self.tick,
+        );
+        
+        entity_id
     }
 
     /// Get an alliance by entity

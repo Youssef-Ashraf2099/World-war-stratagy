@@ -11,6 +11,10 @@ use crate::core::types::{
     AutonomyLevel, CasusBelli, GDP, Legitimacy, MilitaryCapacity, Nation, NationId, Resources,
     Tick, VassalRelation, WarDeclaration, WarGoal, WarId, WarState,
 };
+use crate::subsystems::notifications::{
+    create_vassalization_notification,
+    create_vassal_rebellion_notification,
+};
 
 const LOYALTY_DECAY_RATE: f64 = 0.1;  // per tick if mistreated
 const INDEPENDENCE_THRESHOLD: f64 = 20.0;
@@ -178,6 +182,9 @@ fn check_independence_triggers(_world: &mut World) {
             declared_tick: 0,
         });
 
+        // Create notification for rebellion
+        create_vassal_rebellion_notification(_world, relation.vassal, relation.overlord, 0);
+
         _world.despawn(relation_entity);
 
         warn!(
@@ -206,6 +213,9 @@ pub fn offer_vassalization(
             established_tick: current_tick,
             loyalty: 50.0,
         });
+        
+        // Create notification for both nations
+        create_vassalization_notification(world, overlord, target, current_tick);
         
         info!(
             "Vassalization accepted: {:?} → {:?}",

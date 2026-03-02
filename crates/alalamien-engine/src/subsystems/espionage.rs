@@ -11,6 +11,7 @@ use tracing::{debug, info};
 use crate::core::types::*;
 use crate::core::deterministic::DeterministicRng;
 use crate::core::tick::TickPhase;
+use crate::subsystems::notifications::create_espionage_revealed_notification;
 
 // ============================================================================
 // CORE TYPES
@@ -433,6 +434,9 @@ impl EspionagePhase {
                     agent.mission_status = MissionStatus::Discovered;
                 }
             }
+
+            // Create notification for espionage revealed
+            create_espionage_revealed_notification(world, _owner_nation, target_nation, "Unknown Operation".to_string(), 0);
 
             // Log in target nation's counter-intelligence
             let mut query = world.query::<&mut CounterIntelligence>();

@@ -4,6 +4,7 @@
 use bevy_ecs::prelude::*;
 
 use crate::core::types::*;
+use crate::subsystems::notifications::create_alliance_broken_notification;
 
 /// Alliance management phase
 pub struct AlliancePhase;
@@ -35,20 +36,31 @@ impl AlliancePhase {
 
     /// Check for dissolutions and remove alliances that are dissolved
     fn check_dissolutions(world: &mut World) {
-        // Collect entities of dissolved alliances first
-        let mut to_dissolve: Vec<Entity> = Vec::new();
+        // Collect entities and data of dissolved alliances first
+        let mut to_dissolve: Vec<(Entity, AllianceId, String, Vec<NationId>)> = Vec::new();
 
         {
-            let mut query = world.query::<&Alliance>();
-            for alliance in query.iter(world) {
+            let mut query = world.query::<(Entity, &Alliance)>();
+            for (entity, alliance) in query.iter(world) {
                 if alliance.is_dissolved() {
-                    to_dissolve.push(Entity::PLACEHOLDER); // Mark for removal
+                    to_dissolve.push((
+                        entity,
+                        alliance.alliance_id,
+                        alliance.alliance_name.clone(),
+                        alliance.members.clone(),
+                    ));
                 }
             }
         }
 
-        // Note: In production, would need proper entity lookup to track actual entity IDs
-        // For now, we rely on the alliance's cohesion < 15 check
+        // Despawn dissolved alliances and create notifications
+        for (entity, alliance_id, alliance_name, members) in to_dissolve {
+            // Create notification for alliance dissolution
+            create_alliance_broken_notification(world, members, 0);
+            
+            // Despawn the alliance entity
+            world.despawn(entity);
+        }
     }
 
     /// Enforce alliance doctrines and obligations
@@ -257,7 +269,7 @@ mod tests {
             alliance_id: AllianceId::new(),
             alliance_name: "Fast Decay".to_string(),
             founding_nation: NationId::default(),
-            members: vec![NationId::default()],
+            members: vec![NationId::default(), NationId::new()], // Need 2+ members to not dissolve
             cohesion: 100.0,
             doctrine: AllianceDoctrine::DefensiveAgreement,
             founded_tick: 0,
@@ -269,7 +281,7 @@ mod tests {
             alliance_id: AllianceId::new(),
             alliance_name: "Slow Decay".to_string(),
             founding_nation: NationId::default(),
-            members: vec![NationId::default()],
+            members: vec![NationId::default(), NationId::new()], // Need 2+ members to not dissolve
             cohesion: 100.0,
             doctrine: AllianceDoctrine::EconomicBloc,
             founded_tick: 0,

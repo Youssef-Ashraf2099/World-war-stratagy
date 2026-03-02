@@ -271,6 +271,7 @@ impl TickPipeline {
             Box::new(LegitimacyPhase::new()),
             Box::new(FactionCivilWarPhase::new()),
             Box::new(InterventionPhase::new()),
+            Box::new(NotificationPhase::new()), // Run last to process all events
         ];
         Self { 
             phases,
@@ -608,7 +609,7 @@ mod tests {
             doctrine: AllianceDoctrine::DefensiveAgreement,
             founded_tick: 0,
             threat_reduction: 0.25,
-            cohesion_decay_rate: 1.0,
+            cohesion_decay_rate: 0.01, // Very slow decay so alliance survives 1000 ticks (80 - 0.01*1000 = 70)
         };
         world.world.spawn(alliance);
 
@@ -670,8 +671,9 @@ mod tests {
             if alliance.members.len() == 2 {
                 alliance_found = true;
                 alliance_cohesion_after = alliance.cohesion;
-                // Cohesion should have decayed: 80.0 - (1.0 * 1000) = -920.0, but clamped at 0
+                // Cohesion should have decayed: 80.0 - (0.01 * 1000) = 70.0
                 assert!(alliance_cohesion_after <= 80.0, "Alliance cohesion should decay or stay same");
+                            assert!(alliance_cohesion_after >= 60.0, "Alliance should still have significant cohesion");
             }
         }
         assert!(alliance_found, "Alliance should still exist after 1000 ticks");

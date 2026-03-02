@@ -19,5 +19,6 @@ pub mod game_depth_scenarios;
 pub mod civil_war_cascade;
 pub mod espionage_scenario;
 pub mod nuclear_weapons_scenario;
+pub mod notification_scenarios;
 
 pub use super::fixtures::{TestWorldBuilder, TestWorldFixture, assertions};

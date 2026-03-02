@@ -41,6 +41,9 @@ pub mod espionage;
 // V0.8 subsystems
 pub mod nuclear;
 
+// V0.9 subsystems
+pub mod notifications;
+
 pub use demographic::DemographicPhase;
 pub use economic::EconomicPhase;
 pub use trade::TradePhase;
@@ -71,3 +74,6 @@ pub use espionage::EspionagePhase;
 
 // V0.8 exports
 pub use nuclear::NuclearPhase;
+
+// V0.9 exports
+pub use notifications::NotificationPhase;

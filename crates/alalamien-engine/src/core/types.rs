@@ -1206,6 +1206,189 @@ impl WarStartSnapshot {
 }
 
 // ============================================================================
+// NOTIFICATIONS AND NEWS SYSTEM
+// ============================================================================
+
+/// Unique identifier for notifications
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Component, Serialize, Deserialize)]
+pub struct NotificationId(pub Uuid);
+
+impl NotificationId {
+    pub fn new() -> Self {
+        Self(Uuid::new_v4())
+    }
+}
+
+impl Default for NotificationId {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+/// Severity level of a notification
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+pub enum NotificationSeverity {
+    /// Informational updates
+    Info,
+    /// Important events requiring attention
+    Warning,
+    /// Critical events requiring immediate action
+    Critical,
+    /// Game-changing events
+    Major,
+}
+
+/// Types of notifications in the game
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub enum NotificationType {
+    // Warfare events
+    WarDeclared { attacker: NationId, defender: NationId },
+    WarEnded { victor: Option<NationId>, defeated: NationId },
+    MajorBattle { attacker: NationId, defender: NationId, casualties: u32 },
+    TerritoryLost { nation: NationId, provinces_lost: u32 },
+    TerritoryGained { nation: NationId, provinces_gained: u32 },
+    
+    // Diplomacy events
+    AllianceFormed { nations: Vec<NationId> },
+    AllianceBroken { former_allies: Vec<NationId> },
+    TreatyViolation { violator: NationId, treaty_type: String },
+    DiplomaticIsolation { nation: NationId },
+    
+    // Nuclear events
+    NuclearWeaponUsed { attacker: NationId, target: NationId, provinces: Vec<ProvinceId> },
+    NuclearTreatyViolation { violator: NationId },
+    NuclearCapabilityAchieved { nation: NationId },
+    
+    // Economic events
+    EconomicCrisis { nation: NationId, gdp_loss: f64 },
+    EconomicBoom { nation: NationId, gdp_gain: f64 },
+    SanctionsImposed { target: NationId, imposer: NationId },
+    TradeAgreement { nations: Vec<NationId> },
+    
+    // Espionage events
+    EspionageRevealed { perpetrator: NationId, target: NationId, operation: String },
+    AgentCaught { spy_nation: NationId, caught_by: NationId },
+    IntelligenceGained { nation: NationId, target: NationId },
+    
+    // Vassalage events
+    VassalizationOccurred { overlord: NationId, vassal: NationId },
+    VassalRebellion { vassal: NationId, overlord: NationId },
+    VassalLiberated { freed_nation: NationId, former_overlord: NationId },
+    
+    // Political events
+    LegitimacyCrisis { nation: NationId, legitimacy: f64 },
+    RegimeChange { nation: NationId },
+    CivilUnrest { nation: NationId },
+    
+    // Provincial events
+    ProvinceConquered { province: ProvinceId, new_owner: NationId },
+    ProvinceLost { province: ProvinceId, former_owner: NationId },
+    
+    // General events
+    GameEvent { message: String },
+}
+
+/// A notification/news item in the game
+#[derive(Debug, Clone, Component, Serialize, Deserialize)]
+pub struct Notification {
+    pub id: NotificationId,
+    pub notification_type: NotificationType,
+    pub title: String,
+    pub message: String,
+    pub tick: Tick,
+    pub severity: NotificationSeverity,
+    pub related_nations: Vec<NationId>,
+    pub read: bool,
+}
+
+impl Notification {
+    pub fn new(
+        notification_type: NotificationType,
+        title: String,
+        message: String,
+        tick: Tick,
+        severity: NotificationSeverity,
+        related_nations: Vec<NationId>,
+    ) -> Self {
+        Self {
+            id: NotificationId::new(),
+            notification_type,
+            title,
+            message,
+            tick,
+            severity,
+            related_nations,
+            read: false,
+        }
+    }
+
+    /// Mark notification as read
+    pub fn mark_read(&mut self) {
+        self.read = true;
+    }
+
+    /// Check if notification involves a specific nation
+    pub fn involves_nation(&self, nation_id: NationId) -> bool {
+        self.related_nations.contains(&nation_id)
+    }
+}
+
+/// Component storing all notifications for a nation
+#[derive(Debug, Clone, Component, Serialize, Deserialize, Default)]
+pub struct NotificationLog {
+    pub notifications: Vec<Notification>,
+}
+
+impl NotificationLog {
+    pub fn new() -> Self {
+        Self {
+            notifications: Vec::new(),
+        }
+    }
+
+    /// Add a notification to the log
+    pub fn add(&mut self, notification: Notification) {
+        self.notifications.push(notification);
+    }
+
+    /// Get unread notifications
+    pub fn unread(&self) -> Vec<&Notification> {
+        self.notifications.iter().filter(|n| !n.read).collect()
+    }
+
+    /// Get notifications by severity
+    pub fn by_severity(&self, severity: NotificationSeverity) -> Vec<&Notification> {
+        self.notifications.iter().filter(|n| n.severity == severity).collect()
+    }
+
+    /// Get recent notifications (last N ticks)
+    pub fn recent(&self, current_tick: Tick, ticks_back: u64) -> Vec<&Notification> {
+        let cutoff = current_tick.saturating_sub(ticks_back);
+        self.notifications.iter().filter(|n| n.tick >= cutoff).collect()
+    }
+
+    /// Mark all notifications as read
+    pub fn mark_all_read(&mut self) {
+        for notification in &mut self.notifications {
+            notification.read = true;
+        }
+    }
+
+    /// Get notification count by severity
+    pub fn count_by_severity(&self, severity: NotificationSeverity) -> usize {
+        self.notifications.iter().filter(|n| n.severity == severity).count()
+    }
+
+    /// Prune old notifications (keep last N)
+    pub fn prune(&mut self, keep_last: usize) {
+        if self.notifications.len() > keep_last {
+            let start = self.notifications.len() - keep_last;
+            self.notifications = self.notifications.split_off(start);
+        }
+    }
+}
+
+// ============================================================================
 // TAGS AND MARKERS
 // ============================================================================
 

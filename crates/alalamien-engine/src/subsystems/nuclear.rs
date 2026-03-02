@@ -9,6 +9,11 @@ use rand::Rng;
 
 use crate::core::tick::TickPhase;
 use crate::core::types::*;
+use crate::subsystems::notifications::{
+    create_nuclear_use_notification,
+    create_nuclear_treaty_violation_notification,
+    create_nuclear_capability_notification,
+};
 
 /// Nuclear weapons phase - manages treaty compliance, development, and use gates
 pub struct NuclearPhase;
@@ -70,6 +75,10 @@ fn check_treaty_compliance(world: &mut World) {
                                 NuclearViolationType::DevelopmentWhileInTreaty,
                                 tick,
                             );
+                            
+                            // Create global notification for treaty violation
+                            create_nuclear_treaty_violation_notification(world, nation_id, tick);
+                            
                             info!("Nuclear violation recorded: {:?} developing while in treaty", nation_id);
                         }
                     }
@@ -101,9 +110,17 @@ fn develop_capability(world: &mut World) {
         if !is_violator {
             // Development rate: 0.5% per tick
             if let Some(mut cap) = world.get_mut::<NuclearCapability>(entity) {
+                let old_readiness = cap.readiness;
                 cap.develop(0.5);
-                if cap.readiness >= 30.0 && cap.readiness - 0.5 < 30.0 {
-                    debug!("Entity {:?} nuclear capability reached deployment readiness", entity);
+                
+                // Check if just crossed the deployment threshold (30%)
+                if cap.readiness >= 30.0 && old_readiness < 30.0 {
+                    // Get nation ID for notification
+                    if let Some(nation) = world.get::<Nation>(entity) {
+                        let nation_id = nation.id;
+                        create_nuclear_capability_notification(world, nation_id, _tick);
+                        debug!("Entity {:?} nuclear capability reached deployment readiness", entity);
+                    }
                 }
             }
         }
@@ -489,6 +506,9 @@ pub fn apply_nuclear_use_effects(
         if let Some(mut use_record) = world.get_mut::<NuclearUseRecord>(attacker) {
             use_record.add_use(attacker_id, target_id, target_provinces.clone(), None, _tick);
         }
+
+        // Create global notification for nuclear weapon use (all nations should know)
+        create_nuclear_use_notification(world, attacker_id, target_id, target_provinces.clone(), _tick);
 
         // Spawn nuclear use event for diplomacy hooks
         spawn_nuclear_use_event(world, attacker_id, target_id, _tick);

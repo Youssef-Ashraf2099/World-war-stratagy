@@ -10,6 +10,7 @@ use crate::core::types::{
     CasusBelli, NationId, PeaceTreaty, Tick, WarDeclaration, WarExhaustion, WarGoal,
     WarId, WarState,
 };
+use crate::subsystems::notifications::{create_war_notification, create_war_ended_notification};
 
 /// Warfare phase - manages war declarations and peace
 pub struct WarfarePhase;
@@ -95,6 +96,9 @@ pub fn declare_war(
         declared_tick: current_tick,
     });
     
+    // Create notification for both nations
+    create_war_notification(world, aggressor, defender, current_tick);
+    
     info!(
         "War declared: {:?} vs {:?} (War ID: {:?})",
         aggressor, defender, war_id
@@ -115,6 +119,34 @@ pub fn sign_peace(
         terms,
         signed_tick: current_tick,
     });
+    
+    // Create war ended notification (notify involved nations)
+    if let Some(victor_id) = victor {
+        // Find the loser from the war declaration
+        let war_parties: Option<(NationId, NationId)> = {
+            let mut query = world.query::<&WarDeclaration>();
+            query.iter(world)
+                .find(|war| war.war_id == war_id)
+                .map(|war| (war.aggressor, war.defender))
+        };
+        
+        if let Some((aggressor, defender)) = war_parties {
+            let loser = if victor_id == aggressor { defender } else { aggressor };
+            create_war_ended_notification(world, Some(victor_id), loser, current_tick);
+        }
+    } else {
+        // Peace without victor (stalemate/white peace)
+        // For white peace, we need to pick one of the nations as the "defeated" parameter
+        let war_parties: Option<(NationId, NationId)> = {
+            let mut query = world.query::<&WarDeclaration>();
+            query.iter(world)
+                .find(|war| war.war_id == war_id)
+                .map(|war| (war.aggressor, war.defender))
+        };
+        if let Some((_, defender)) = war_parties {
+            create_war_ended_notification(world, None, defender, current_tick);
+        }
+    }
     
     info!("Peace treaty signed for war: {:?}", war_id);
 }

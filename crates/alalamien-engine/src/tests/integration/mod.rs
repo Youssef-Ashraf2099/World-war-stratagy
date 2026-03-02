@@ -15,5 +15,7 @@ pub mod alliance_warfare;
 pub mod multi_nation_scenarios;
 pub mod economic_scenarios;
 pub mod diplomatic_scenarios;
+pub mod game_depth_scenarios;
+pub mod civil_war_cascade;
 
 pub use super::fixtures::{TestWorldBuilder, TestWorldFixture, assertions};

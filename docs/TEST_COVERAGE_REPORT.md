@@ -1,7 +1,7 @@
 # Test Coverage Report - V0.6+
 
 **Generated:** March 2, 2026  
-**Status:** ✅ **220 Tests Passing** (100% Pass Rate)
+**Status:** ✅ **236 Tests Passing** (100% Pass Rate)
 
 ---
 
@@ -9,19 +9,19 @@
 
 | Metric             | Value | Status |
 | ------------------ | ----- | ------ |
-| **Total Tests**    | 223   | ✅     |
-| **Passing**        | 220   | ✅     |
+| **Total Tests**    | 239   | ✅     |
+| **Passing**        | 236   | ✅     |
 | **Failing**        | 0     | ✅     |
 | **Ignored**        | 3     | ⚠️     |
 | **Pass Rate**      | 98.7% | ✅     |
-| **Execution Time** | 1.75s | ✅     |
+| **Execution Time** | 1.86s | ✅     |
 
 ### Test Status Breakdown
 
-- ✅ **220 Passing Tests** - Core functionality validated
+- ✅ **236 Passing Tests** - Core functionality validated
 - ⚠️ **3 Ignored Tests** - Long-running determinism tests (100k and 1M ticks)
 - 🔴 **0 Failing Tests** - Perfect stability
-- 📈 **57 New Tests Added** - Comprehensive coverage expansion
+- 📈 **73 New Tests Added** - Comprehensive coverage expansion (including game depth & civil war scenarios)
 
 ---
 
@@ -41,11 +41,13 @@ tests/
 │       ├── factions.rs           # 2 tests
 │       ├── legitimacy.rs         # 6 tests
 │       └── warfare.rs            # 2 tests
-├── integration/                   # 24 tests - Subsystem interactions
-│   ├── alliance_warfare.rs       # 2 tests
+├── integration/                   # 37 tests - Subsystem interactions
+│   ├── alliance_warfare.rs       # 3 tests (includes cascading wars)
+│   ├── civil_war_cascade.rs      # 5 tests (NEW: civil war mechanics)
 │   ├── diplomatic_scenarios.rs   # 6 tests
 │   ├── economic_military.rs      # 2 tests
 │   ├── economic_scenarios.rs     # 4 tests
+│   ├── game_depth_scenarios.rs   # 8 tests (NEW: behavioral validation)
 │   ├── multi_nation_scenarios.rs # 6 tests
 │   └── warfare_diplomacy.rs      # 4 tests
 ├── advanced/                      # 51 tests - Quality & performance validation

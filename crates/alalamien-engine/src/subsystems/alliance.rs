@@ -92,26 +92,35 @@ impl AlliancePhase {
         };
 
         // Auto-join: all members join defense if one is attacked
-        for (_aggressor, defender) in attacks_on_members {
+        for (aggressor, defender) in attacks_on_members {
             for &member in &members {
                 if member != defender {
                     // Auto-add member to the defensive war
-                    Self::add_nation_to_war_support(world, member, defender);
+                    Self::add_nation_to_war_support(world, member, aggressor);
                 }
             }
         }
     }
 
-    /// Add a nation as supporter to another nation's war
-    fn add_nation_to_war_support(world: &mut World, supporter: NationId, _supported_nation: NationId) {
-        // Find WarState of the supported nation and update it
-        // Future: This will formally alliances to the WarState when we implement war coalition logic
-        let mut query = world.query_filtered::<&mut WarState, With<Nation>>();
-        for mut war_state in query.iter_mut(world) {
-            // Add supporter to at_war_with if not already present
-            // This represents the supporter automatically engaging in the war
-            if !war_state.at_war_with.contains(&supporter) {
-                war_state.at_war_with.push(supporter);
+    /// Add a nation as supporter to another nation's war against an aggressor
+    fn add_nation_to_war_support(world: &mut World, supporter: NationId, aggressor: NationId) {
+        // Step 1: Add aggressor to supporter's war list (supporter joins the war)
+        let mut query = world.query::<(&NationId, &mut WarState)>();
+        for (nation_id, mut war_state) in query.iter_mut(world) {
+            if *nation_id == supporter {
+                if !war_state.at_war_with.contains(&aggressor) {
+                    war_state.at_war_with.push(aggressor);
+                }
+            }
+        }
+
+        // Step 2: Add supporter to aggressor's war list (bidirectional war state)
+        let mut query = world.query::<(&NationId, &mut WarState)>();
+        for (nation_id, mut war_state) in query.iter_mut(world) {
+            if *nation_id == aggressor {
+                if !war_state.at_war_with.contains(&supporter) {
+                    war_state.at_war_with.push(supporter);
+                }
             }
         }
     }

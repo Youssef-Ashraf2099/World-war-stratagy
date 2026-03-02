@@ -17,19 +17,19 @@
 
 ## 📊 PROJECT SNAPSHOT — March 2, 2026
 
-| Metric                     | Value                        | Status          |
-| -------------------------- | ---------------------------- | --------------- |
-| **Phase**                  | V0.7 Pre-UI Hardening        | ✅ COMPLETE     |
-| **Tests Passing**          | 383 (was 372, +11 new)       | ✅ All Green    |
-| **Lines of Engine Code**   | 19,500+                      | ✅ Production   |
-| **Subsystems with Notifs** | 6 (warfare, nuclear, etc)    | ✅ Integrated   |
-| **Notification Types Wired**| 21+ (all subsystems)         | ✅ All Emitting |
-| **Compilation Errors**     | 0                            | ✅ Clean        |
-| **Test Layers Complete**   | Unit+Integration+System+Regr | ✅ All Covered  |
-| **Determinism**            | Proven (same seed validates) | ✅ Verified     |
-| **Performance**            | <15ms/tick (30 nations)      | ✅ Baseline Met |
-| **Architecture**           | SOLID + ECS + Notifications  | ✅ Production   |
-| **Long-run Stability**     | 1000+ tick runs validated    | ✅ Stress-Test  |
+| Metric                       | Value                        | Status          |
+| ---------------------------- | ---------------------------- | --------------- |
+| **Phase**                    | V0.7 Pre-UI Hardening        | ✅ COMPLETE     |
+| **Tests Passing**            | 383 (was 372, +11 new)       | ✅ All Green    |
+| **Lines of Engine Code**     | 19,500+                      | ✅ Production   |
+| **Subsystems with Notifs**   | 6 (warfare, nuclear, etc)    | ✅ Integrated   |
+| **Notification Types Wired** | 21+ (all subsystems)         | ✅ All Emitting |
+| **Compilation Errors**       | 0                            | ✅ Clean        |
+| **Test Layers Complete**     | Unit+Integration+System+Regr | ✅ All Covered  |
+| **Determinism**              | Proven (same seed validates) | ✅ Verified     |
+| **Performance**              | <15ms/tick (30 nations)      | ✅ Baseline Met |
+| **Architecture**             | SOLID + ECS + Notifications  | ✅ Production   |
+| **Long-run Stability**       | 1000+ tick runs validated    | ✅ Stress-Test  |
 
 ---
 
@@ -44,14 +44,14 @@
 
 ### ✅ 6 Complete Subsystems (ALL WITH REACTIVE NOTIFICATIONS)
 
-| Subsystem  | V       | Status      | Notifications                                |
-| ---------- | ------- | ----------- | -------------------------------------------- |
-| Warfare    | V0.7    | ✅ Complete + Notified | WarDeclared, WarEnded                       |
-| Nuclear    | V0.7    | ✅ Complete + Notified | NuclearWeaponUsed (GLOBAL), NuclearCapability, TreatyViolation |
-| Vassalage  | V0.7    | ✅ Complete + Notified | VassalizationOccurred, VassalRebellionTriggered |
-| Espionage  | V0.7    | ✅ Complete + Notified | EspionageRevealed (bilateral)                |
-| Economic   | V0.7    | ✅ Complete + Notified | EconomicCrisis, LegitimacyCrisis            |
-| Alliances  | V0.7    | ✅ Complete + Notified | AllianceFormed, AllianceBroken               |
+| Subsystem | V    | Status                 | Notifications                                                  |
+| --------- | ---- | ---------------------- | -------------------------------------------------------------- |
+| Warfare   | V0.7 | ✅ Complete + Notified | WarDeclared, WarEnded                                          |
+| Nuclear   | V0.7 | ✅ Complete + Notified | NuclearWeaponUsed (GLOBAL), NuclearCapability, TreatyViolation |
+| Vassalage | V0.7 | ✅ Complete + Notified | VassalizationOccurred, VassalRebellionTriggered                |
+| Espionage | V0.7 | ✅ Complete + Notified | EspionageRevealed (bilateral)                                  |
+| Economic  | V0.7 | ✅ Complete + Notified | EconomicCrisis, LegitimacyCrisis                               |
+| Alliances | V0.7 | ✅ Complete + Notified | AllianceFormed, AllianceBroken                                 |
 
 ### ✅ 21 World Events (Fully Implemented)
 
@@ -113,32 +113,59 @@ v0.7:  Pre-UI Hardening + Notifications ✅ COMPLETE
 
 ### PHASE 1: Foundation (✅ COMPLETE)
 ```
+
 [████████████████████████████████] 100%
 Architecture ✅ | Types ✅ | Infrastructure ✅
 Completed: V0.1-V0.5 (126 tests, all passing)
+
 ```
 
 ### PHASE 2: Emergent Complexity (✅ COMPLETE)
 ```
+
 [████████████████████████████████] 100%
 Factions ✅ | Events ✅ | Intervention ✅
 Completed: V0.6a (Factions) + V0.6b (Warfare) + V0.6c (Events)
+
 ```
 
 ### PHASE 3: Pre-UI Hardening (✅ COMPLETE — NEW)
 ```
+
 [████████████████████████████████] 100%
 Notification Integration ✅ | Edge-Case Testing ✅ | Stress Validation ✅
 Completed: V0.7 (Full subsystem notification wiring + 11 new tests)
 Test Coverage: Unit + Integration + System + Regression layers complete
+
 ```
 
-### PHASE 4: UI Development (📋 NEXT)
+### PHASE 4: UI Development (📋 NEXT — V0.8)
 ```
+
 [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 0%
-UI Wireframes → Input Handling → Notification Display → Save/Load UI
-Estimated Effort: 3-4 weeks
+Bevy Native UI → Vector Map Rendering → HUD Design → VFX Polish
+Estimated Effort: 5 weeks (7 phases)
 STATUS: Engine is production-ready and fully integrated
+Roadmap: docs/V0.8_UI_IMPLEMENTATION_ROADMAP.md
+
+```
+
+**V0.8 Implementation Plan:**
+- **Phase 1:** Architecture Setup (1 week) - Create Bevy UI crate + dev-tools crate
+- **Phase 2:** Map Rendering (2 weeks) - Vector-based provinces, infinite zoom
+- **Phase 3:** HUD & UI Panels (2 weeks) - Four-panel layout (CK3/EU4 style)
+- **Phase 4:** VFX & Polish (1.5 weeks) - Particles, animations, audio
+- **Phase 5:** API Integration (1 week) - HTTP client, state sync
+- **Phase 6:** Developer Tools (1 week) - Separate crate, feature-gated
+- **Phase 7:** Testing & Integration (1 week) - 60+ FPS validation
+
+**Tech Stack:**
+- Bevy Engine 0.14 (native desktop, no browser)
+- Vector map rendering (no pixelation at any zoom)
+- Local asset loading (flags, icons, music, sounds from `assets/`)
+- REST API bridge to existing engine
+- Separate `alalamien-dev-tools` crate for debugging
+
 ```
 
 ---
@@ -146,6 +173,7 @@ STATUS: Engine is production-ready and fully integrated
 ## 📋 WHAT'S COMPLETED
 
 **✅ V0.1-V0.5:** Complete foundation (5 versions, 110 tests)
+
 - World state, provinces, population
 - Economy, trade, production
 - Warfare, logistics, combat
@@ -153,6 +181,7 @@ STATUS: Engine is production-ready and fully integrated
 - Legitimacy, war exhaustion, collapse
 
 **✅ V0.6 Week 1-3:** Emergent systems (19 tests)
+
 - Factions (civil war fragmentation)
 - Faction warfare (auto-war mechanics)
 - World Events (21 event types)
@@ -160,6 +189,7 @@ STATUS: Engine is production-ready and fully integrated
 - Event effects integration
 
 **✅ V0.7:** PRE-UI HARDENING COMPLETE (11 new tests, 383 total)
+
 - **Full notification system integration** across 6 subsystems
   - Warfare → WarDeclared, WarEnded
   - Nuclear → NuclearWeaponUsed (GLOBAL), NuclearCapability, TreatyViolation
@@ -183,6 +213,7 @@ STATUS: Engine is production-ready and fully integrated
 ## 📋 WHAT'S REMAINING
 
 **📋 UI DEVELOPMENT PHASE (3-4 weeks)** [NEXT PHASE]
+
 - Design UI wireframes and layout
 - Implement notification display system (query NotificationLog)
 - Add player input handling (declare war, propose alliance, etc.)
@@ -192,6 +223,7 @@ STATUS: Engine is production-ready and fully integrated
 - Polish visuals and UX
 
 **📋 V1.0 POST-LAUNCH (2-3 weeks)** [AFTER UI]
+
 - Performance optimization if needed
 - Balance adjustments based on gameplay
 - Additional test scenarios
@@ -203,6 +235,7 @@ STATUS: Engine is production-ready and fully integrated
 ## 🎯 NEXT ACTION
 
 **Immediate (3-4 weeks):** Begin UI Development Phase
+
 - System is fully integrated, tested, and stress-validated
 - All subsystems emit notifications ready for UI consumption
 - Engine is deterministic and reproducible (no hidden randomness)
@@ -213,26 +246,27 @@ STATUS: Engine is production-ready and fully integrated
 
 ## � LEARNING RESOURCES (INCLUDED)
 
-| Resource | Location | Purpose |
-|----------|----------|---------|
-| Architecture Overview | docs/ARCHITECTURE.md | Understand ECS design |
-| v0.6 Progress | docs/V0.6_PROGRESS.md | Current phase summary |
-| Implementation Guide | docs/DEVELOPMENT_GUIDE.md | How to code next feature |
-| Roadmap | docs/ROADMAP.md | Full project plan |
-| Quick Reference | docs/QUICK_REFERENCE.md | Cheat sheet |
-| Example Code | crates/*/src/ | Working implementation |
+| Resource              | Location                  | Purpose                  |
+| --------------------- | ------------------------- | ------------------------ |
+| Architecture Overview | docs/ARCHITECTURE.md      | Understand ECS design    |
+| v0.6 Progress         | docs/V0.6_PROGRESS.md     | Current phase summary    |
+| Implementation Guide  | docs/DEVELOPMENT_GUIDE.md | How to code next feature |
+| Roadmap               | docs/ROADMAP.md           | Full project plan        |
+| Quick Reference       | docs/QUICK_REFERENCE.md   | Cheat sheet              |
+| Example Code          | crates/\*/src/            | Working implementation   |
 
 ---
 
 ## 🔧 TECHNICAL DEEP DIVE
 
 ### Build System: Cargo (Rust standard)
+
 ```bash
 cargo build --release      # Compile optimized
 cargo test --lib           # Run all tests
 cargo test --package alalamien-engine events::  # Run specific tests
 cargo check                # Quick check without binary
-````
+```
 
 ### Compilation Target
 

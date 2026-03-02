@@ -1,24 +1,35 @@
 # 📖 Alalamien War - Documentation Index
 
-**Last Updated:** March 2, 2026  
-**Project Status:** v0.7 PRE-UI HARDENING COMPLETE ✅  
-**Current Version:** 0.7 - Notification System Integration + Pre-UI Validation
+**Last Updated:** March 3, 2026  
+**Project Status:** v0.8 UI IMPLEMENTATION READY 📋  
+**Current Version:** 0.7 Complete → 0.8 Starting  
+**Next Phase:** Bevy-Based UI Development
 
 ---
 
 ## 🎯 START HERE
 
-### Latest Updates (V0.7 - Just Completed)
+### Next Phase: V0.8 UI Implementation (Starting Now)
 
-1. **[V0.7 PRE-UI HARDENING COMPLETE](V0.7_PRE_UI_HARDENING_COMPLETE.md)** ⭐ **READ THIS FIRST**
+1. **[V0.8 UI IMPLEMENTATION ROADMAP](V0.8_UI_IMPLEMENTATION_ROADMAP.md)** 🎯 **READ THIS FOR NEXT PHASE**
+   - Complete 5-week UI implementation plan
+   - Bevy-based native desktop game
+   - Vector map rendering (infinite zoom, no pixelation)
+   - HUD design (CK3/EU4 style, 4-panel layout)
+   - Developer tools suite (separate crate, feature-gated)
+   - 7 phases with detailed deliverables
+
+### Latest Completed (V0.7 - Just Finished)
+
+2. **[V0.7 PRE-UI HARDENING COMPLETE](V0.7_PRE_UI_HARDENING_COMPLETE.md)** ⭐ **FOUNDATION READY**
    - Full notification system integration (6 subsystems)
    - Pre-UI hardening test suite (+11 new tests = 383 total)
    - Long-run stress validation (1000+ ticks, 30 nations)
    - Determinism verified and guaranteed
-   - Ready for UI development phase
+   - Engine ready for UI development
 
-2. **[STATUS_OVERVIEW.md](STATUS_OVERVIEW.md)** - Current project snapshot
-3. **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** - Quick lookup guide
+3. **[STATUS_OVERVIEW.md](STATUS_OVERVIEW.md)** - Current project snapshot
+4. **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** - Quick lookup guide
 
 ### Ready to Develop?
 
@@ -32,8 +43,13 @@
 
 - ✅ **V0.1-V0.6:** Foundation + Emergent Systems (372 tests)
 - ✅ **V0.7:** Pre-UI Hardening Complete (383 tests, +11 new)
-- 📋 **V0.8:** UI Development Phase (NEXT)
-- 📋 **V1.0:** Public Release
+- 📋 **V0.8:** UI Development Phase (STARTING NOW - 5 weeks)
+  - Bevy Engine native desktop application
+  - Vector map rendering + HUD design
+  - Developer tools suite (separate crate)
+  - Target: 60+ FPS, 100+ provinces visible
+- 📋 **V0.9:** Gameplay Enhancements (4 weeks)
+- 📋 **V1.0:** Public Release (2 weeks)
 
 ---
 
@@ -42,6 +58,9 @@
 ### 🏆 Version Documents — Core Status
 
 **READ THESE FOR PROJECT STATUS**
+
+- **[V0.8_UI_IMPLEMENTATION_ROADMAP.md](V0.8_UI_IMPLEMENTATION_ROADMAP.md)** 🎯 **NEXT PHASE**
+- **[V0.7_PRE_UI_HARDENING_COMPLETE.md](V0.7_PRE_UI_HARDENING_COMPLETE.md)** ⭐ **LATEST COMPLETE**
 - **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** - Code snippets
 - **[STATUS_OVERVIEW.md](STATUS_OVERVIEW.md)** - Status snapshot
 

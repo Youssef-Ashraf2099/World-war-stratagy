@@ -35,6 +35,9 @@ pub mod factions;
 pub mod events;
 pub mod intervention;
 
+// V0.7 subsystems
+pub mod espionage;
+
 pub use demographic::DemographicPhase;
 pub use economic::EconomicPhase;
 pub use trade::TradePhase;
@@ -60,3 +63,5 @@ pub use legitimacy::LegitimacyPhase;
 pub use factions::FactionCivilWarPhase;
 pub use events::EventPhase;
 pub use intervention::InterventionPhase;
+// V0.7 exports
+pub use espionage::EspionagePhase;

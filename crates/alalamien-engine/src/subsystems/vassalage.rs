@@ -3,11 +3,13 @@
 //! Handles vassal relationships, tribute, and peaceful annexation.
 
 use bevy_ecs::prelude::*;
+use std::collections::HashMap;
 use tracing::{debug, info, warn};
 
 use crate::core::tick::TickPhase;
 use crate::core::types::{
-    AutonomyLevel, NationId, Tick, VassalRelation,
+    AutonomyLevel, CasusBelli, GDP, Legitimacy, MilitaryCapacity, Nation, NationId, Resources,
+    Tick, VassalRelation, WarDeclaration, WarGoal, WarId, WarState,
 };
 
 const LOYALTY_DECAY_RATE: f64 = 0.1;  // per tick if mistreated
@@ -45,10 +47,78 @@ impl TickPhase for VassalagePhase {
 
 /// Transfer tribute from vassals to overlords
 fn transfer_tribute(_world: &mut World) {
-    // TODO: Implement tribute transfer
-    // 1. Query all VassalRelation components
-    // 2. Calculate tribute amount (vassal GDP * percentage)
-    // 3. Transfer resources
+    let relations: Vec<VassalRelation> = {
+        let mut query = _world.query::<&VassalRelation>();
+        query.iter(_world).cloned().collect()
+    };
+
+    if relations.is_empty() {
+        return;
+    }
+
+    #[derive(Default, Clone, Copy)]
+    struct ResourceDelta {
+        food: f64,
+        iron: f64,
+        oil: f64,
+        rare_earths: f64,
+        water: f64,
+    }
+
+    let resources_by_nation: HashMap<NationId, Resources> = {
+        let mut map = HashMap::new();
+        let mut query = _world.query::<(&Nation, &Resources)>();
+        for (nation, resources) in query.iter(_world) {
+            map.insert(nation.id, resources.clone());
+        }
+        map
+    };
+
+    let mut deltas: HashMap<NationId, ResourceDelta> = HashMap::new();
+
+    for relation in relations {
+        let Some(vassal_resources) = resources_by_nation.get(&relation.vassal) else {
+            continue;
+        };
+
+        let tribute_rate = (relation.tribute_percentage / 100.0).clamp(0.0, 0.80);
+        if tribute_rate <= 0.0 {
+            continue;
+        }
+
+        let tribute = ResourceDelta {
+            food: vassal_resources.food * tribute_rate,
+            iron: vassal_resources.iron * tribute_rate,
+            oil: vassal_resources.oil * tribute_rate,
+            rare_earths: vassal_resources.rare_earths * tribute_rate,
+            water: vassal_resources.water * tribute_rate,
+        };
+
+        let vassal_delta = deltas.entry(relation.vassal).or_default();
+        vassal_delta.food -= tribute.food;
+        vassal_delta.iron -= tribute.iron;
+        vassal_delta.oil -= tribute.oil;
+        vassal_delta.rare_earths -= tribute.rare_earths;
+        vassal_delta.water -= tribute.water;
+
+        let overlord_delta = deltas.entry(relation.overlord).or_default();
+        overlord_delta.food += tribute.food;
+        overlord_delta.iron += tribute.iron;
+        overlord_delta.oil += tribute.oil;
+        overlord_delta.rare_earths += tribute.rare_earths;
+        overlord_delta.water += tribute.water;
+    }
+
+    let mut query = _world.query::<(&Nation, &mut Resources)>();
+    for (nation, mut resources) in query.iter_mut(_world) {
+        if let Some(delta) = deltas.get(&nation.id) {
+            resources.food = (resources.food + delta.food).max(0.0);
+            resources.iron = (resources.iron + delta.iron).max(0.0);
+            resources.oil = (resources.oil + delta.oil).max(0.0);
+            resources.rare_earths = (resources.rare_earths + delta.rare_earths).max(0.0);
+            resources.water = (resources.water + delta.water).max(0.0);
+        }
+    }
 }
 
 /// Update loyalty for all vassal relationships
@@ -75,11 +145,46 @@ fn update_loyalty(world: &mut World) {
 
 /// Check if any vassals should declare independence
 fn check_independence_triggers(_world: &mut World) {
-    // TODO: Implement independence war triggering
-    // Triggered by:
-    // - Loyalty < 20
-    // - Overlord weakened in war
-    // - Vassal becomes stronger than overlord
+    let mut breakaway_relations: Vec<(Entity, VassalRelation)> = Vec::new();
+
+    {
+        let mut query = _world.query::<(Entity, &VassalRelation)>();
+        for (entity, relation) in query.iter(_world) {
+            if relation.loyalty < INDEPENDENCE_THRESHOLD {
+                breakaway_relations.push((entity, relation.clone()));
+            }
+        }
+    }
+
+    for (relation_entity, relation) in breakaway_relations {
+        if let Some(mut war_state) = find_war_state_mut(_world, relation.vassal) {
+            if !war_state.at_war_with.contains(&relation.overlord) {
+                war_state.at_war_with.push(relation.overlord);
+            }
+        }
+
+        if let Some(mut war_state) = find_war_state_mut(_world, relation.overlord) {
+            if !war_state.at_war_with.contains(&relation.vassal) {
+                war_state.at_war_with.push(relation.vassal);
+            }
+        }
+
+        _world.spawn(WarDeclaration {
+            war_id: WarId::new(),
+            aggressor: relation.vassal,
+            defender: relation.overlord,
+            casus_belli: CasusBelli::PreemptiveStrike,
+            war_goal: WarGoal::Total,
+            declared_tick: 0,
+        });
+
+        _world.despawn(relation_entity);
+
+        warn!(
+            "Vassal {:?} declared independence war against {:?}",
+            relation.vassal, relation.overlord
+        );
+    }
 }
 
 /// Offer vassalization to a target nation
@@ -113,18 +218,22 @@ pub fn offer_vassalization(
 
 /// Evaluate whether a nation accepts vassalage
 fn evaluate_vassal_offer(
-    _world: &World,
-    _overlord: NationId,
-    _target: NationId,
-    _tribute: f64,
+    world: &mut World,
+    overlord: NationId,
+    target: NationId,
+    tribute: f64,
 ) -> bool {
-    // TODO: Implement full evaluation logic
-    // Accept if:
-    // - Power ratio > 5:1
-    // - Under attack AND power ratio > 2:1
-    // - Generous terms (< 10% tribute)
-    
-    false  // Placeholder
+    let Some(overlord_power) = find_military_power(world, overlord) else {
+        return false;
+    };
+    let Some(target_power) = find_military_power(world, target) else {
+        return false;
+    };
+
+    let power_ratio = overlord_power / target_power.max(1.0);
+    let target_at_war = is_nation_at_war(world, target);
+
+    power_ratio >= 5.0 || (target_at_war && power_ratio >= 2.0) || tribute <= 10.0
 }
 
 /// Attempt to annex a vassal or weak nation
@@ -145,26 +254,101 @@ pub fn attempt_annexation(
 }
 
 /// Evaluate annexation offer
-fn evaluate_annexation(_world: &World, _target: NationId, _compensation: f64) -> bool {
-    // TODO: Implement evaluation
-    // Only accept if:
-    // - Legitimacy < 15 (collapsing)
-    // - Compensation > GDP * 5
-    
-    false  // Placeholder
+fn evaluate_annexation(_world: &mut World, _target: NationId, _compensation: f64) -> bool {
+    let Some(target_legitimacy) = find_legitimacy(_world, _target) else {
+        return false;
+    };
+    let Some(target_gdp) = find_gdp(_world, _target) else {
+        return false;
+    };
+
+    target_legitimacy < 15.0 || _compensation > target_gdp * 5.0
 }
 
 /// Execute annexation (transfer provinces, merge)
 fn execute_annexation(_world: &mut World, _annexer: NationId, _target: NationId) {
-    // TODO: Implement annexation execution
-    // 1. Transfer all provinces
-    // 2. Merge populations
-    // 3. Despawn target nation
+    let mut province_query = _world.query::<&mut crate::core::types::OwnedBy>();
+    for mut owned_by in province_query.iter_mut(_world) {
+        if owned_by.nation_id == _target {
+            owned_by.nation_id = _annexer;
+        }
+    }
+
+    let relations_to_remove: Vec<Entity> = {
+        let mut relation_query = _world.query::<(Entity, &VassalRelation)>();
+        relation_query
+            .iter(_world)
+            .filter(|(_, r)| r.vassal == _target || r.overlord == _target)
+            .map(|(entity, _)| entity)
+            .collect()
+    };
+
+    for relation_entity in relations_to_remove {
+        _world.despawn(relation_entity);
+    }
+
+    let target_entity = {
+        let mut nation_query = _world.query::<(Entity, &Nation)>();
+        nation_query
+            .iter(_world)
+            .find(|(_, nation)| nation.id == _target)
+            .map(|(entity, _)| entity)
+    };
+
+    if let Some(entity) = target_entity {
+        _world.despawn(entity);
+    }
+}
+
+fn find_military_power(world: &mut World, nation_id: NationId) -> Option<f64> {
+    let mut query = world.query::<(&Nation, &MilitaryCapacity)>();
+    query
+        .iter(world)
+        .find(|(nation, _)| nation.id == nation_id)
+        .map(|(_, military)| military.value)
+}
+
+fn is_nation_at_war(world: &mut World, nation_id: NationId) -> bool {
+    let mut query = world.query::<(&Nation, &WarState)>();
+    query
+        .iter(world)
+        .find(|(nation, _)| nation.id == nation_id)
+        .map(|(_, war_state)| !war_state.at_war_with.is_empty())
+        .unwrap_or(false)
+}
+
+fn find_legitimacy(world: &mut World, nation_id: NationId) -> Option<f64> {
+    let mut query = world.query::<(&Nation, &Legitimacy)>();
+    query
+        .iter(world)
+        .find(|(nation, _)| nation.id == nation_id)
+        .map(|(_, legitimacy)| legitimacy.value)
+}
+
+fn find_gdp(world: &mut World, nation_id: NationId) -> Option<f64> {
+    let mut query = world.query::<(&Nation, &GDP)>();
+    query
+        .iter(world)
+        .find(|(nation, _)| nation.id == nation_id)
+        .map(|(_, gdp)| gdp.value)
+}
+
+fn find_war_state_mut<'a>(world: &'a mut World, nation_id: NationId) -> Option<bevy_ecs::world::Mut<'a, WarState>> {
+    let mut nation_query = world.query::<(Entity, &Nation)>();
+    let nation_entity = nation_query
+        .iter(world)
+        .find(|(_, nation)| nation.id == nation_id)
+        .map(|(entity, _)| entity)?;
+
+    world.get_mut::<WarState>(nation_entity)
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::core::types::{OwnedBy, Province, ProvinceId, ResourceType};
+    use crate::core::world::WorldState;
+    use glam::Vec2;
 
     #[test]
     fn test_vassalage_phase_creation() {
@@ -190,5 +374,86 @@ mod tests {
         }
         
         assert!(vassal.loyalty < initial_loyalty);
+    }
+
+    #[test]
+    fn test_transfer_tribute_moves_resources() {
+        let mut world_state = WorldState::new(42);
+        let overlord_entity = world_state.spawn_nation("Overlord".to_string(), [255, 0, 0], false);
+        let vassal_entity = world_state.spawn_nation("Vassal".to_string(), [0, 255, 0], false);
+
+        let overlord_id = world_state.world.get::<Nation>(overlord_entity).unwrap().id;
+        let vassal_id = world_state.world.get::<Nation>(vassal_entity).unwrap().id;
+
+        world_state.world.spawn(VassalRelation {
+            overlord: overlord_id,
+            vassal: vassal_id,
+            tribute_percentage: 20.0,
+            established_tick: 0,
+            loyalty: 60.0,
+        });
+
+        let overlord_food_before = world_state.world.get::<Resources>(overlord_entity).unwrap().food;
+        let vassal_food_before = world_state.world.get::<Resources>(vassal_entity).unwrap().food;
+
+        transfer_tribute(&mut world_state.world);
+
+        let overlord_food_after = world_state.world.get::<Resources>(overlord_entity).unwrap().food;
+        let vassal_food_after = world_state.world.get::<Resources>(vassal_entity).unwrap().food;
+
+        assert!(overlord_food_after > overlord_food_before);
+        assert!(vassal_food_after < vassal_food_before);
+    }
+
+    #[test]
+    fn test_independence_trigger_starts_war() {
+        let mut world_state = WorldState::new(42);
+        let overlord_entity = world_state.spawn_nation("Overlord".to_string(), [255, 0, 0], false);
+        let vassal_entity = world_state.spawn_nation("Vassal".to_string(), [0, 255, 0], false);
+
+        let overlord_id = world_state.world.get::<Nation>(overlord_entity).unwrap().id;
+        let vassal_id = world_state.world.get::<Nation>(vassal_entity).unwrap().id;
+
+        world_state.world.spawn(VassalRelation {
+            overlord: overlord_id,
+            vassal: vassal_id,
+            tribute_percentage: 35.0,
+            established_tick: 0,
+            loyalty: 10.0,
+        });
+
+        check_independence_triggers(&mut world_state.world);
+
+        let vassal_war_state = world_state.world.get::<WarState>(vassal_entity).unwrap();
+        let overlord_war_state = world_state.world.get::<WarState>(overlord_entity).unwrap();
+
+        assert!(vassal_war_state.at_war_with.contains(&overlord_id));
+        assert!(overlord_war_state.at_war_with.contains(&vassal_id));
+    }
+
+    #[test]
+    fn test_annexation_transfers_provinces() {
+        let mut world_state = WorldState::new(42);
+        let annexer_entity = world_state.spawn_nation("Annexer".to_string(), [255, 0, 0], false);
+        let target_entity = world_state.spawn_nation("Target".to_string(), [0, 255, 0], false);
+
+        let annexer_id = world_state.world.get::<Nation>(annexer_entity).unwrap().id;
+        let target_id = world_state.world.get::<Nation>(target_entity).unwrap().id;
+
+        world_state.world.spawn((
+            Province {
+                id: ProvinceId::new(),
+                name: "Target Province".to_string(),
+                position: Vec2::new(0.0, 0.0),
+                dominant_resource: ResourceType::Food,
+            },
+            OwnedBy { nation_id: target_id },
+        ));
+
+        execute_annexation(&mut world_state.world, annexer_id, target_id);
+
+        let mut query = world_state.world.query::<&OwnedBy>();
+        let owners: Vec<NationId> = query.iter(&world_state.world).map(|o| o.nation_id).collect();
+        assert!(owners.iter().all(|owner| *owner == annexer_id));
     }
 }

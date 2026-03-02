@@ -17,5 +17,6 @@ pub mod economic_scenarios;
 pub mod diplomatic_scenarios;
 pub mod game_depth_scenarios;
 pub mod civil_war_cascade;
+pub mod espionage_scenario;
 
 pub use super::fixtures::{TestWorldBuilder, TestWorldFixture, assertions};

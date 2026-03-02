@@ -229,6 +229,53 @@ impl TickPipeline {
             auto_save_config: None,
         }
     }
+
+    /// Create a tick pipeline with V0.7 phases (Espionage & Intelligence)
+    ///
+    /// Extends V0.6 with espionage subsystem:
+    /// 1. Advanced AI Decision
+    /// 2. Warfare
+    /// 3. Economy
+    /// 4. Trade
+    /// 5. Logistics
+    /// 6. Combat
+    /// 7. Occupation
+    /// 8. Alliance Phase
+    /// 9. Diplomacy Phase
+    /// 10. Vassalage Phase (NEW - tribute transfer, loyalty, independence)
+    /// 11. Espionage Phase (NEW - spy operations, intelligence gathering, sabotage)
+    /// 12. Stability
+    /// 13. Events
+    /// 14. Demographics
+    /// 15. Legitimacy
+    /// 16. Faction Civil War
+    /// 17. Intervention
+    pub fn new_v0_7() -> Self {
+        use crate::subsystems::*;
+        let phases: Vec<Box<dyn TickPhase>> = vec![
+            Box::new(AdvancedAIDecisionPhase::new()),
+            Box::new(WarfarePhase::new()),
+            Box::new(EconomicPhase::new()),
+            Box::new(TradePhase::new()),
+            Box::new(LogisticsPhase::new()),
+            Box::new(CombatPhase::new()),
+            Box::new(OccupationPhase::new()),
+            Box::new(AlliancePhase::new()),
+            Box::new(DiplomacyPhase::new()),
+            Box::new(VassalagePhase::new()),
+            Box::new(EspionagePhase::new()),
+            Box::new(StabilityPhase::new()),
+            Box::new(EventPhase::new()),
+            Box::new(DemographicPhase::new()),
+            Box::new(LegitimacyPhase::new()),
+            Box::new(FactionCivilWarPhase::new()),
+            Box::new(InterventionPhase::new()),
+        ];
+        Self { 
+            phases,
+            auto_save_config: None,
+        }
+    }
     
     pub fn new_v0_2_debug(config: &crate::EngineConfig) -> Self {
         let phases: Vec<Box<dyn TickPhase>> = vec![

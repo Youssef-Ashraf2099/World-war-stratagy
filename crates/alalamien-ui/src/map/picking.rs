@@ -73,8 +73,11 @@ pub fn hover_system(
     };
 
     // Determine which nation (if any) the cursor is over via AABB.
-    let mut new_hover: Option<String> = None;
-    let mut new_name: Option<String> = None;
+    // Among all matching AABBs pick the one with the SMALLEST area so that
+    // small nations (Luxembourg, Vatican) beat their large neighbours (France, Italy).
+    let mut best_iso: Option<String> = None;
+    let mut best_name: Option<String> = None;
+    let mut best_area = f32::MAX;
 
     for (nm, _) in &nation_meshes {
         let [min_x, min_y, max_x, max_y] = nm.aabb;
@@ -83,11 +86,16 @@ pub fn hover_system(
             && cursor_world.y >= min_y
             && cursor_world.y <= max_y
         {
-            new_hover = Some(nm.iso_a3.clone());
-            new_name = Some(nm.name.clone());
-            break;
+            let area = (max_x - min_x) * (max_y - min_y);
+            if area < best_area {
+                best_area = area;
+                best_iso = Some(nm.iso_a3.clone());
+                best_name = Some(nm.name.clone());
+            }
         }
     }
+    let new_hover = best_iso;
+    let new_name = best_name;
 
     if new_hover != hovered.iso_a3 {
         hovered.iso_a3 = new_hover;

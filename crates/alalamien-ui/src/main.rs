@@ -17,7 +17,7 @@ use systems::{
     navigation::navigation_system,
     loading::loading_input_system,
     ui_manager::*,
-    camera::{camera_pan, camera_zoom, camera_fit_world},
+    camera::{camera_pan, camera_zoom, camera_fit_world, camera_wasd},
     game_clock::{advance_clock, clock_keyboard_controls, update_date_label, GameClock},
 };
 use ui::hud::{update_nation_panel, update_pause_indicator, esc_to_menu};
@@ -118,6 +118,7 @@ fn main() {
             (
                 // Camera
                 camera_pan,
+                camera_wasd,
                 camera_zoom,
                 camera_fit_world,
                 // Clock

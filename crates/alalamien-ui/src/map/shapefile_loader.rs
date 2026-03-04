@@ -137,7 +137,12 @@ pub fn load_countries_shp(shp_path: &Path) -> Result<WorldGeoData, String> {
 
 /// Group a slice of `PolygonRing<Point>` into logically-associated
 /// (outer + holes) pairs and project each point to world space.
+/// Polygon groups that cross the antimeridian (±180°) produce a huge
+/// horizontal band — we skip them to prevent visual artefacts.
 fn rings_to_groups(rings: &[PolygonRing<shapefile::Point>]) -> Vec<PolygonGroupData> {
+    use crate::map::projection::MAP_WIDTH;
+    const ANTIMERIDIAN_THRESHOLD: f32 = MAP_WIDTH * 0.85; // ~3480 world units
+
     let mut groups: Vec<PolygonGroupData> = Vec::new();
 
     for ring in rings {
@@ -146,8 +151,21 @@ fn rings_to_groups(rings: &[PolygonRing<shapefile::Point>]) -> Vec<PolygonGroupD
                 if pts.len() < 3 {
                     continue;
                 }
+                let projected = project_points(pts);
+                // Skip antimeridian-crossing groups
+                let min_x = projected.iter().map(|p| p.0).fold(f32::MAX, f32::min);
+                let max_x = projected.iter().map(|p| p.0).fold(f32::MIN, f32::max);
+                if max_x - min_x > ANTIMERIDIAN_THRESHOLD {
+                    tracing::debug!("Skipping antimeridian-crossing polygon (width={})", max_x - min_x);
+                    // Push a sentinel so inner rings don't attach to the wrong outer
+                    groups.push(PolygonGroupData {
+                        outer: Vec::new(), // empty outer — tessellator will skip it
+                        holes: Vec::new(),
+                    });
+                    continue;
+                }
                 groups.push(PolygonGroupData {
-                    outer: project_points(pts),
+                    outer: projected,
                     holes: Vec::new(),
                 });
             }
@@ -162,6 +180,8 @@ fn rings_to_groups(rings: &[PolygonRing<shapefile::Point>]) -> Vec<PolygonGroupD
         }
     }
 
+    // Remove the empty sentinel groups
+    groups.retain(|g| !g.outer.is_empty());
     groups
 }
 

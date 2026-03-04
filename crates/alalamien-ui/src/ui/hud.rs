@@ -228,7 +228,7 @@ pub fn spawn_hud(mut commands: Commands) {
 
                     // Controls hint
                     panel.spawn(TextBundle::from_section(
-                        "\nCONTROLS\nScroll — zoom\nRMB drag — pan\nF — fit world\n\nSPEED\nSpace — pause/play\n1 / 2 / 3 — speed",
+                        "\nCONTROLS\nWASD / Arrows — pan\nScroll — zoom to cursor\nRMB drag — pan\nF — fit world\n\nSPEED\nSpace — pause/play\n1 / 2 / 3 — speed",
                         TextStyle {
                             font_size: 10.0,
                             color: TEXT_DIM,

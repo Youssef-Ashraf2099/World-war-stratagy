@@ -1,0 +1,112 @@
+use bevy::input::mouse::{MouseMotion, MouseWheel, MouseScrollUnit};
+use bevy::prelude::*;
+use crate::map::projection::{MAP_WIDTH, MAP_HEIGHT};
+
+const ZOOM_SPEED: f32 = 0.12;
+const ZOOM_MIN: f32 = 0.05;   // very close in
+const ZOOM_MAX: f32 = 4.0;    // full world visible
+const PAN_BORDER: f32 = MAP_WIDTH * 0.6; // keep camera somewhat near the map
+
+/// Pan the camera with right-click / middle-click drag.
+pub fn camera_pan(
+    mouse_button: Res<ButtonInput<MouseButton>>,
+    mut motion_evr: EventReader<MouseMotion>,
+    mut camera_q: Query<(&mut Transform, &OrthographicProjection), With<Camera2d>>,
+) {
+    let is_panning =
+        mouse_button.pressed(MouseButton::Right) || mouse_button.pressed(MouseButton::Middle);
+
+    if !is_panning {
+        motion_evr.clear();
+        return;
+    }
+
+    let Ok((mut transform, proj)) = camera_q.get_single_mut() else {
+        return;
+    };
+
+    for ev in motion_evr.read() {
+        // delta.x right = screen right, delta.y down = screen down
+        // In world space (Y-up): moving camera right = subtracting X, moving up = adding Y
+        transform.translation.x -= ev.delta.x * proj.scale;
+        transform.translation.y += ev.delta.y * proj.scale;
+    }
+
+    // Clamp so the map cannot be panned completely off-screen.
+    let Ok((mut transform, _)) = camera_q.get_single_mut() else {
+        return;
+    };
+    transform.translation.x = transform.translation.x.clamp(-PAN_BORDER, PAN_BORDER);
+    transform.translation.y = transform
+        .translation
+        .y
+        .clamp(-MAP_HEIGHT * 0.6, MAP_HEIGHT * 0.6);
+}
+
+/// Zoom the orthographic projection with the mouse scroll wheel.
+/// Zooms toward the cursor position in world space.
+pub fn camera_zoom(
+    mut scroll_evr: EventReader<MouseWheel>,
+    mut camera_q: Query<(&mut Transform, &mut OrthographicProjection), With<Camera2d>>,
+    windows: Query<&Window>,
+) {
+    let Ok(window) = windows.get_single() else { return };
+    let cursor_screen = window.cursor_position();
+
+    for ev in scroll_evr.read() {
+        let scroll_y = match ev.unit {
+            MouseScrollUnit::Line => ev.y,
+            MouseScrollUnit::Pixel => ev.y * 0.05,
+        };
+
+        if scroll_y.abs() < 0.001 {
+            continue;
+        }
+
+        let Ok((mut transform, mut proj)) = camera_q.get_single_mut() else {
+            return;
+        };
+
+        let old_scale = proj.scale;
+        let factor = 1.0 - scroll_y * ZOOM_SPEED;
+        proj.scale = (proj.scale * factor).clamp(ZOOM_MIN, ZOOM_MAX);
+        let scale_ratio = proj.scale / old_scale;
+
+        // Zoom toward cursor: shift camera so the world point under the cursor stays fixed.
+        if let Some(cursor) = cursor_screen {
+            let window_size = Vec2::new(window.width(), window.height());
+            // Cursor in NDC [-1, 1]
+            let ndc = (cursor / window_size) * 2.0 - Vec2::ONE;
+            // World position of cursor before zoom
+            let world_before = transform.translation.truncate()
+                + Vec2::new(ndc.x, -ndc.y) * (window_size * 0.5) * old_scale;
+            // World position after zoom (at same NDC)
+            let world_after = transform.translation.truncate()
+                + Vec2::new(ndc.x, -ndc.y) * (window_size * 0.5) * proj.scale;
+            let correction = world_before - world_after;
+            transform.translation.x += correction.x;
+            transform.translation.y += correction.y;
+        }
+
+        let _ = scale_ratio; // suppress warning
+    }
+}
+
+/// Press `F` to fit the whole world into the viewport.
+pub fn camera_fit_world(
+    keyboard: Res<ButtonInput<KeyCode>>,
+    mut camera_q: Query<(&mut Transform, &mut OrthographicProjection), With<Camera2d>>,
+    windows: Query<&Window>,
+) {
+    if !keyboard.just_pressed(KeyCode::KeyF) {
+        return;
+    }
+    let Ok(window) = windows.get_single() else { return };
+    let Ok((mut transform, mut proj)) = camera_q.get_single_mut() else { return };
+
+    // Scale so the whole world fits
+    let scale_x = MAP_WIDTH / window.width();
+    let scale_y = MAP_HEIGHT / window.height();
+    proj.scale = scale_x.max(scale_y) * 1.05; // 5% padding
+    transform.translation = Vec3::ZERO;
+}

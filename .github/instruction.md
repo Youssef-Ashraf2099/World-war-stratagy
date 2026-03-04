@@ -12,9 +12,9 @@ This repo is a Rust-based geopolitical simulation engine with real-world geodata
 6. docs/ROADMAP.md (feature roadmap)
 7. docs/versions/V0.1_FINAL_SUMMARY.md (historical baseline)
 
-## Current Status (as of March 3, 2026)
+## Current Status (as of March 4, 2026)
 
-**Version: V0.7 Complete ✅ | V0.8 Starting (UI Implementation)**
+**Version: V0.7 Complete ✅ | V0.8 In Progress — Phase 0 + 0.5 Done ✅**
 
 ### V0.7 Pre-UI Hardening (Complete)
 
@@ -27,17 +27,68 @@ This repo is a Rust-based geopolitical simulation engine with real-world geodata
 - ✅ **REST API server operational**
 - ✅ **Headless simulation engine** ready for UI layer
 
-### V0.8 UI Implementation (Next - 5 Weeks)
+### V0.8 UI Implementation — Phase Progress
 
-- 📋 **Bevy Engine 0.14** native desktop renderer
+#### Phase 0 ✅ (Complete) — Main Menu
+
+- ✅ **Bevy 0.14.2** native desktop renderer running
+- ✅ **Main menu UI** — 5 buttons: NEW GAME, LOAD GAME, SETTINGS, CREDITS, QUIT
+- ✅ **Modern minimal dark theme** — `srgb(0.1, 0.1, 0.18)` base, cyan title, ocean-blue accents
+- ✅ **Audio system** — hover.mp3 + click.mp3 (MP3 via `bevy_audio` mp3 feature)
+- ✅ **Window icon** — gameIcon.ico applied via `WinitWindows` + `include_bytes!` (PostStartup)
+- ✅ **Background gradient effects** — cyan top, red bottom, border accent lines
+
+#### Phase 0.5 ✅ (Complete) — Multi-Screen Navigation & SOLID Architecture
+
+- ✅ **Credits screen** — "Youssef Ashraf" credit, BACK TO MENU button
+- ✅ **Load Game placeholder** — Phase 1 notice, BACK TO MENU button
+- ✅ **State machine** — `AppState { Menu, LoadGame, Credits, Loading, Game, Settings }`
+- ✅ **OnEnter/OnExit lifecycle** — `ScreenUI` marker component, `despawn_recursive` cleanup
+- ✅ **SOLID architecture** — single-responsibility .rs files (navigation, ui_manager, button, background, icon)
+- ⏸️ **Settings screen** — explicitly postponed to future phase
+
+#### Phase 1 📋 (Next) — Map Rendering
+
 - 📋 **Vector-based map rendering** (infinite zoom, Web Mercator projection)
+- 📋 Real geodata nations rendered on canvas
+
+#### Phase 2 📋 — Four-Panel HUD
+
 - 📋 **Four-panel HUD layout** (top bar, left panel, right log, bottom controls)
+
+#### Phase 3 📋 — API Bridge
+
 - 📋 **REST API bridge** (HTTP client querying alalamien-api)
+
+#### Phase 4 📋 — Developer Tools
+
 - 📋 **Developer tools crate** (separate `alalamien-dev-tools/`, feature-gated)
+
+#### Phase 5 📋 — VFX & Polish
+
+- 📋 **VFX & Polish** (particles, animations, smooth transitions)
 - 📋 **Target: 60+ FPS** with 100+ provinces visible
-- 📋 See `docs/V0.8_UI_IMPLEMENTATION_ROADMAP.md` for full 7-phase plan
 
 ## Key Code Entry Points
+
+- **UI (V0.8+):** crates/alalamien-ui/src/
+  - `main.rs` — App setup, state registration, system scheduling
+  - `icon.rs` — Window icon via `WinitWindows` NonSend resource (PostStartup)
+  - `audio.rs` — Audio asset loading (hover.mp3, click.mp3)
+  - `states.rs` — `MenuState` resource
+  - `ui/menu.rs` — Main menu layout and buttons
+  - `ui/credits.rs` — Credits screen ("Youssef Ashraf")
+  - `ui/load_game.rs` — Load Game placeholder
+  - `ui/background.rs` — Gradient background effects, `animate_background`
+  - `systems/navigation.rs` — Pure state transition logic (SRP)
+  - `systems/ui_manager.rs` — `ScreenUI` marker, `cleanup_ui`, `setup_*_ui` (SRP)
+  - `systems/button.rs` — Hover visual + audio feedback only (SRP)
+  - `systems/loading.rs` — ESC/SPACE → back to Menu from Loading state
+  - `systems/animation.rs` — Menu title animation
+  - `components/` — UI component types
+  - `resources/` — Resource types
+  - **Asset path:** `"../../assets"` (workspace root, relative to crate)
+  - **Icon:** `include_bytes!("../../../assets/images/gameIcon.ico")` embedded at compile time
 
 - **Engine core:** crates/alalamien-engine/src/
   - core/tick.rs (V0.6 tick pipeline with 11 subsystems)
@@ -295,19 +346,25 @@ The detailed roadmap lives in docs/versions/ and docs/ROADMAP.md. Use this as th
 - ✅ **API endpoint validation**
 - ✅ **Headless simulation** ready for UI integration
 
-### v0.8 (Current 📋 - 5 Weeks)
+### v0.8 (In Progress — Phase 0 + 0.5 Complete ✅)
 
 **UI Implementation Phase - See `docs/V0.8_UI_IMPLEMENTATION_ROADMAP.md`**
 
-- 📋 **Bevy Engine 0.14** native desktop renderer
+- ✅ **Bevy Engine 0.14.2** native desktop renderer running
+- ✅ **Main menu** — 5-button layout, dark theme, cyan/red accent palette
+- ✅ **Audio system** — MP3 hover/click sounds via `bevy_audio` mp3 feature
+- ✅ **Window icon** — gameIcon.ico via `WinitWindows` API
+- ✅ **Background effects** — gradient accent layers, border lines
+- ✅ **Multi-screen navigation** — Menu ↔ Credits ↔ LoadGame ↔ Loading state machine
+- ✅ **SOLID architecture** — SRP enforced across navigation.rs, ui_manager.rs, button.rs, background.rs, icon.rs
+- ✅ **OnEnter/OnExit lifecycle** — ScreenUI marker + despawn_recursive cleanup
+- ⏸️ **Settings screen** — postponed
 - 📋 **Vector-based map rendering** (infinite zoom, Web Mercator projection)
 - 📋 **Four-panel HUD** (top bar, left panel, right log, bottom controls)
 - 📋 **REST API bridge** (HTTP client querying alalamien-api)
 - 📋 **Developer tools** (separate `alalamien-dev-tools/` crate, feature-gated)
-- 📋 **Audio system** (bevy_kira_audio for music/SFX)
 - 📋 **VFX & Polish** (particles, animations, smooth transitions)
 - 📋 **Target: 60+ FPS** with 100+ provinces visible
-- 📋 **7 phases:** Architecture → Map → HUD → VFX → API → DevTools → Testing
 
 ### v0.9+ (Planned)
 

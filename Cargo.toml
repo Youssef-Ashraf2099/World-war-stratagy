@@ -4,6 +4,8 @@ members = [
     "crates/alalamien-engine",
     "crates/alalamien-api",
     "crates/alalamien-desktop",
+    "crates/alalamien-ui",
+    "crates/alalamien-dev-tools",
 ]
 
 [workspace.package]
@@ -34,6 +36,23 @@ tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 chrono = { version = "0.4", features = ["serde"] }
 tempfile = "3.8"
+
+# Bevy & Graphics (V0.8 UI)
+bevy = { version = "0.14", features = ["dynamic_linking"] }
+bevy_core_pipeline = "0.14"
+bevy_sprite = "0.14"
+bevy_ui = "0.14"
+bevy_render = "0.14"
+bevy_asset = "0.14"
+bevy_window = "0.14"
+bevy_audio = { version = "0.14", features = ["mp3"] }
+
+# HTTP Client (API bridge)
+reqwest = { version = "0.11", features = ["json"] }
+
+# Geospatial (V0.8 Phase 1 map rendering)
+shapefile = "0.5"
+earcutr = "0.4"
 
 # Testing
 criterion = "0.5"

@@ -1,0 +1,39 @@
+[package]
+name = "alalamien-ui"
+version = "0.8.0"
+edition = "2021"
+authors = ["Alalamien War Team"]
+description = "Bevy-based UI and visual layer for Alalamien simulation engine"
+license = "MIT"
+
+[dependencies]
+bevy = { workspace = true }
+bevy_core_pipeline = { workspace = true }
+bevy_sprite = { workspace = true }
+bevy_ui = { workspace = true }
+bevy_render = { workspace = true }
+bevy_asset = { workspace = true }
+bevy_window = { workspace = true }
+bevy_audio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+reqwest = { workspace = true }
+tokio = { workspace = true }
+glam = { workspace = true }
+uuid = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+image = { version = "0.24", features = ["ico"] }
+winit = "0.30"
+shapefile = { workspace = true }
+earcutr = { workspace = true }
+
+[features]
+default = []
+dev-tools = []
+
+[[bin]]
+name = "alalamien-ui"
+path = "src/main.rs"

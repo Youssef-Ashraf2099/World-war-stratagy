@@ -2,7 +2,9 @@ use bevy::prelude::*;
 use bevy::sprite::{ColorMaterial, MaterialMesh2dBundle};
 
 use crate::AppState;
-use crate::map::nation_colors::color_for_nation;
+use crate::api::SimState;
+use crate::map::nation_colors::{color_for_nation, color_u8_for_nation};
+use crate::map::nation_seed_data::seed_for;
 use crate::map::picking::{
     nation_aabb, click_select_system, hover_system,
     HoveredNation, NationMesh, SelectedNation,
@@ -38,8 +40,8 @@ impl Plugin for MapPlugin {
             .init_resource::<SelectedNation>()
             // Loading state — parse shapefiles once
             .add_systems(OnEnter(AppState::Loading), load_geodata_sync)
-            // Game state — spawn map, run interaction
-            .add_systems(OnEnter(AppState::Game), spawn_map)
+            // Game state — spawn map and seed engine nations
+            .add_systems(OnEnter(AppState::Game), (spawn_map, seed_engine_from_geodata))
             .add_systems(OnExit(AppState::Game), despawn_map)
             .add_systems(
                 Update,
@@ -129,6 +131,7 @@ pub fn spawn_map(
     let mut spawned = 0usize;
 
     for (nation_idx, nation) in geo_data.nations.iter().enumerate() {
+        let seed = seed_for(&nation.iso_a3);
         let base_color = color_for_nation(&nation.iso_a3);
         let aabb = nation_aabb(&nation.groups);
 
@@ -154,6 +157,7 @@ pub fn spawn_map(
                     name: nation.name.clone(),
                     base_color,
                     aabb,
+                    population: seed.population,
                 },
                 MapEntity,
                 Name::new(format!("Nation_{}", nation.iso_a3)),
@@ -174,4 +178,47 @@ fn despawn_map(
     for entity in &map_entities {
         commands.entity(entity).despawn_recursive();
     }
+}
+
+/// Seed the embedded engine's `WorldState` with one nation per shapefile entry.
+/// Called once on `OnEnter(AppState::Game)` — after `load_geodata_sync` has
+/// already populated `WorldGeoData`.  The engine then runs the full simulation
+/// pipeline against these real nations every game-clock tick.
+fn seed_engine_from_geodata(
+    geo_data: Res<WorldGeoData>,
+    sim: Res<SimState>,
+) {
+    let Ok(mut world) = sim.0.world.write() else {
+        tracing::error!("seed_engine_from_geodata: could not lock WorldState");
+        return;
+    };
+
+    // Guard: if nations are already seeded (e.g. re-entering Game state)
+    // just return to avoid duplicates.
+    if world.nation_count() > 0 {
+        tracing::info!("Engine already has {} nations — skipping re-seed", world.nation_count());
+        return;
+    }
+
+    use alalamien_engine::core::types::{Legitimacy, GDP, EconomicStress};
+
+    let mut count = 0usize;
+    for nation in &geo_data.nations {
+        let color = color_u8_for_nation(&nation.iso_a3);
+        let entity = world.spawn_nation(nation.name.clone(), color, false);
+        let seed = seed_for(&nation.iso_a3);
+        world.world.entity_mut(entity).insert(GDP {
+            value: seed.gdp,
+            growth_rate: seed.growth_rate,
+        });
+        world.world.entity_mut(entity).insert(Legitimacy::new(seed.legitimacy));
+        world.world.entity_mut(entity).insert(EconomicStress {
+            gdp: seed.gdp,
+            current_deficit: 0.0,
+            accumulated_deficit: 0.0,
+        });
+        count += 1;
+    }
+
+    tracing::info!("Seeded engine with {} real nations (with historical stats)", count);
 }

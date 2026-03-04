@@ -24,9 +24,11 @@ pub use self::credits::spawn_credits;
 pub use self::load_game::spawn_load_game;
 pub use self::background::{spawn_menu_background, animate_background};
 pub use self::hud::spawn_hud;
+pub use self::playing_hud::spawn_playing_hud;
 
 pub mod menu;
 pub mod credits;
 pub mod load_game;
+pub mod playing_hud;
 pub mod background;
 pub mod hud;

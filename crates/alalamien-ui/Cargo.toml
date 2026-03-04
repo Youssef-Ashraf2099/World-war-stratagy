@@ -17,8 +17,8 @@ bevy_window = { workspace = true }
 bevy_audio = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
-reqwest = { workspace = true }
-tokio = { workspace = true }
+reqwest = { workspace = true, features = ["blocking"] }
+tokio = { version = "1.40", features = ["full"] }
 glam = { workspace = true }
 uuid = { workspace = true }
 anyhow = { workspace = true }
@@ -29,6 +29,8 @@ image = { version = "0.24", features = ["ico"] }
 winit = "0.30"
 shapefile = { workspace = true }
 earcutr = { workspace = true }
+alalamien-api = { path = "../alalamien-api" }
+alalamien-engine = { path = "../alalamien-engine" }
 
 [features]
 default = []

@@ -1,5 +1,6 @@
 use bevy::prelude::*;
 
+mod api;
 mod states;
 mod systems;
 mod ui;
@@ -20,10 +21,21 @@ use systems::{
     camera::{camera_pan, camera_zoom, camera_fit_world, camera_wasd, reset_camera_for_game},
     game_clock::{advance_clock, clock_keyboard_controls, update_date_label, GameClock},
 };
-use ui::hud::{update_nation_panel, update_pause_indicator, esc_to_menu};
+use ui::hud::{update_nation_panel, update_pause_indicator, esc_to_menu, update_api_status,
+              play_as_button_system, update_play_as_button, update_player_nation_label,
+              play_as_button_hover, swap_to_playing_hud};
+use ui::playing_hud::{
+    update_playing_stats, update_left_panel,
+    update_nation_inspector,
+    update_playing_pause, update_playing_engine_status,
+};
+use map::picking::apply_player_nation_color;
+use resources::PlayerNation;
 use audio::load_menu_audio;
 use icon::set_window_icon;
 use map::MapPlugin;
+use api::ApiPlugin;
+use systems::game_clock::GameTickFired;
 
 #[allow(dead_code)]
 #[derive(Debug, Clone, Copy, Default, Eq, PartialEq, Hash, States)]
@@ -57,6 +69,10 @@ fn main() {
         )
         // Map/geodata plugin (registers WorldGeoData, MapLoadState, picking resources + systems)
         .add_plugins(MapPlugin)
+        // API HTTP client plugin (polls /world/state + /nations every 3 s, forwards ticks)
+        .add_plugins(ApiPlugin)
+        // Register the game-tick event so systems can subscribe to it
+        .add_event::<GameTickFired>()
         // Match window clear colour to the ocean so no grey void is ever visible
         .insert_resource(ClearColor(Color::srgb(0.10, 0.16, 0.26)))
         // State machine
@@ -64,6 +80,7 @@ fn main() {
         // Persistent resources
         .init_resource::<MenuState>()
         .init_resource::<GameClock>()
+        .init_resource::<PlayerNation>()
         // Startup systems — icon runs in PostStartup so the window already exists
         .add_systems(Startup, (setup, load_menu_audio))
         .add_systems(PostStartup, set_window_icon)
@@ -115,6 +132,7 @@ fn main() {
         // ----------------------------------------------------------------
         .add_systems(OnEnter(AppState::Game), (setup_game_ui, reset_camera_for_game))
         .add_systems(OnExit(AppState::Game), cleanup_ui)
+        // --- Game state systems (split into two tuples to stay within Bevy's limit) ---
         .add_systems(
             Update,
             (
@@ -130,8 +148,30 @@ fn main() {
                 update_date_label,
                 update_nation_panel,
                 update_pause_indicator,
+                update_api_status,
+                // Player nation
+                play_as_button_system,
+                update_play_as_button,
+                update_player_nation_label,
+                play_as_button_hover,
+                apply_player_nation_color,
+                swap_to_playing_hud,
                 // Navigation
                 esc_to_menu,
+            )
+                .run_if(in_state(AppState::Game)),
+        )
+        .add_systems(
+            Update,
+            (
+                // Playing HUD (queries return nothing if playing HUD not spawned)
+                // Split into separate systems so each has only ONE ParamSet
+                // accessing &mut Text — avoids Bevy B0001 at runtime.
+                update_playing_stats,      // top bar
+                update_left_panel,         // left panel
+                update_nation_inspector,
+                update_playing_pause,
+                update_playing_engine_status,
             )
                 .run_if(in_state(AppState::Game)),
         )

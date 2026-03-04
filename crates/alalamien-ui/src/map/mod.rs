@@ -2,6 +2,7 @@
 
 pub mod projection;
 pub mod nation_colors;
+pub mod nation_seed_data;
 pub mod shapefile_loader;
 pub mod tessellator;
 pub mod picking;

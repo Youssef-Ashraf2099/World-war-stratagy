@@ -1,5 +1,10 @@
 use bevy::prelude::*;
 
+/// Fired once per game-clock tick (monthly step) so other systems — including
+/// the API client — can react without polling the clock every frame.
+#[derive(Event)]
+pub struct GameTickFired;
+
 /// Current speed setting — the number of in-game ticks per real second.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum GameSpeed {
@@ -88,13 +93,19 @@ impl GameClock {
 // ---------------------------------------------------------------------------
 
 /// Advance the local game clock when not paused.
-pub fn advance_clock(time: Res<Time>, mut clock: ResMut<GameClock>) {
+/// Fires [`GameTickFired`] every time a monthly tick completes.
+pub fn advance_clock(
+    time: Res<Time>,
+    mut clock: ResMut<GameClock>,
+    mut tick_events: EventWriter<GameTickFired>,
+) {
     if clock.paused {
         return;
     }
     clock.timer.tick(time.delta());
     if clock.timer.just_finished() {
         clock.advance_month();
+        tick_events.send(GameTickFired);
     }
 }
 

@@ -1,0 +1,697 @@
+warning: unused import: `info`
+ --> crates\alalamien-engine\src\subsystems\espionage.rs:9:22
+  |
+9 | use tracing::{debug, info};
+  |                      ^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `types::*`
+ --> crates\alalamien-engine\src\tests\fixtures.rs:9:31
+  |
+9 | use crate::core::{WorldState, types::*};
+  |                               ^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+  --> crates\alalamien-engine\src\tests\fixtures.rs:12:5
+   |
+12 | use std::collections::HashMap;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::core::types::*`
+ --> crates\alalamien-engine\src\tests\unit\core_types.rs:4:5
+  |
+4 | use crate::core::types::*;
+  |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::TestWorldBuilder`
+ --> crates\alalamien-engine\src\tests\unit\core_world.rs:9:5
+  |
+9 | use super::TestWorldBuilder;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::core::WorldState`
+  --> crates\alalamien-engine\src\tests\unit\core_world.rs:10:5
+   |
+10 | use crate::core::WorldState;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::TestWorldBuilder`
+ --> crates\alalamien-engine\src\tests\unit\core_tick.rs:9:5
+  |
+9 | use super::TestWorldBuilder;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::subsystems::warfare::*`
+ --> crates\alalamien-engine\src\tests\unit\subsystems\warfare.rs:4:5
+  |
+4 | use crate::subsystems::warfare::*;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `NationId` and `WarState`
+ --> crates\alalamien-engine\src\tests\unit\subsystems\warfare.rs:5:26
+  |
+5 | use crate::core::types::{NationId, WarState};
+  |                          ^^^^^^^^  ^^^^^^^^
+
+warning: unused import: `super::super::TestWorldBuilder`
+ --> crates\alalamien-engine\src\tests\unit\subsystems\diplomacy.rs:4:5
+  |
+4 | use super::super::TestWorldBuilder;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::subsystems::diplomacy::*`
+ --> crates\alalamien-engine\src\tests\unit\subsystems\diplomacy.rs:5:5
+  |
+5 | use crate::subsystems::diplomacy::*;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `DiplomaticRelation` and `NationId`
+ --> crates\alalamien-engine\src\tests\unit\subsystems\diplomacy.rs:6:26
+  |
+6 | use crate::core::types::{NationId, DiplomaticRelation};
+  |                          ^^^^^^^^  ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `bevy_ecs::prelude::*`
+ --> crates\alalamien-engine\src\tests\unit\subsystems\economic.rs:9:5
+  |
+9 | use bevy_ecs::prelude::*;
+  |     ^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `EconomicStress`, `GDP`, `Infrastructure`, `Legitimacy`, `Logistics`, `MilitaryCapacity`, `NationId`, `Nation`, `NotificationLog`, `NotificationSeverity`, `OwnedBy`, `Population`, `ProvinceId`, `Province`, `ResourceType`, and `Resources`
+  --> crates\alalamien-engine\src\tests\unit\subsystems\economic.rs:11:2
+   |
+11 |     EconomicStress, GDP, Infrastructure, Legitimacy, Logistics, Nation, NationId, NotificationLog,
+   |     ^^^^^^^^^^^^^^  ^^^  ^^^^^^^^^^^^^^  ^^^^^^^^^^  ^^^^^^^^^  ^^^^^^  ^^^^^^^^  ^^^^^^^^^^^^^^^
+12 |     NotificationSeverity, Population, Province, ProvinceId, ResourceType, Resources, OwnedBy,
+   |     ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^  ^^^^^^^^  ^^^^^^^^^^  ^^^^^^^^^^^^  ^^^^^^^^^  ^^^^^^^
+13 |     MilitaryCapacity,
+   |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::subsystems::economic::EconomicPhase`
+  --> crates\alalamien-engine\src\tests\unit\subsystems\economic.rs:15:5
+   |
+15 | use crate::subsystems::economic::EconomicPhase;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::core::tick::TickPhase`
+  --> crates\alalamien-engine\src\tests\unit\subsystems\economic.rs:16:5
+   |
+16 | use crate::core::tick::TickPhase;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `glam::Vec2`
+  --> crates\alalamien-engine\src\tests\unit\subsystems\economic.rs:17:5
+   |
+17 | use glam::Vec2;
+   |     ^^^^^^^^^^
+
+warning: unused import: `super::super::TestWorldBuilder`
+ --> crates\alalamien-engine\src\tests\unit\subsystems\legitimacy.rs:4:5
+  |
+4 | use super::super::TestWorldBuilder;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::subsystems::legitimacy::*`
+ --> crates\alalamien-engine\src\tests\unit\subsystems\legitimacy.rs:5:5
+  |
+5 | use crate::subsystems::legitimacy::*;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::core::types::Legitimacy`
+ --> crates\alalamien-engine\src\tests\unit\subsystems\legitimacy.rs:6:5
+  |
+6 | use crate::core::types::Legitimacy;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::super::TestWorldBuilder`
+ --> crates\alalamien-engine\src\tests\unit\subsystems\alliance.rs:4:5
+  |
+4 | use super::super::TestWorldBuilder;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::subsystems::alliance::*`
+ --> crates\alalamien-engine\src\tests\unit\subsystems\alliance.rs:5:5
+  |
+5 | use crate::subsystems::alliance::*;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::super::TestWorldBuilder`
+ --> crates\alalamien-engine\src\tests\unit\subsystems\intervention.rs:2:5
+  |
+2 | use super::super::TestWorldBuilder;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::super::TestWorldBuilder`
+ --> crates\alalamien-engine\src\tests\unit\subsystems\events.rs:4:5
+  |
+4 | use super::super::TestWorldBuilder;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::subsystems::events::*`
+ --> crates\alalamien-engine\src\tests\unit\subsystems\events.rs:5:5
+  |
+5 | use crate::subsystems::events::*;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::super::TestWorldBuilder`
+ --> crates\alalamien-engine\src\tests\unit\subsystems\factions.rs:4:5
+  |
+4 | use super::super::TestWorldBuilder;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::subsystems::factions::*`
+ --> crates\alalamien-engine\src\tests\unit\subsystems\factions.rs:5:5
+  |
+5 | use crate::subsystems::factions::*;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::core::types::*`
+  --> crates\alalamien-engine\src\tests\unit\subsystems\nuclear.rs:11:5
+   |
+11 | use crate::core::types::*;
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::subsystems::nuclear::*`
+  --> crates\alalamien-engine\src\tests\unit\subsystems\nuclear.rs:12:5
+   |
+12 | use crate::subsystems::nuclear::*;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::core::tick::TickPhase`
+  --> crates\alalamien-engine\src\tests\unit\subsystems\nuclear.rs:13:5
+   |
+13 | use crate::core::tick::TickPhase;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::TestWorldBuilder`
+  --> crates\alalamien-engine\src\tests\unit\subsystems\nuclear.rs:14:5
+   |
+14 | use super::TestWorldBuilder;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::core::types::*`
+  --> crates\alalamien-engine\src\tests\unit\subsystems\notifications.rs:11:5
+   |
+11 | use crate::core::types::*;
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::subsystems::notifications::*`
+  --> crates\alalamien-engine\src\tests\unit\subsystems\notifications.rs:12:5
+   |
+12 | use crate::subsystems::notifications::*;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::core::tick::TickPhase`
+  --> crates\alalamien-engine\src\tests\unit\subsystems\notifications.rs:13:5
+   |
+13 | use crate::core::tick::TickPhase;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::tests::fixtures::TestWorldBuilder`
+  --> crates\alalamien-engine\src\tests\unit\subsystems\notifications.rs:14:5
+   |
+14 | use crate::tests::fixtures::TestWorldBuilder;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `TestWorldBuilder` and `assertions`
+ --> crates\alalamien-engine\src\tests\integration\warfare_diplomacy.rs:9:30
+  |
+9 | use crate::tests::fixtures::{TestWorldBuilder, assertions};
+  |                              ^^^^^^^^^^^^^^^^  ^^^^^^^^^^
+
+warning: unused import: `crate::core::WorldState`
+  --> crates\alalamien-engine\src\tests\integration\warfare_diplomacy.rs:10:5
+   |
+10 | use crate::core::WorldState;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `AllianceCrisisLog`, `CasualtyLog`, `DiplomaticIsolationLog`, `EconomicStress`, `GDP`, `Legitimacy`, `NationId`, `Nation`, `WarExhaustion`, and `WarState`
+  --> crates\alalamien-engine\src\tests\integration\warfare_diplomacy.rs:12:5
+   |
+12 |     Nation, NationId, WarState, WarExhaustion, Legitimacy,
+   |     ^^^^^^  ^^^^^^^^  ^^^^^^^^  ^^^^^^^^^^^^^  ^^^^^^^^^^
+13 |     GDP, EconomicStress, CasualtyLog, AllianceCrisisLog, DiplomaticIsolationLog,
+   |     ^^^  ^^^^^^^^^^^^^^  ^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::TestWorldBuilder`
+ --> crates\alalamien-engine\src\tests\integration\economic_military.rs:6:5
+  |
+6 | use super::TestWorldBuilder;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::TestWorldBuilder`
+ --> crates\alalamien-engine\src\tests\integration\alliance_warfare.rs:6:5
+  |
+6 | use super::TestWorldBuilder;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::core::WorldState`
+ --> crates\alalamien-engine\src\tests\integration\alliance_warfare.rs:7:5
+  |
+7 | use crate::core::WorldState;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `AllianceCrisisLog`, `AllianceDoctrine`, `AllianceId`, `Alliance`, `CasualtyLog`, `CasusBelli`, `DiplomaticIsolationLog`, `DiplomaticRelation`, `EconomicStress`, `GDP`, `Legitimacy`, `NationId`, `Nation`, `WarDeclaration`, `WarGoal`, `WarId`, and `WarState`
+  --> crates\alalamien-engine\src\tests\integration\alliance_warfare.rs:9:5
+   |
+ 9 |     Nation, NationId, Alliance, AllianceId,
+   |     ^^^^^^  ^^^^^^^^  ^^^^^^^^  ^^^^^^^^^^
+10 |     WarDeclaration, WarId, WarState, CasusBelli, WarGoal, DiplomaticRelation,
+   |     ^^^^^^^^^^^^^^  ^^^^^  ^^^^^^^^  ^^^^^^^^^^  ^^^^^^^  ^^^^^^^^^^^^^^^^^^
+11 |     Legitimacy, GDP, EconomicStress, CasualtyLog,
+   |     ^^^^^^^^^^  ^^^  ^^^^^^^^^^^^^^  ^^^^^^^^^^^
+12 |     AllianceCrisisLog, DiplomaticIsolationLog, AllianceDoctrine,
+   |     ^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::subsystems::alliance::AlliancePhase`
+  --> crates\alalamien-engine\src\tests\integration\alliance_warfare.rs:14:5
+   |
+14 | use crate::subsystems::alliance::AlliancePhase;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::subsystems::warfare::WarfarePhase`
+  --> crates\alalamien-engine\src\tests\integration\alliance_warfare.rs:15:5
+   |
+15 | use crate::subsystems::warfare::WarfarePhase;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::core::tick::TickPhase`
+  --> crates\alalamien-engine\src\tests\integration\alliance_warfare.rs:16:5
+   |
+16 | use crate::core::tick::TickPhase;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `TestWorldBuilder` and `assertions`
+  --> crates\alalamien-engine\src\tests\integration\multi_nation_scenarios.rs:11:30
+   |
+11 | use crate::tests::fixtures::{TestWorldBuilder, assertions};
+   |                              ^^^^^^^^^^^^^^^^  ^^^^^^^^^^
+
+warning: unused imports: `DiplomaticRelation`, `GDP`, `Legitimacy`, and `Nation`
+  --> crates\alalamien-engine\src\tests\integration\multi_nation_scenarios.rs:12:26
+   |
+12 | use crate::core::types::{Nation, Legitimacy, GDP, DiplomaticRelation};
+   |                          ^^^^^^  ^^^^^^^^^^  ^^^  ^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `TestWorldBuilder` and `assertions`
+ --> crates\alalamien-engine\src\tests\integration\economic_scenarios.rs:4:30
+  |
+4 | use crate::tests::fixtures::{TestWorldBuilder, assertions};
+  |                              ^^^^^^^^^^^^^^^^  ^^^^^^^^^^
+
+warning: unused imports: `TestWorldBuilder` and `assertions`
+ --> crates\alalamien-engine\src\tests\integration\diplomatic_scenarios.rs:4:30
+  |
+4 | use crate::tests::fixtures::{TestWorldBuilder, assertions};
+  |                              ^^^^^^^^^^^^^^^^  ^^^^^^^^^^
+
+warning: unused import: `crate::tests::fixtures::TestWorldBuilder`
+  --> crates\alalamien-engine\src\tests\integration\game_depth_scenarios.rs:14:5
+   |
+14 | use crate::tests::fixtures::TestWorldBuilder;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `AllianceCrisisLog`, `CasualtyLog`, `DiplomaticIsolationLog`, `DiplomaticRelation`, `EconomicStress`, `GDP`, `Legitimacy`, `NationId`, `Nation`, and `WarState`
+  --> crates\alalamien-engine\src\tests\integration\game_depth_scenarios.rs:16:5
+   |
+16 |     Legitimacy, WarState, Nation, GDP, DiplomaticRelation,
+   |     ^^^^^^^^^^  ^^^^^^^^  ^^^^^^  ^^^  ^^^^^^^^^^^^^^^^^^
+17 |     NationId, AllianceCrisisLog, DiplomaticIsolationLog,
+   |     ^^^^^^^^  ^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^
+18 |     EconomicStress, CasualtyLog,
+   |     ^^^^^^^^^^^^^^  ^^^^^^^^^^^
+
+warning: unused import: `crate::core::WorldState`
+  --> crates\alalamien-engine\src\tests\integration\civil_war_cascade.rs:10:5
+   |
+10 | use crate::core::WorldState;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::core::tick::TickPhase`
+  --> crates\alalamien-engine\src\tests\integration\civil_war_cascade.rs:11:5
+   |
+11 | use crate::core::tick::TickPhase;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `AllianceCrisisLog`, `ArmyId`, `Army`, `CasualtyLog`, `DiplomaticIsolationLog`, `EconomicStress`, `GDP`, `Legitimacy`, `NationId`, `Nation`, `OwnedBy`, `Population`, `ProvinceId`, `Province`, `ResourceType`, `Resources`, and `WarState`
+  --> crates\alalamien-engine\src\tests\integration\civil_war_cascade.rs:13:5
+   |
+13 |     Nation, NationId, Legitimacy, Province, ProvinceId, OwnedBy,
+   |     ^^^^^^  ^^^^^^^^  ^^^^^^^^^^  ^^^^^^^^  ^^^^^^^^^^  ^^^^^^^
+14 |     Population, Resources, Army, ArmyId, WarState, GDP, ResourceType,
+   |     ^^^^^^^^^^  ^^^^^^^^^  ^^^^  ^^^^^^  ^^^^^^^^  ^^^  ^^^^^^^^^^^^
+15 |     EconomicStress, CasualtyLog, AllianceCrisisLog, DiplomaticIsolationLog,
+   |     ^^^^^^^^^^^^^^  ^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `FactionCivilWarPhase`, `Faction`, and `Factionalized`
+  --> crates\alalamien-engine\src\tests\integration\civil_war_cascade.rs:17:35
+   |
+17 | use crate::subsystems::factions::{FactionCivilWarPhase, Factionalized, Faction};
+   |                                   ^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^  ^^^^^^^
+
+warning: unused import: `crate::subsystems::legitimacy::LegitimacyPhase`
+  --> crates\alalamien-engine\src\tests\integration\civil_war_cascade.rs:18:5
+   |
+18 | use crate::subsystems::legitimacy::LegitimacyPhase;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::core::world::WorldState`
+ --> crates\alalamien-engine\src\tests\integration\espionage_scenario.rs:3:5
+  |
+3 | use crate::core::world::WorldState;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `CounterIntelligence`, `IntelligenceNetwork`, `MissionStatus`, `SpyAgent`, and `SpyMissionType`
+ --> crates\alalamien-engine\src\tests\integration\espionage_scenario.rs:5:5
+  |
+5 |     SpyAgent, IntelligenceNetwork, CounterIntelligence, SpyMissionType, MissionStatus,
+  |     ^^^^^^^^  ^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^  ^^^^^^^^^^^^^
+
+warning: unused imports: `Legitimacy` and `NationId`
+ --> crates\alalamien-engine\src\tests\integration\espionage_scenario.rs:7:26
+  |
+7 | use crate::core::types::{NationId, Legitimacy};
+  |                          ^^^^^^^^  ^^^^^^^^^^
+
+warning: unused import: `crate::core::types::*`
+  --> crates\alalamien-engine\src\tests\integration\nuclear_weapons_scenario.rs:11:5
+   |
+11 | use crate::core::types::*;
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `TickPhase` and `TickPipeline`
+  --> crates\alalamien-engine\src\tests\integration\nuclear_weapons_scenario.rs:12:25
+   |
+12 | use crate::core::tick::{TickPipeline, TickPhase};
+   |                         ^^^^^^^^^^^^  ^^^^^^^^^
+
+warning: unused import: `crate::subsystems::nuclear::*`
+  --> crates\alalamien-engine\src\tests\integration\nuclear_weapons_scenario.rs:13:5
+   |
+13 | use crate::subsystems::nuclear::*;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::super::fixtures::TestWorldBuilder`
+  --> crates\alalamien-engine\src\tests\integration\nuclear_weapons_scenario.rs:14:5
+   |
+14 | use super::super::fixtures::TestWorldBuilder;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::core::types::*`
+  --> crates\alalamien-engine\src\tests\integration\notification_scenarios.rs:10:5
+   |
+10 | use crate::core::types::*;
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `TickPhase` and `TickPipeline`
+  --> crates\alalamien-engine\src\tests\integration\notification_scenarios.rs:11:25
+   |
+11 | use crate::core::tick::{TickPipeline, TickPhase};
+   |                         ^^^^^^^^^^^^  ^^^^^^^^^
+
+warning: unused import: `crate::subsystems::notifications::*`
+  --> crates\alalamien-engine\src\tests\integration\notification_scenarios.rs:12:5
+   |
+12 | use crate::subsystems::notifications::*;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::tests::fixtures::TestWorldBuilder`
+  --> crates\alalamien-engine\src\tests\integration\notification_scenarios.rs:13:5
+   |
+13 | use crate::tests::fixtures::TestWorldBuilder;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `TickPhase` and `TickPipeline`
+ --> crates\alalamien-engine\src\tests\integration\pre_ui_hardening.rs:6:25
+  |
+6 | use crate::core::tick::{TickPhase, TickPipeline};
+  |                         ^^^^^^^^^  ^^^^^^^^^^^^
+
+warning: unused imports: `AllianceDoctrine`, `AllianceId`, `Alliance`, `EconomicStress`, `GDP`, `Legitimacy`, `Logistics`, `MilitaryCapacity`, `Nation`, `NotificationLog`, and `NotificationType`
+ --> crates\alalamien-engine\src\tests\integration\pre_ui_hardening.rs:8:5
+  |
+8 |     Alliance, AllianceDoctrine, AllianceId, Nation, NotificationLog, NotificationType,
+  |     ^^^^^^^^  ^^^^^^^^^^^^^^^^  ^^^^^^^^^^  ^^^^^^  ^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^
+9 |     EconomicStress, GDP, Legitimacy, Logistics, MilitaryCapacity,
+  |     ^^^^^^^^^^^^^^  ^^^  ^^^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^^^^^
+
+warning: unused imports: `alliance::AlliancePhase`, `economic::EconomicPhase`, `nuclear`, and `warfare`
+  --> crates\alalamien-engine\src\tests\integration\pre_ui_hardening.rs:11:25
+   |
+11 | use crate::subsystems::{alliance::AlliancePhase, economic::EconomicPhase, warfare, nuclear};
+   |                         ^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^  ^^^^^^^
+
+warning: unused import: `crate::tests::fixtures::TestWorldBuilder`
+  --> crates\alalamien-engine\src\tests\integration\pre_ui_hardening.rs:12:5
+   |
+12 | use crate::tests::fixtures::TestWorldBuilder;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `DeterminismRunResult`, `DeterminismTestFixture`, and `TestWorldBuilder`
+  --> crates\alalamien-engine\src\tests\advanced\determinism.rs:10:30
+   |
+10 | use super::super::fixtures::{TestWorldBuilder, DeterminismTestFixture, DeterminismRunResult};
+   |                              ^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::core::tick::TickPipeline`
+  --> crates\alalamien-engine\src\tests\advanced\determinism.rs:11:5
+   |
+11 | use crate::core::tick::TickPipeline;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::time::Instant`
+  --> crates\alalamien-engine\src\tests\advanced\determinism.rs:12:5
+   |
+12 | use std::time::Instant;
+   |     ^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::super::fixtures::TestWorldBuilder`
+ --> crates\alalamien-engine\src\tests\advanced\performance.rs:9:5
+  |
+9 | use super::super::fixtures::TestWorldBuilder;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::tests::fixtures::TestWorldBuilder`
+  --> crates\alalamien-engine\src\tests\advanced\edge_cases.rs:10:5
+   |
+10 | use crate::tests::fixtures::TestWorldBuilder;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::tests::fixtures::TestWorldBuilder`
+  --> crates\alalamien-engine\src\tests\advanced\quality_metrics.rs:10:5
+   |
+10 | use crate::tests::fixtures::TestWorldBuilder;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::tests::fixtures::TestWorldBuilder`
+ --> crates\alalamien-engine\src\tests\advanced\regression.rs:7:5
+  |
+7 | use crate::tests::fixtures::TestWorldBuilder;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `Nation`, `NotificationLog`, and `NotificationType`
+ --> crates\alalamien-engine\src\tests\advanced\regression.rs:8:26
+  |
+8 | use crate::core::types::{Nation, NotificationLog, NotificationType};
+  |                          ^^^^^^  ^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^
+
+warning: unused imports: `nuclear` and `warfare`
+ --> crates\alalamien-engine\src\tests\advanced\regression.rs:9:25
+  |
+9 | use crate::subsystems::{nuclear, warfare};
+  |                         ^^^^^^^  ^^^^^^^
+
+warning: unused imports: `TestWorldBuilder` and `assertions`
+ --> crates\alalamien-engine\src\tests\advanced\chaos_fuzz.rs:4:30
+  |
+4 | use crate::tests::fixtures::{TestWorldBuilder, assertions};
+  |                              ^^^^^^^^^^^^^^^^  ^^^^^^^^^^
+
+warning: unused imports: `TestWorldBuilder` and `assertions`
+ --> crates\alalamien-engine\src\tests\advanced\subsystem_performance.rs:4:30
+  |
+4 | use crate::tests::fixtures::{TestWorldBuilder, assertions};
+  |                              ^^^^^^^^^^^^^^^^  ^^^^^^^^^^
+
+warning: unused import: `crate::core::tick::TickPipeline`
+ --> crates\alalamien-engine\src\tests\advanced\system_validation.rs:6:5
+  |
+6 | use crate::core::tick::TickPipeline;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `Nation`, `NotificationLog`, `Population`, and `Resources`
+ --> crates\alalamien-engine\src\tests\advanced\system_validation.rs:7:26
+  |
+7 | use crate::core::types::{Nation, NotificationLog, Population, Resources};
+  |                          ^^^^^^  ^^^^^^^^^^^^^^^  ^^^^^^^^^^  ^^^^^^^^^
+
+warning: unused import: `crate::tests::fixtures::TestWorldBuilder`
+ --> crates\alalamien-engine\src\tests\advanced\system_validation.rs:8:5
+  |
+8 | use crate::tests::fixtures::TestWorldBuilder;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused variable: `alliance_id`
+  --> crates\alalamien-engine\src\subsystems\alliance.rs:57:22
+   |
+57 |         for (entity, alliance_id, alliance_name, members) in to_dissolve {
+   |                      ^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_alliance_id`
+   |
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused variable: `alliance_name`
+  --> crates\alalamien-engine\src\subsystems\alliance.rs:57:35
+   |
+57 |         for (entity, alliance_id, alliance_name, members) in to_dissolve {
+   |                                   ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_alliance_name`
+
+warning: variable does not need to be mutable
+  --> crates\alalamien-engine\src\subsystems\nuclear.rs:58:9
+   |
+58 |     let mut nations_to_check: Vec<(Entity, NationId, Option<NuclearTreatyId>)> = {
+   |         ----^^^^^^^^^^^^^^^^
+   |         |
+   |         help: remove this `mut`
+   |
+   = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: variable does not need to be mutable
+  --> crates\alalamien-engine\src\subsystems\nuclear.rs:95:9
+   |
+95 |     let mut entities_to_develop: Vec<(Entity, bool)> = {
+   |         ----^^^^^^^^^^^^^^^^^^^
+   |         |
+   |         help: remove this `mut`
+
+warning: variable does not need to be mutable
+   --> crates\alalamien-engine\src\subsystems\nuclear.rs:161:13
+    |
+161 |         let mut all_nations: Vec<NationId> = {
+    |             ----^^^^^^^^^^^
+    |             |
+    |             help: remove this `mut`
+
+warning: unused variable: `world`
+   --> crates\alalamien-engine\src\subsystems\nuclear.rs:198:34
+    |
+198 | fn spawn_nuclear_violation_event(world: &mut World, nation_id: NationId, _tick: Tick) {
+    |                                  ^^^^^ help: if this is intentional, prefix it with an underscore: `_world`
+
+warning: unused variable: `world`
+   --> crates\alalamien-engine\src\subsystems\nuclear.rs:526:28
+    |
+526 | fn spawn_nuclear_use_event(world: &mut World, attacker_id: NationId, target_id: NationId, _tick: Tick) {
+    |                            ^^^^^ help: if this is intentional, prefix it with an underscore: `_world`
+
+warning: unused variable: `victor_id`
+  --> crates\alalamien-engine\src\subsystems\notifications.rs:81:31
+   |
+81 |     let message = if let Some(victor_id) = victor {
+   |                               ^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_victor_id`
+
+warning: constant `TAIL_BASE_RATE` is never used
+  --> crates\alalamien-engine\src\subsystems\logistics.rs:18:7
+   |
+18 | const TAIL_BASE_RATE: f64 = 0.10;        // 10% of personnel needed per hop as base
+   |       ^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: field `active_wars` is never read
+  --> crates\alalamien-engine\src\subsystems\ai_basic.rs:69:5
+   |
+65 | struct StrategyContext {
+   |        --------------- field in this struct
+...
+69 |     active_wars: usize,
+   |     ^^^^^^^^^^^
+   |
+   = note: `StrategyContext` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: variants `DeclareWar`, `SeekPeace`, and `DoNothing` are never constructed
+   --> crates\alalamien-engine\src\subsystems\ai_basic.rs:98:5
+    |
+ 97 | enum AIAction {
+    |      -------- variants in this enum
+ 98 |     DeclareWar { target: NationId },
+    |     ^^^^^^^^^^
+ 99 |     SeekPeace { target: NationId },
+    |     ^^^^^^^^^
+...
+103 |     DoNothing,
+    |     ^^^^^^^^^
+    |
+    = note: `AIAction` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: function `gather_alliance_counts` is never used
+   --> crates\alalamien-engine\src\subsystems\legitimacy.rs:366:4
+    |
+366 | fn gather_alliance_counts(_world: &World) -> HashMap<NationId, usize> {
+    |    ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `calculate_alliance_burden` is never used
+   --> crates\alalamien-engine\src\subsystems\legitimacy.rs:433:4
+    |
+433 | fn calculate_alliance_burden(alliance_count: usize, config: &LegitimacyConfig) -> f64 {
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: method `count_active_events` is never used
+   --> crates\alalamien-engine\src\subsystems\events.rs:415:8
+    |
+208 | impl EventPhase {
+    | --------------- method in this implementation
+...
+415 |     fn count_active_events(&self, world: &mut World, nation_id: NationId) -> usize {
+    |        ^^^^^^^^^^^^^^^^^^^
+
+warning: constant `COVER_DEGRADATION` is never used
+   --> crates\alalamien-engine\src\subsystems\espionage.rs:413:15
+    |
+413 |         const COVER_DEGRADATION: f64 = 2.0; // Cover degrades 2% per tick
+    |               ^^^^^^^^^^^^^^^^^
+
+warning: function `assert_performance_acceptable` is never used
+  --> crates\alalamien-engine\src\tests\advanced\performance.rs:84:12
+   |
+84 |     pub fn assert_performance_acceptable(
+   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: function `assert_world_stable` is never used
+   --> crates\alalamien-engine\src\tests\advanced\edge_cases.rs:100:12
+    |
+100 |     pub fn assert_world_stable(world: &mut TestWorldFixture, test_name: &str) {
+    |            ^^^^^^^^^^^^^^^^^^^
+
+warning: hiding a lifetime that's elided elsewhere is confusing
+   --> crates\alalamien-engine\src\core\world.rs:507:29
+    |
+507 |     pub fn get_alliance_mut(&mut self, alliance_entity: Entity) -> Option<bevy_ecs::world::Mut<Alliance>> {
+    |                             ^^^^^^^^^ the lifetime is elided here         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the same lifetime is hidden here
+    |
+    = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+    = note: `#[warn(mismatched_lifetime_syntaxes)]` on by default
+help: use `'_` for type paths
+    |
+507 |     pub fn get_alliance_mut(&mut self, alliance_entity: Entity) -> Option<bevy_ecs::world::Mut<'_, Alliance>> {
+    |                                                                                                +++
+
+warning: `alalamien-engine` (lib) generated 103 warnings (run `cargo fix --lib -p alalamien-engine` to apply 94 suggestions)
+warning: unused import: `self::playing_hud::spawn_playing_hud`
+  --> crates\alalamien-ui\src\ui\mod.rs:27:9
+   |
+27 | pub use self::playing_hud::spawn_playing_hud;
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: constant `TEXT_RED` is never used
+  --> crates\alalamien-ui\src\ui\playing_hud.rs:18:7
+   |
+18 | const TEXT_RED: Color = Color::srgb(0.95, 0.35, 0.35);
+   |       ^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `alalamien-ui` (bin "alalamien-ui") generated 2 warnings (run `cargo fix --bin "alalamien-ui" -p alalamien-ui` to apply 1 suggestion)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.58s

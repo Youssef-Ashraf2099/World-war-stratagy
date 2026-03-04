@@ -39,6 +39,19 @@ pub fn color_for_nation(iso_a3: &str) -> Color {
     Color::srgb(r, g, b)
 }
 
+/// Palette colour for `iso_a3` as a `[u8; 3]` RGB triple.
+/// Matches the visual colours rendered on the map.
+pub fn color_u8_for_nation(iso_a3: &str) -> [u8; 3] {
+    let hash: usize = iso_a3
+        .bytes()
+        .enumerate()
+        .fold(0usize, |acc, (i, b)| {
+            acc.wrapping_add((b as usize).wrapping_mul(31usize.wrapping_pow(i as u32)))
+        });
+    let (r, g, b) = PALETTE[hash % PALETTE.len()];
+    [(r * 255.0) as u8, (g * 255.0) as u8, (b * 255.0) as u8]
+}
+
 /// Highlighted colour for a hovered nation (slightly brightened).
 pub fn hover_color(base: Color) -> Color {
     let lch = base.to_linear();
@@ -52,4 +65,9 @@ pub fn hover_color(base: Color) -> Color {
 /// Colour used when a nation is selected.
 pub fn selected_color() -> Color {
     Color::srgb(1.0, 0.85, 0.2) // golden yellow
+}
+
+/// Colour used when a nation is owned/controlled by the player.
+pub fn player_color() -> Color {
+    Color::srgb(0.15, 0.80, 1.0) // bright cyan-blue — distinct from golden select
 }

@@ -1,6 +1,7 @@
 use bevy::prelude::*;
 use bevy::sprite::ColorMaterial;
-use crate::map::nation_colors::{color_for_nation, hover_color, selected_color};
+use crate::map::nation_colors::{color_for_nation, hover_color, selected_color, player_color};
+use crate::resources::PlayerNation;
 
 // ---------------------------------------------------------------------------
 // Components
@@ -16,6 +17,8 @@ pub struct NationMesh {
     pub base_color: Color,
     /// World-space AABB [min_x, min_y, max_x, max_y] for fast cursor picking.
     pub aabb: [f32; 4],
+    /// 1939-era starting population (from seed data).
+    pub population: u64,
 }
 
 // ---------------------------------------------------------------------------
@@ -49,6 +52,7 @@ pub fn hover_system(
     mut materials: ResMut<Assets<ColorMaterial>>,
     mut hovered: ResMut<HoveredNation>,
     selected: Res<SelectedNation>,
+    player_nation: Res<PlayerNation>,
 ) {
     let Ok(window) = windows.get_single() else { return };
     let Ok((camera, cam_transform)) = camera_q.get_single() else { return };
@@ -66,7 +70,7 @@ pub fn hover_system(
                 hovered.iso_a3 = None;
                 hovered.name = None;
                 // Restore colours
-                recolor_all(&mut nation_meshes, &mut materials, &selected);
+                recolor_all(&mut nation_meshes, &mut materials, &selected, &player_nation);
             }
             return;
         }
@@ -100,13 +104,16 @@ pub fn hover_system(
     if new_hover != hovered.iso_a3 {
         hovered.iso_a3 = new_hover;
         hovered.name = new_name;
-        recolor_all(&mut nation_meshes, &mut materials, &selected);
-        // Apply hover highlight
+        recolor_all(&mut nation_meshes, &mut materials, &selected, &player_nation);
+        // Apply hover highlight — skip if hovered nation is the player nation
         if let Some(ref iso) = hovered.iso_a3 {
-            for (nm, mat_handle) in &mut nation_meshes {
-                if &nm.iso_a3 == iso {
-                    if let Some(mat) = materials.get_mut(mat_handle.id()) {
-                        mat.color = hover_color(nm.base_color);
+            let is_player = player_nation.iso_a3.as_deref() == Some(iso.as_str());
+            if !is_player {
+                for (nm, mat_handle) in &mut nation_meshes {
+                    if &nm.iso_a3 == iso {
+                        if let Some(mat) = materials.get_mut(mat_handle.id()) {
+                            mat.color = hover_color(nm.base_color);
+                        }
                     }
                 }
             }
@@ -122,15 +129,25 @@ pub fn click_select_system(
     nation_meshes: Query<&NationMesh>,
     mut materials: ResMut<Assets<ColorMaterial>>,
     mesh_q: Query<(&NationMesh, &Handle<ColorMaterial>)>,
+    player_nation: Res<PlayerNation>,
+    // Any UI element currently hovered or pressed blocks map picking
+    ui_interactions: Query<&Interaction, With<bevy::ui::Node>>,
 ) {
     if !mouse.just_pressed(MouseButton::Left) {
+        return;
+    }
+
+    // If the cursor is over any UI node, don't pick on the map
+    let ui_captured = ui_interactions
+        .iter()
+        .any(|i| *i == Interaction::Hovered || *i == Interaction::Pressed);
+    if ui_captured {
         return;
     }
 
     let prev = selected.iso_a3.clone();
 
     if let Some(ref iso) = hovered.iso_a3.clone() {
-        // Find index
         let entry = nation_meshes.iter().find(|nm| &nm.iso_a3 == iso);
         if let Some(nm) = entry {
             selected.iso_a3 = Some(nm.iso_a3.clone());
@@ -145,14 +162,17 @@ pub fn click_select_system(
     }
 
     if selected.iso_a3 != prev {
-        // Re-apply colours: restore previous, highlight new
         for (nm, mat_handle) in &mesh_q {
             if let Some(mat) = materials.get_mut(mat_handle.id()) {
-                if selected.iso_a3.as_deref() == Some(&nm.iso_a3) {
-                    mat.color = selected_color();
+                let is_player = player_nation.iso_a3.as_deref() == Some(&nm.iso_a3);
+                let is_selected = selected.iso_a3.as_deref() == Some(&nm.iso_a3);
+                mat.color = if is_player {
+                    player_color()
+                } else if is_selected {
+                    selected_color()
                 } else {
-                    mat.color = nm.base_color;
-                }
+                    nm.base_color
+                };
             }
         }
     }
@@ -166,16 +186,34 @@ fn recolor_all(
     meshes: &mut Query<(&NationMesh, &mut Handle<ColorMaterial>)>,
     materials: &mut Assets<ColorMaterial>,
     selected: &SelectedNation,
+    player_nation: &PlayerNation,
 ) {
     for (nm, mat_handle) in meshes.iter_mut() {
         if let Some(mat) = materials.get_mut(mat_handle.id()) {
-            if selected.iso_a3.as_deref() == Some(&nm.iso_a3) {
-                mat.color = selected_color();
+            let is_player = player_nation.iso_a3.as_deref() == Some(&nm.iso_a3);
+            let is_selected = selected.iso_a3.as_deref() == Some(&nm.iso_a3);
+            mat.color = if is_player {
+                player_color()
+            } else if is_selected {
+                selected_color()
             } else {
-                mat.color = nm.base_color;
-            }
+                nm.base_color
+            };
         }
     }
+}
+
+/// Recolour all map meshes when `PlayerNation` changes (e.g. after pressing PLAY AS).
+pub fn apply_player_nation_color(
+    player_nation: Res<PlayerNation>,
+    selected: Res<SelectedNation>,
+    mut nation_meshes: Query<(&NationMesh, &mut Handle<ColorMaterial>)>,
+    mut materials: ResMut<Assets<ColorMaterial>>,
+) {
+    if !player_nation.is_changed() {
+        return;
+    }
+    recolor_all(&mut nation_meshes, &mut materials, &selected, &player_nation);
 }
 
 /// Compute an AABB from a polygon's group outer ring + holes.

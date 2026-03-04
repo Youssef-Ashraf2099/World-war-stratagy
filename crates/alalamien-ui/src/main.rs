@@ -17,7 +17,7 @@ use systems::{
     navigation::navigation_system,
     loading::loading_input_system,
     ui_manager::*,
-    camera::{camera_pan, camera_zoom, camera_fit_world, camera_wasd},
+    camera::{camera_pan, camera_zoom, camera_fit_world, camera_wasd, reset_camera_for_game},
     game_clock::{advance_clock, clock_keyboard_controls, update_date_label, GameClock},
 };
 use ui::hud::{update_nation_panel, update_pause_indicator, esc_to_menu};
@@ -57,6 +57,8 @@ fn main() {
         )
         // Map/geodata plugin (registers WorldGeoData, MapLoadState, picking resources + systems)
         .add_plugins(MapPlugin)
+        // Match window clear colour to the ocean so no grey void is ever visible
+        .insert_resource(ClearColor(Color::srgb(0.10, 0.16, 0.26)))
         // State machine
         .init_state::<AppState>()
         // Persistent resources
@@ -111,7 +113,7 @@ fn main() {
         // ----------------------------------------------------------------
         // GAME state — map + HUD + camera + clock
         // ----------------------------------------------------------------
-        .add_systems(OnEnter(AppState::Game), setup_game_ui)
+        .add_systems(OnEnter(AppState::Game), (setup_game_ui, reset_camera_for_game))
         .add_systems(OnExit(AppState::Game), cleanup_ui)
         .add_systems(
             Update,
